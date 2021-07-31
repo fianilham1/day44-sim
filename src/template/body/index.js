@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {RegisterPage} from "../../page";
+import ListSKS from '../../page/list-sks-page';
 
 
 class Body extends Component {
@@ -13,7 +14,7 @@ class Body extends Component {
 
     renderPage = () => {
         const { currentPage } = this.props
-        const { users, userEdit } = this.state
+        const { userEdit } = this.state
 
         if (currentPage === "form")
             return <RegisterPage selectedUser={userEdit} resetUserEdit={this.clearUserEdit} saveUser={this.updateUsers} />
@@ -21,8 +22,7 @@ class Body extends Component {
         // if (currentPage === "login")
         //     return <Login />
 
-        // return <List userList={users} updateUser={this.setUserEdit} />
-        return ''
+        return <ListSKS />
     }
 
     updateUsers = newUser => {
