@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {RegisterPage} from "../../page";
+import {ListMahasiswa, RegisterPage} from "../../page";
 
 
 class Body extends Component {
@@ -20,6 +20,9 @@ class Body extends Component {
 
         // if (currentPage === "login")
         //     return <Login />
+
+        if (currentPage === "list-mahasiswa")
+            return <ListMahasiswa />
 
         // return <List userList={users} updateUser={this.setUserEdit} />
         return ''
