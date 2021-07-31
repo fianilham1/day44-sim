@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./tabeljurusan.css";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 class TableJurusan extends Component {
   constructor(props) {
@@ -21,7 +23,8 @@ class TableJurusan extends Component {
               id="editButton"
               // onClick={this.handleEdit}
             >
-              Edit
+              {/* Edit */}
+              <EditIcon />
             </button>
             <button
               className={data.id}
@@ -29,7 +32,8 @@ class TableJurusan extends Component {
               id="deleteButton"
               // onClick={this.handleDetail}
             >
-              Delete
+              {/* Delete */}
+              <DeleteIcon color="secondary" />
             </button>
           </td>
         </tr>

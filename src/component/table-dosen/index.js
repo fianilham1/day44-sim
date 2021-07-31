@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./tabeldosen.css";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 class TableDosen extends Component {
   constructor(props) {
@@ -7,10 +9,12 @@ class TableDosen extends Component {
     this.state = {};
   }
 
-  deleteDosen() {
-    const { id } = this.props.dosenData;
-    this.props.deleteDosen(id);
-  }
+  deleteDosen = (index) => {
+    const { deleteDosen } = this.props;
+    let id = index.target.id;
+    deleteDosen(id);
+  };
+
   renderListDosen = () => {
     const { dosenData } = this.props;
     return dosenData.map((data, index) => {
@@ -27,7 +31,8 @@ class TableDosen extends Component {
             id="editButton"
             // onClick={this.handleEdit}
           >
-            Edit
+            {/* Edit */}
+            <EditIcon />
           </button>
           <button
             className={data.id}
@@ -35,7 +40,8 @@ class TableDosen extends Component {
             id="deleteButton"
             onClick={this.deleteDosen}
           >
-            Delete
+            {/* Delete */}
+            <DeleteIcon color="secondary" />
           </button>
         </tr>
       );

@@ -28,11 +28,29 @@ class dosen extends Component {
           mataKuliah: "Ilmu Bedah",
         },
       ],
+      deleteDosen: {},
     };
   }
 
+  handlerDelete = (index) => {
+    // const newDosen = this.state.dosen.filter(
+    //   (element) => element.id !== index.id
+    // );
+    // this.setState({ dosen: newDosen });
+    const dltData = [...this.state.dosen];
+    dltData.splice(index, 1);
+    this.setState((state) => ({
+      dosen: dltData,
+    }));
+  };
+
   render() {
-    return <TabelDosen dosenData={this.state.dosen} />;
+    return (
+      <TabelDosen
+        dosenData={this.state.dosen}
+        deleteDosen={this.handlerDelete}
+      />
+    );
   }
 }
 
