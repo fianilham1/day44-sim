@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {ListMahasiswa, RegisterPage} from "../../page";
+import FormSubmitNilaiPage from "../../page/form-submit-nilai-page";
 
 
 class Body extends Component {
@@ -7,12 +8,18 @@ class Body extends Component {
         super(props);
         this.state = {
             users: [],
-            userEdit: {}
+            mhsEdit: {}
         }
     }
 
+    handlerEditMahasiswa=mhs=>{
+        this.setState({
+            mhsEdit: mhs
+        })
+    }
+
     renderPage = () => {
-        const { currentPage } = this.props
+        const { currentPage, goToPage } = this.props
         const { users, userEdit } = this.state
 
         if (currentPage === "form")
@@ -22,7 +29,10 @@ class Body extends Component {
         //     return <Login />
 
         if (currentPage === "list-mahasiswa")
-            return <ListMahasiswa />
+            return <ListMahasiswa dataEditMhs={this.handlerEditMahasiswa} gtp={goToPage} />
+
+        if (currentPage === "submit-nilai-mahasiswa")
+            return <FormSubmitNilaiPage dataEditMhs={this.state.mhsEdit} />
 
         // return <List userList={users} updateUser={this.setUserEdit} />
         return ''

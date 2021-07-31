@@ -7,6 +7,15 @@ class TableMahasiswa extends Component {
         this.state = {};
     }
 
+    handleSubmitNilai=e=>{
+        const {handleSubmitNilai, gtp}=this.props
+        let id = e.target.id
+        console.log(id)
+        handleSubmitNilai(id)
+        gtp("submit-nilai-mahasiswa")
+
+    }
+
     renderListMahasiswas = () => {
         const {dataMahasiswa} = this.props
         return dataMahasiswa.map((data, index) => {
@@ -20,13 +29,14 @@ class TableMahasiswa extends Component {
                     <td className="cell">{data.semester}</td>
                     <td className="cell">{data.mataKuliah}</td>
                     <td className="cell">{data.nilai}</td>
+                    <td className="cell">{data.ipk}</td>
                     <td className="cell">{data.namaDosen}</td>
                     <td className="cell action">
-                        <button className={data.id} itemID={data.id} id="editButton"
-                            // onClick={this.handleEdit}
-                        >Edit
+                        <button style={{cursor: "pointer", marginRight: 10}} id={data.id}
+                            onClick={this.handleSubmitNilai}
+                        >Submit Nilai
                         </button>
-                        <button className={data.id} itemID={data.id} id="deleteButton"
+                        <button style={{cursor: "pointer"}} className={data.id} itemID={data.id} id="deleteButton"
                             // onClick={this.handleDetail}
                         >Delete
                         </button>
@@ -37,10 +47,14 @@ class TableMahasiswa extends Component {
     }
 
     render() {
+        const {gtp}=this.props
         const {dataMahasiswa} = this.props
         console.log("data =", dataMahasiswa)
         return (
             <>
+                <div style={{marginLeft: 150}}>
+                    <button style={{cursor: "pointer"}}>Add Nilai Mahasiswa</button>
+                </div>
                 <table className="customers-list" width="80%">
                     <thead>
                     <th>No</th>
@@ -51,6 +65,7 @@ class TableMahasiswa extends Component {
                     <th>Semester</th>
                     <th>Mata Kuliah</th>
                     <th>Nilai</th>
+                    <th>IPK</th>
                     <th>Nama Dosen</th>
                     <th>Actions</th>
                     </thead>
