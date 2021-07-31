@@ -14,3 +14,32 @@
     background-color:#993333;
     color: #FFF;
 }
+
+.button{
+    display: block;
+    width: 100px;
+    height: 20px;
+    border-radius: 25px;
+    /* margin-top: 60px; */
+    margin-left: 0px;
+    margin-right: auto;
+    /* margin-bottom: 20rem; */
+      /* border-image: linear-gradient(to right,#b8ad52,#e0d572,#c9bd57); */
+    background-image: linear-gradient(to right,#272f4b,#3d508f,#37436b);
+    border: none;
+      /* background: none; */
+    cursor: pointer;
+    color: white;
+    text-transform: uppercase;
+    font-family: 'Poppins',sans-serif;
+    background-size: 200%;
+    transition: .4s;
+    /* padding: 10px; */
+    font-size: 13px;
+    justify-content: center;
+  }
+  
+  .button:hover{
+     background-position: right;
+    /* background-position: right; */
+  }
