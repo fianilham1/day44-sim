@@ -1,0 +1,35 @@
+.nav-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* height: 70px; */
+    /* border: 1px solid red; */
+    margin-bottom: 30px;
+}
+
+.logo {
+    width: 150px;
+    font-weight: bold;
+    font-family: "Courier New", Courier, monospace;
+}
+
+.menu-item {
+    display: inline-block;
+    padding: 5px 15px;
+    border: 1px solid grey;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background-color: lightgrey;
+}
+
+.menu-item.active {
+    background-color: grey;
+}
+
+.menu-item:last-child {
+    margin-right: 0;
+}
