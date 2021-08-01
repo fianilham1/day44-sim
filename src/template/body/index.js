@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ListDosen, ListJurusan } from "../../page";
+import { ListDosen, ListJurusan, RegisterPage } from "../../page";
 
 class Body extends Component {
   constructor(props) {
@@ -18,8 +18,8 @@ class Body extends Component {
 
     if (currentPage === "list-jurusan") return <ListJurusan />;
 
-    // return <List userList={users} updateUser={this.setUserEdit} />
     return "";
+    console.log("currentPage", currentPage);
   };
 
   updateUsers = (newUser) => {
