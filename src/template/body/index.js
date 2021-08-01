@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
-import {RegisterPage} from "../../page";
-import ListSKS from '../../page/list-sks-page';
 
+import {RegisterPage, ListPenerimaanPage} from "../../page";
+import ListSKS from '../../page/list-sks-page';
 
 class Body extends Component {
     constructor(props) {
         super(props);
         this.state = {
             users: [],
-            userEdit: {}
+            userEdit: {},
+            listPenerimaan:[]
         }
+    }
+
+    addNewListPenerimaanHandler = newMahasiswa => {
+        const {goToPage} = this.props
+        const listPenerimaan = this.state.listPenerimaan
+        listPenerimaan.push(newMahasiswa)
+        this.setState({
+            listPenerimaan
+        },console.log("listpenerimaan",this.state.listPenerimaan))
     }
 
     renderPage = () => {
@@ -17,7 +27,12 @@ class Body extends Component {
         const { userEdit } = this.state
 
         if (currentPage === "form")
-            return <RegisterPage selectedUser={userEdit} resetUserEdit={this.clearUserEdit} saveUser={this.updateUsers} />
+            return <RegisterPage addNewListPenerimaan={this.addNewListPenerimaanHandler} selectedUser={userEdit} resetUserEdit={this.clearUserEdit} saveUser={this.updateUsers} />
+
+        if (currentPage === "penerimaan")
+            return <ListPenerimaanPage listPenerimaan={this.state.listPenerimaan} />
+
+        
 
         if (currentPage === "sks")
             return <ListSKS />
