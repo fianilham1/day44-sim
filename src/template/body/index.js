@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {RegisterPage, ListPenerimaanPage} from "../../page";
 
+import {RegisterPage, ListPenerimaanPage} from "../../page";
+import ListSKS from '../../page/list-sks-page';
 
 class Body extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class Body extends Component {
 
     renderPage = () => {
         const { currentPage } = this.props
-        const { users, userEdit } = this.state
+        const { userEdit } = this.state
 
         if (currentPage === "form")
             return <RegisterPage addNewListPenerimaan={this.addNewListPenerimaanHandler} selectedUser={userEdit} resetUserEdit={this.clearUserEdit} saveUser={this.updateUsers} />
@@ -33,11 +34,10 @@ class Body extends Component {
 
         
 
-        // if (currentPage === "login")
-        //     return <Login />
+        if (currentPage === "sks")
+            return <ListSKS />
 
-        // return <List userList={users} updateUser={this.setUserEdit} />
-        return ''
+        return ""
     }
 
     updateUsers = newUser => {

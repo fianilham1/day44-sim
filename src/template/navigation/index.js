@@ -20,6 +20,10 @@ class Nav extends Component {
                         className={`menu-item ${currentPage === "list" ? "active" : ""}`}>List
                     </div>
                     <div
+                        onClick={() => goToPage("sks")}
+                        className={`menu-item ${currentPage === "sks" ? "active" : ""}`}>SKS
+                    </div>
+                    <div
                         onClick={() => goToPage("form")}
                         className={`menu-item ${currentPage === "form" ? "active" : ""}`}>Form
                     </div>

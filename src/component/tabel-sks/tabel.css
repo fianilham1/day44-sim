@@ -1,0 +1,92 @@
+.thishome {
+    color: white;
+}
+
+#table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #table td, #table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #table tr:nth-child(even){background-color: #363636;}
+  #table tr:nth-child(odd){background-color: #636161;}
+  
+  #table tr:hover {background-color: rgb(20, 20, 20);}
+  
+  #table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
+
+  .btn-save-edit {
+    outline: none;
+    padding: 0.9em 0;
+    width: 60px;
+    text-align: center;
+    font-size: 10px;
+    margin-top: 1em;
+    margin-left:5px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    background: #0b794b;
+    box-shadow: 0px 2px 1px rgba(28, 28, 29, 0.42);
+	border-radius: 5px;
+}
+
+.btn-cancel {
+    outline: none;
+    padding: 0.9em 0;
+    width: 60px;
+    text-align: center;
+    font-size: 10px;
+    margin-top: 1em;
+    margin-left:5px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    background: #0b4479;
+    box-shadow: 0px 2px 1px rgba(28, 28, 29, 0.42);
+	border-radius: 5px;
+}
+
+.btn-delete {
+    outline: none;
+    padding: 0.9em 0;
+    width: 60px;
+    text-align: center;
+    font-size: 10px;
+    margin-top: 1em;
+    margin-left:5px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    background: #b80000;
+    box-shadow: 0px 2px 1px rgba(28, 28, 29, 0.42);
+	border-radius: 5px;
+}
+
+.btn-add {
+    outline: none;
+    padding: 0.9em 0;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    font-size: 10px;
+    margin-top: 1em;
+    margin-left:5px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    background: #4f84f8;
+    box-shadow: 0px 2px 1px rgba(28, 28, 29, 0.42);
+	border-radius: 5px;
+}
