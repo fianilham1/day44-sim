@@ -40,17 +40,24 @@ class Input extends Component {
             </div>)
     }
 
+    renderAlert = () => {
+        const { state, name} = this.props
+        if (state[`${name.toLowerCase()}`]==='' && state['submitStatus']) return <span className="textALert">*Wajib Diisi</span>
+
+        return ''
+    }
+
     render() {
-        const { focusState, icon, name } = this.props
+        const { state, icon, name } = this.props
         return (
             <>
-            <div className={`input-div${ focusState[`isFocus${name}`] ? ' focus' : ''}`}>
+            <div className={`input-div ${ state[`isFocus${name}`] ? 'focus' : ''} ${ state[`${name.toLowerCase()}`]==='' && state['submitStatus']? 'redAlert' : ''}`}>
                 <div className="i">
                     {icon}      
                 </div>
                 {this.renderInput()}
-               
             </div>
+            {this.renderAlert()}
             </>
         );
     }

@@ -7,11 +7,6 @@ class Table extends Component {
         this.state = {};
     }
 
-    //  <button className={data.id} itemID={data.id} id="editButton"
-    //                         // onClick={this.handleEdit}
-    //                     >Edit
-    //                     </button>
-
     renderHeaderTable = () => {
         const {headerName} = this.props
         return headerName.map((header, index) => {
@@ -21,12 +16,6 @@ class Table extends Component {
         })
     }
 
-    // <td className="cell num">{index + 1}</td>
-    // <td className="cell">{data.name}</td>
-    // <td className="cell">{data.nim}</td>
-    // <td className="cell">{data.dept}</td>
-    // <td className="cell">{data.strata}</td>
-
     renderCellTable = data => {
         const cellArr = Object.keys(data)
         return cellArr.map((key, index) => {
@@ -34,7 +23,7 @@ class Table extends Component {
             if(key==="clickEvent") {
                 const clickArr = Object.keys(data[key])
                 const button = clickArr.map((key2,index)=> {
-                    return <button onClick={data[key][key2]}></button>
+                    return <button className={key2} onClick={data[key][key2]}></button>
                 })
                 return (
                     <td key={index} className="cell">
@@ -55,12 +44,7 @@ class Table extends Component {
             return (
                 <tr key={index}>
                     <td className="cell num">{index + 1}</td>
-                     {/* <td className="cell num">{index + 1}</td>
-                    <td className="cell">{data.name}</td>
-                    <td className="cell">{data.nim}</td>
-                    <td className="cell">{data.dept}</td>
-                    <td className="cell">{data.strata}</td> */}
-                   {this.renderCellTable(data)}
+                    {this.renderCellTable(data)}
                 </tr>
             )
         })
@@ -69,20 +53,15 @@ class Table extends Component {
     
 
     render() {
+        const {className} = this.props
         return (
             <>
-                <table className="customers-list" width="80%">
+                <table className={className} width="80%">
                     <thead>
-                    {this.renderHeaderTable()}
-                    {/* <th>No</th>
-                    <th>Nama</th>
-                    <th>NIM</th>
-                    <th>Jurusan</th>
-                    <th>Strata</th> */}
+                        {this.renderHeaderTable()}
                     </thead>
-
                     <tbody>
-                    {this.renderBodyTable()}
+                        {this.renderBodyTable()}
                     </tbody>
                 </table>
             </>

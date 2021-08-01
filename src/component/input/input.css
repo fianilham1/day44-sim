@@ -162,6 +162,9 @@
     left: 50%;
   } 
   
+  .redAlert{
+    border: 2px solid red !important;
+  }
 
   .selectOpt{
     position: absolute;
@@ -178,4 +181,10 @@
     columns: rgb(182, 177, 177);
   }
 
-
+.textALert{
+  font-size: 13px;
+  position: absolute;
+  margin-top: -55px;
+  margin-left: 190px;
+  color: red;
+}

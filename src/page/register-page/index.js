@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import "./register.css"
 import { Input, Dialog } from '../../component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faClipboardCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons'
-// import withReactContent from 'sweetalert2-react-content'
+import { faUser, faClipboardCheck, faEnvelope, faVenusMars, faPhone, faMapMarkerAlt, faBook, faUserGraduate } from '@fortawesome/free-solid-svg-icons'
+import Swal from 'sweetalert2'
 
+const graduate = <FontAwesomeIcon icon={faUserGraduate} />
+const book = <FontAwesomeIcon icon={faBook} />
+const map = <FontAwesomeIcon icon={faMapMarkerAlt} />
+const phone = <FontAwesomeIcon icon={faPhone} />
+const genders = <FontAwesomeIcon icon={faVenusMars} />
 const envelope = <FontAwesomeIcon icon={faEnvelope} />
 const person = <FontAwesomeIcon icon={faUser} />
 const check = <FontAwesomeIcon icon={faClipboardCheck} />
@@ -16,6 +21,7 @@ class RegisterPage extends Component {
             // id: props.selectedUser.id ? props.selectedUser.id : "",
             // name: props.selectedUser.name ? props.selectedUser.name : "",
             // address: props.selectedUser.address ? props.selectedUser.address : ""
+            submitStatus:false,
             isFocusNama:false,
             isFocusTtl:true,
             isFocusGender:true,
@@ -33,18 +39,14 @@ class RegisterPage extends Component {
             jurusan:'',
             tahun:'',
             strata:'',
-            mobile:'',
-            
+            mobile:''   
         }
-        this.baseState = this.state 
     }
 
-    onSaveHandler = () => {
-        const { id, name, address } = this.state
-        this.props.saveUser({ id, name, address })
-    }
-
-    setValue = e => this.setState({ [e.target.name]: e.target.value })
+    setValue = e => this.setState({ 
+        [e.target.name]: e.target.value,
+        submitStatus:false
+     })
 
     componentWillUnmount() {
         this.props.resetUserEdit()
@@ -75,6 +77,10 @@ class RegisterPage extends Component {
             mobile:this.state.mobile,
         }
 
+        this.setState({
+            submitStatus:true
+        })
+
         const stateArr = Object.keys(this.state)
         let emptyField = 0
         const state = stateArr.map((key,index)=> {
@@ -84,12 +90,16 @@ class RegisterPage extends Component {
             return ''
         })
     
-        if(emptyField!==0) return alert("Silahkan Isi Semua Fild")
+        if(emptyField!==0) return alert("Silahkan Isi Semua Field")
 
         console.log("NEWuser",mahasiswaInputNew)
         this.props.addNewListPenerimaan(mahasiswaInputNew)
-        return alert("Register Sukses")
-  
+        return Swal.fire({
+            icon: 'success',
+            title: 'Register Sukses',
+            showConfirmButton: false,
+            timer: 1500
+          })
       }
 
     render() {
@@ -114,7 +124,7 @@ class RegisterPage extends Component {
                 <div className="formInput">
 
                 <Input 
-                    focusState={this.state} 
+                    state={this.state} 
                     name="Nama" 
                     focus={this.focusHandler} 
                     blur={this.blurHandler} 
@@ -123,7 +133,7 @@ class RegisterPage extends Component {
                     handleChange={this.setValue}/>
 
                 <Input 
-                    focusState={this.state} 
+                    state={this.state} 
                     name="Ttl" 
                     focus={this.focusHandler} 
                     icon={person} 
@@ -131,16 +141,16 @@ class RegisterPage extends Component {
                     handleChange={this.setValue}/>
                 
                 <Input 
-                    focusState={this.state} 
+                    state={this.state} 
                     name="Gender" 
                     focus={this.focusHandler} 
                     blur={this.blurHandler} 
-                    icon={person} 
+                    icon={genders} 
                     typeTx="radio"
                     handleChange={this.setValue}/>
 
                 <Input 
-                    focusState={this.state} 
+                    state={this.state} 
                     name="Email" 
                     focus={this.focusHandler} 
                     blur={this.blurHandler} 
@@ -149,35 +159,35 @@ class RegisterPage extends Component {
                     handleChange={this.setValue}/> 
 
             <Input 
-                focusState={this.state} 
+                state={this.state} 
                 name="Mobile" 
                 focus={this.focusHandler} 
                 blur={this.blurHandler} 
-                icon={person} 
+                icon={phone} 
                 typeTx="text" 
                 handleChange={this.setValue}/>
 
             <Input 
-                focusState={this.state} 
+                state={this.state} 
                 name="Alamat" 
                 focus={this.focusHandler} 
                 blur={this.blurHandler} 
-                icon={person} 
+                icon={map} 
                 typeTx="text" 
                 handleChange={this.setValue}/>
 
             <Input 
-                focusState={this.state} 
+                state={this.state} 
                 name="Jurusan" 
                 focus={this.focusHandler} 
                 blur={this.blurHandler} 
-                icon={person} 
+                icon={book} 
                 typeTx="select" 
                 dataArr = {["Select..","IT","Peternakan","Kedokteran"]}
                 handleChange={this.setValue}/>
 
             <Input 
-                focusState={this.state} 
+                state={this.state} 
                 name="Tahun" 
                 focus={this.focusHandler} 
                 blur={this.blurHandler} 
@@ -187,11 +197,11 @@ class RegisterPage extends Component {
                 handleChange={this.setValue}/>
 
             <Input 
-                focusState={this.state} 
+                state={this.state} 
                 name="Strata" 
                 focus={this.focusHandler} 
                 blur={this.blurHandler} 
-                icon={check} 
+                icon={graduate} 
                 typeTx="select" 
                 dataArr = {["Select..","S1","S2","S3"]} 
                 handleChange={this.setValue}/>  

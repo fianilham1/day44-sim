@@ -27,8 +27,8 @@ class Penerimaan extends Component {
                 strata:data.strata,
                 tahun:data.tahun
                 // clickEvent:{
-                //     event1:this.clickHandler,
-                //     event2:this.clickHandler2
+                //     className1:this.clickHandler,
+                //     className1:this.clickHandler2
                 // }
             }
         })
@@ -37,6 +37,7 @@ class Penerimaan extends Component {
         return ( 
             <>
             <Table 
+                className="customers-list"
                 dataList={list} 
                 headerName={["No","Nama","NIM","Jurusan","Strata","Tahun Masuk Akademik"]}
                 //NOTE : dataList.length must be headerName.length-1 (for cell number)
