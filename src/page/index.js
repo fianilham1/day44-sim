@@ -1,5 +1,11 @@
 import RegisterPage from "./register-page";
 import ListDosen from "./list-dosen-page";
 import ListJurusan from "./list-jurusan-page";
+import ListPenerimaanPage from "./list-penerimaan";
+import ListMahasiswa from "./list-mahasiswa-page";
+import ListSKS from "./list-sks-page";
+import DetailProfile from "./detail-profile-page"
 
-export { RegisterPage, ListDosen, ListJurusan };
+export {ListMahasiswa,RegisterPage, ListPenerimaanPage, ListSKS, DetailProfile}
+export {ListDosen, ListJurusan };
+
