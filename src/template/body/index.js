@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {ListMahasiswa, RegisterPage, ListPenerimaanPage} from "../../page";
 import FormSubmitNilaiPage from "../../page/form-submit-nilai-page";
 
@@ -9,7 +9,7 @@ class Body extends Component {
             users: [],
 
             userEdit: {},
-            listPenerimaan:[]
+            listPenerimaan: []
         }
     }
 
@@ -19,38 +19,38 @@ class Body extends Component {
         listPenerimaan.push(newMahasiswa)
         this.setState({
             listPenerimaan
-        },console.log("listpenerimaan",this.state.listPenerimaan))
+        }, console.log("listpenerimaan", this.state.listPenerimaan))
 
-            mhsEdit: {}
+        mhsEdit: {
         }
     }
 
-    handlerEditMahasiswa=mhs=>{
+    handlerEditMahasiswa = mhs => {
         this.setState({
             mhsEdit: mhs
         })
     }
 
     renderPage = () => {
-        const { currentPage, goToPage } = this.props
-        const { users, userEdit } = this.state
+        const {currentPage, goToPage} = this.props
+        const {users, userEdit} = this.state
 
         if (currentPage === "form")
-            return <RegisterPage addNewListPenerimaan={this.addNewListPenerimaanHandler} selectedUser={userEdit} resetUserEdit={this.clearUserEdit} saveUser={this.updateUsers} />
+            return <RegisterPage addNewListPenerimaan={this.addNewListPenerimaanHandler} selectedUser={userEdit}
+                                 resetUserEdit={this.clearUserEdit} saveUser={this.updateUsers}/>
 
         if (currentPage === "penerimaan")
-            return <ListPenerimaanPage listPenerimaan={this.state.listPenerimaan} />
+            return <ListPenerimaanPage listPenerimaan={this.state.listPenerimaan}/>
 
-        
 
         // if (currentPage === "login")
         //     return <Login />
 
         if (currentPage === "list-mahasiswa")
-            return <ListMahasiswa dataEditMhs={this.handlerEditMahasiswa} gtp={goToPage} />
+            return <ListMahasiswa dataEditMhs={this.handlerEditMahasiswa} gtp={goToPage}/>
 
         if (currentPage === "submit-nilai-mahasiswa")
-            return <FormSubmitNilaiPage dataEditMhs={this.state.mhsEdit} />
+            return <FormSubmitNilaiPage dataEditMhs={this.state.mhsEdit}/>
 
         // return <List userList={users} updateUser={this.setUserEdit} />
         return ''
@@ -79,14 +79,14 @@ class Body extends Component {
         }, () => this.props.goToPage("list"))
     }
 
-    setUserEdit = userEdit => this.setState({ userEdit }, () => this.props.goToPage("form"))
+    setUserEdit = userEdit => this.setState({userEdit}, () => this.props.goToPage("form"))
 
-    clearUserEdit = () => this.setState({ userEdit: {} })
+    clearUserEdit = () => this.setState({userEdit: {}})
 
     render() {
         return (
             this.renderPage()
-        );
+        )
     }
 }
 
