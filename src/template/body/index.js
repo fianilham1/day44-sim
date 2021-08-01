@@ -3,6 +3,7 @@ import {ListMahasiswa, RegisterPage, DetailProfile, ListPenerimaanPage} from "..
 import FormSubmitNilaiPage from "../../page/form-submit-nilai-page";
 import DetailMahasiswaPage from "../../page/detail-mahasiswa-page";
 import ListSKS from '../../page/list-sks-page';
+import { ListDosen, ListJurusan } from "../../page";
 
 class Body extends Component {
     constructor(props) {
@@ -73,6 +74,10 @@ class Body extends Component {
     renderPage = () => {
         const {currentPage, goToPage} = this.props
         const {users, userEdit} = this.state
+
+        if (currentPage === "list-dosen") return <ListDosen />;
+
+        if (currentPage === "list-jurusan") return <ListJurusan />;
         
         if (currentPage === "form")
             return <RegisterPage
