@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import "./detail.css"
-// import profileImg from "./profile.svg";
+import profileImg from "./profile.svg";
 // import EditIcon from "@material-ui/icons/Edit";
 
 
@@ -73,7 +73,13 @@ class Detail extends Component {
     
     render() {     
         const {goToPage, mhsProfileDetail} = this.props
-        const image = require(`../register-page/${mhsProfileDetail.foto}`).default
+        let image = profileImg
+        try{
+            image = require(`../register-page/${mhsProfileDetail.foto}`).default;
+        }catch{
+            console.log("img not found>> display default img")
+        }
+        
         return ( 
             <>
             <div className="detailbg">

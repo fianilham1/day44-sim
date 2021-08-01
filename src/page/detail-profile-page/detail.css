@@ -28,6 +28,8 @@
 
 .detail-container {
     background-color: white;
+    position: absolute;
+    top: 220px;
     transform: translateX(-50%);
     margin-left: 50%;
     display: flex;
@@ -104,6 +106,12 @@
    cursor: pointer;
    transition: .4s;
    border: none;
+  }
+
+  .backButton{
+    position: absolute;
+    left: -350px;
+    top: 270px;
   }
 
   .editButton{
