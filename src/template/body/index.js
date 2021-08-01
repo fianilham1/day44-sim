@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-
-import {RegisterPage, ListPenerimaanPage, DetailProfile} from "../../page";
+import React, {Component} from 'react';
+import {ListMahasiswa, RegisterPage, ListPenerimaanPage, DetailProfile} from "../../page";
+import FormSubmitNilaiPage from "../../page/form-submit-nilai-page";
+import DetailMahasiswaPage from "../../page/detail-mahasiswa-page";
 import ListSKS from '../../page/list-sks-page';
 
 class Body extends Component {
@@ -8,6 +9,10 @@ class Body extends Component {
         super(props);
         this.state = {
             users: [],
+            mhsEdit: {},
+            listPenerimaan: [],
+            detailMhs: {},
+            nilaiMhs:{},
             userEdit: {},
             mhsProfileDetail: {
                 nama:"fian",
@@ -21,9 +26,20 @@ class Body extends Component {
                 jurusan:"IT",
                 strata:"S1",
                 foto:"foto_fian.jpg"
-            },
-            listPenerimaan:[]
+            }
         }
+    }
+
+    setNilaiMhs=(newNilai)=>{
+        this.setState({
+            nilaiMhs:newNilai
+        })
+    }
+
+    setDetailMhs = detailMhs => {
+        this.setState({
+            detailMhs: detailMhs
+        })
     }
 
     addNewListPenerimaanHandler = newMahasiswa => {
@@ -32,7 +48,16 @@ class Body extends Component {
         listPenerimaan.push(newMahasiswa)
         this.setState({
             listPenerimaan
-        },console.log("listpenerimaan",this.state.listPenerimaan))
+        }, console.log("listpenerimaan", this.state.listPenerimaan))
+
+        mhsEdit: {
+        }
+    }
+
+    handlerEditMahasiswa = mhs => {
+        this.setState({
+            mhsEdit: mhs
+        })
     }
 
     saveProfileHandler = newMahasiswa => {
@@ -46,15 +71,32 @@ class Body extends Component {
     }
 
     renderPage = () => {
-        const { currentPage, goToPage } = this.props
-        const { userEdit } = this.state
-
+        const {currentPage, goToPage} = this.props
+        const {users, userEdit} = this.state
+        
         if (currentPage === "form")
-            return <RegisterPage addNewListPenerimaan={this.addNewListPenerimaanHandler} selectedUser={userEdit} resetUserEdit={this.clearUserEdit} saveUser={this.updateUsers} />
+            return <RegisterPage
+                addNewListPenerimaan={this.addNewListPenerimaanHandler}
+                selectedUser={userEdit}
+                resetUserEdit={this.clearUserEdit}
+                saveUser={this.updateUsers}/>
 
         if (currentPage === "penerimaan")
-            return <ListPenerimaanPage listPenerimaan={this.state.listPenerimaan} />
+            return <ListPenerimaanPage listPenerimaan={this.state.listPenerimaan}/>
 
+        if (currentPage === "list-mahasiswa")
+            return <ListMahasiswa
+                updateNilaiMhs={  this.state.mhsEdit  }
+                setDetailMhs={this.setDetailMhs}
+                dataEditMhs={this.handlerEditMahasiswa}
+                gtp={goToPage}/>
+
+        if (currentPage === "submit-nilai-mahasiswa")
+            return <FormSubmitNilaiPage setNilaiMhs={this.setNilaiMhs} dataEditMhs={this.state.mhsEdit} gtp={goToPage}/>
+
+        if (currentPage === "detail-krs-mahasiswa")
+            return <DetailMahasiswaPage dataDetailMhs={this.state.detailMhs} gtp={goToPage}/>
+        
         if (currentPage === "detail-profile")
             return <DetailProfile mhsProfileDetail={this.state.mhsProfileDetail} goToPage={goToPage} saveProfile={this.saveProfileHandler}/>
 
@@ -62,10 +104,12 @@ class Body extends Component {
             return <ListSKS />
 
         return ""
+
     }
 
     updateUsers = newUser => {
         console.log(newUser);
+
         if (newUser.id === "") {
             const oldUsers = this.state.users
             oldUsers.push({
@@ -87,15 +131,16 @@ class Body extends Component {
         }, () => this.props.goToPage("list"))
     }
 
-    setUserEdit = userEdit => this.setState({ userEdit }, () => this.props.goToPage("form"))
+    setUserEdit = userEdit => this.setState({userEdit}, () => this.props.goToPage("form"))
 
-    clearUserEdit = () => this.setState({ userEdit: {} })
+    clearUserEdit = () => this.setState({userEdit: {}})
 
     render() {
+        console.log("detail state", this.state.detailMhs)
         return (
             this.renderPage()
-        );
+        )
     }
 }
 
-export default Body;
+export default Body
