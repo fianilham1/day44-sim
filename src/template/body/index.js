@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {ListMahasiswa, RegisterPage, ListPenerimaanPage} from "../../page";
+import {ListMahasiswa, RegisterPage, ListPenerimaanPage, DetailProfile} from "../../page";
 import FormSubmitNilaiPage from "../../page/form-submit-nilai-page";
 import DetailMahasiswaPage from "../../page/detail-mahasiswa-page";
+import ListSKS from '../../page/list-sks-page';
 
 class Body extends Component {
     constructor(props) {
@@ -11,7 +12,21 @@ class Body extends Component {
             mhsEdit: {},
             listPenerimaan: [],
             detailMhs: {},
-            nilaiMhs:{}
+            nilaiMhs:{},
+            userEdit: {},
+            mhsProfileDetail: {
+                nama:"fian",
+                nim:"112021",
+                ttl:"2020-03-13",
+                gender:"Male",
+                mobile:"999",
+                email:"ff@gmail.com",
+                alamat:"Jkt",
+                tahun:"Semester Ganjil 2020/2021",
+                jurusan:"IT",
+                strata:"S1",
+                foto:"foto_fian.jpg"
+            }
         }
     }
 
@@ -28,7 +43,7 @@ class Body extends Component {
     }
 
     addNewListPenerimaanHandler = newMahasiswa => {
-        const {goToPage} = this.props
+        // const {goToPage} = this.props
         const listPenerimaan = this.state.listPenerimaan
         listPenerimaan.push(newMahasiswa)
         this.setState({
@@ -45,10 +60,20 @@ class Body extends Component {
         })
     }
 
+    saveProfileHandler = newMahasiswa => {
+        const oldMhs = this.state.listPenerimaan
+        const nimMhs = oldMhs.map(mhs => mhs.nim).indexOf(newMahasiswa.nim)
+        // console.log(idxUser);
+        oldMhs.splice(nimMhs, 1, newMahasiswa)
+        this.setState({
+            listPenerimaan: oldMhs
+        })
+    }
+
     renderPage = () => {
         const {currentPage, goToPage} = this.props
         const {users, userEdit} = this.state
-
+        
         if (currentPage === "form")
             return <RegisterPage
                 addNewListPenerimaan={this.addNewListPenerimaanHandler}
@@ -71,7 +96,15 @@ class Body extends Component {
 
         if (currentPage === "detail-krs-mahasiswa")
             return <DetailMahasiswaPage dataDetailMhs={this.state.detailMhs} gtp={goToPage}/>
-        return ''
+        
+        if (currentPage === "detail-profile")
+            return <DetailProfile mhsProfileDetail={this.state.mhsProfileDetail} goToPage={goToPage} saveProfile={this.saveProfileHandler}/>
+
+        if (currentPage === "sks")
+            return <ListSKS />
+
+        return ""
+
     }
 
     updateUsers = newUser => {

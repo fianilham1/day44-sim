@@ -3,7 +3,7 @@
 .customers-list {
     margin: 1em 0;
     min-width: 300px;
-    margin-left: 200px;
+    margin-left: 100px;
 }
 .customers-list tr {
     border-top: 1px solid #ddd;

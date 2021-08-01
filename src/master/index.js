@@ -1,3 +1,5 @@
 import Mahasiswa from "./mahasiswa";
+import MasterSKS from './sks'
 
-export{Mahasiswa}
+export {MasterSKS, Mahasiswa}
+

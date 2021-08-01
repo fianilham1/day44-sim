@@ -1,47 +1,73 @@
 import React, { Component } from 'react';
 import "./input.css"
 
-class Menu extends Component {
+class Input extends Component {
     constructor(props) {
         super(props);
         this.state = {}
     }
 
-    // renderInput = () => {
-    //     const {name, typeInput, focus, blur, typeTx, defaultValue, handleChange} = this.props
-    //    if(typeInput) return ( 
-    //     <div>
-    //     <h5>{name}</h5>
-    //     <select name={name.toLowerCase()} className="role" onChange={handleChange}>
-    //         <option value="Manager">Manager</option>
-    //         <option value="HRD">HRD</option>
-    //         <option value="Employee">Employee</option>
-    //     </select>
-    //      </div>
-    //    )
+    renderOption = dataArr => {
+        return dataArr.map((data, index) => {
+            if (index===0) return <option key={index} value=''>{data}</option>
 
-    // return (<div>
-    //             <h5>{name}</h5>
-    //             <input id={`isFocus${name}`} className="input" type={typeTx} onFocus={focus} onBlur={blur} name={name.toLowerCase()} defaultValue={defaultValue}/>
-    //         </div>)
-    // }
+            return <option key={index} value={data}>{data}</option>
+        })
+    }
+
+    renderInput = () => {
+        const {name, dataArr, focus, blur, typeTx, handleChange, accept, submitStatus, state} = this.props
+       if(typeTx==="select") return ( 
+        <div>
+            <h5>{name}</h5>
+            <select name={name.toLowerCase()} className="selectOpt" onChange={handleChange} required>
+                {this.renderOption(dataArr)}
+            </select>
+         </div>
+       )
+
+       if(typeTx==="radio") return (
+        <div >
+            <h5>{name}</h5>
+            <input className="radioInput" type={typeTx} value="Male" name={name.toLowerCase()} onChange={handleChange} required/> Male 
+            <input  className="radioInput" type={typeTx} value="Male" name={name.toLowerCase()} onChange={handleChange} /> Female 
+        </div>
+       )
+
+       if(typeTx==="file") return (
+        <div>
+            <h5>{name}</h5>
+            <input id={`isFocus${name}`} className="fileInput" type={typeTx} onFocus={focus} onBlur={blur} name={name.toLowerCase()} onChange={handleChange} accept={accept} value={submitStatus ? '' : state[`${name.toLowerCase()}`]}required/>
+        </div>
+        )
+
+    return (<div>
+                <h5>{name}</h5>
+                <input id={`isFocus${name}`} className="input" type={typeTx} onFocus={focus} onBlur={blur} name={name.toLowerCase()} onChange={handleChange} value={submitStatus ? '' : state[`${name.toLowerCase()}`]} required/>
+            </div>)
+    }
+
+    renderAlert = () => {
+        const { state, name} = this.props
+        if (state[`${name.toLowerCase()}`]==='' && state['submitStatus']) return <span className="textALert">*Wajib Diisi</span>
+
+        return ''
+    }
 
     render() {
-        const { icon, name } = this.props
+        const { state, icon, name } = this.props
         return (
             <>
-            <div className="input-div">
+            <div className={`input-div ${ state[`isFocus${name}`] ? 'focus' : ''} ${ state[`${name.toLowerCase()}`]==='' && state['submitStatus']? 'redAlert' : ''}`}>
                 <div className="i">
                     {icon}      
                 </div>
-                <div>
-                    <h5>{name}</h5>
-                    <input className="input" type="text" name={name.toLowerCase()} />
-                </div>)
+                {this.renderInput()}
             </div>
+            {this.renderAlert()}
             </>
         );
     }
 }
 
-export default Menu;
+export default Input;
