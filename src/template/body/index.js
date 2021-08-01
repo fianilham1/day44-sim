@@ -19,10 +19,10 @@ class Body extends Component {
         if (currentPage === "form")
             return <RegisterPage selectedUser={userEdit} resetUserEdit={this.clearUserEdit} saveUser={this.updateUsers} />
 
-        // if (currentPage === "login")
-        //     return <Login />
+        if (currentPage === "sks")
+            return <ListSKS />
 
-        return <ListSKS />
+        return ""
     }
 
     updateUsers = newUser => {

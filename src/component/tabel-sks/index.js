@@ -8,6 +8,7 @@ class TabelSks extends Component {
             inputMatkul: "",
 			inputJmlsks: "",
 			inputIdjurusan: "",
+			inputDosen: "",
             sksList:[],
          }
     }
@@ -25,6 +26,7 @@ class TabelSks extends Component {
 			matkul: "",
             jmlsks: "",
             idjurusan: "",
+			dosen:"",
 			status: "new"
 		}
 		this.setState(oldState => ({
@@ -44,6 +46,7 @@ class TabelSks extends Component {
 			matkul: user.matkul,
 			jmlsks: user.jmlsks,
 			idjurusan: user.idjurusan,
+			dosen: user.dosen,
 			status: "edit"
 		}
 	
@@ -54,7 +57,9 @@ class TabelSks extends Component {
 			sksList: userUpdate,
 			inputMatkul: user.matkul,
 			inputJmlsks: user.jmlsks,
-			inputIdjurusan: user.idjurusan
+			inputIdjurusan: user.idjurusan,
+			inputDosen: user.dosen
+
 		})
 	}
     
@@ -72,6 +77,7 @@ class TabelSks extends Component {
 			matkul: this.state.inputMatkul,
 			jmlsks: this.state.inputJmlsks,
 			idjurusan: this.state.inputIdjurusan,
+			dosen: this.state.inputDosen,
 			status: ""
 		}
 	
@@ -80,7 +86,9 @@ class TabelSks extends Component {
         this.setState({
             inputMatkul: "",
 			inputJmlsks: "",
-			inputIdjurusan: ""
+			inputIdjurusan: "",
+			inputDosen: ""
+
         })
         editlist(sksUpdate)
 	}
@@ -92,6 +100,7 @@ class TabelSks extends Component {
 			matkul: this.state.inputMatkul,
 			jmlsks: this.state.inputJmlsks,
 			idjurusan: this.state.inputIdjurusan,
+			dosen: this.state.inputDosen,
 			status: ""
 		}
 	
@@ -100,7 +109,8 @@ class TabelSks extends Component {
         this.setState({
             inputMatkul: "",
 			inputJmlsks: "",
-			inputIdjurusan: ""
+			inputIdjurusan: "",
+			inputDosen: ""
         })
         editlist(sksUpdate)
     }
@@ -122,6 +132,7 @@ class TabelSks extends Component {
 						<td><input type="text" name="inputMatkul" onChange={this.onChangeHandler}></input></td>
 						<td><input type="text" name="inputJmlsks" onChange={this.onChangeHandler}></input></td>
 						<td><input type="text" name="inputIdjurusan" onChange={this.onChangeHandler}></input></td>
+						<td><input type="text" name="inputDosen" onChange={this.onChangeHandler}></input></td>
 						<td>
 							<button type="submit" onClick={() => this.onSaveEdit(index)}>Save</button>
 							<button onClick={() => this.onCancel(index)}>Cancel</button>
@@ -147,6 +158,11 @@ class TabelSks extends Component {
 						type="text" value={this.state.inputIdjurusan} onChange={this.onChangeHandler} />
 					</td>
 					<td>
+					<input
+						name="inputDosen"
+						type="text" value={this.state.inputDosen} onChange={this.onChangeHandler} />
+					</td>
+					<td>
 					<button type="submit" onClick={() => this.onSaveEdit(index)}>Save</button>
 					<button onClick={() => this.onCancel(index)}>Cancel</button>
 					</td>
@@ -157,6 +173,7 @@ class TabelSks extends Component {
 					<td>{users.matkul}</td>
 					<td>{users.jmlsks}</td>
 					<td>{users.idjurusan}</td>
+					<td>{users.dosen}</td>
 					<td>
 						<button className="btn-save-edit" onClick={() => this.editHandler(index)}>Edit</button>
 						<button className="btn-delete" onClick={() => this.deleteHandler(index)}>Delet</button>
@@ -184,6 +201,7 @@ class TabelSks extends Component {
 							<th>Mata Kuliah</th>
 							<th>Jumlah SKS</th>
 							<th>Jurusan</th>
+							<th>Dosen</th>
 							<th>Action</th>
 						</tr>
 					</thead>
