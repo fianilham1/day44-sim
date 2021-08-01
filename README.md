@@ -1,3 +1,9 @@
+# Note
+
+in register page, must upload photo that located in ./register-page
+
+if not, photo will not be displayed in profile page of mahasiswa
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
