@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ListPenerimaan} from '../../component';
+import {Table} from '../../component';
 
 class Penerimaan extends Component {
     constructor(props) {
@@ -8,23 +8,39 @@ class Penerimaan extends Component {
             listPenerimaan : []
          }
     }
+
+    clickHandler = e => {
+        console.log("click",e)
+    }
+
+    clickHandler2 = e => {
+        console.log("click2",e)
+    }
+
     render() { 
-        // var min = 10000;
-        // var max = 99999;
-        // var num = Math.floor(Math.random() * (max - min + 1)) + min;
         const {listPenerimaan} = this.props
         const list = listPenerimaan.map((data,index)=> {
             return{
-                name:data.name,
+                nama:data.nama,
                 nim:`${index+1}${index+1}2021`,
-                dept:data.dept,
-                strata:data.strata
+                jurusan:data.jurusan,
+                strata:data.strata,
+                tahun:data.tahun
+                // clickEvent:{
+                //     event1:this.clickHandler,
+                //     event2:this.clickHandler2
+                // }
             }
         })
         console.log("list fix",list)
+
         return ( 
             <>
-            <ListPenerimaan dataMahasiswa={list}/>
+            <Table 
+                dataList={list} 
+                headerName={["No","Nama","NIM","Jurusan","Strata","Tahun Masuk Akademik"]}
+                //NOTE : dataList.length must be headerName.length-1 (for cell number)
+            />
             </>
          );
     }

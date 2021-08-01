@@ -1,4 +1,5 @@
 import Input from "./input";
-import ListPenerimaan from "./list-penerimaan";
+import Table from "./table";
+import Dialog from "./dialog";
 
-export {Input,ListPenerimaan}
+export {Input,Table, Dialog}
