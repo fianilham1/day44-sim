@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-// import "./tabeldosen.css";
 import { TabelDosen } from "../../component";
 
 class Dosen extends Component {
   constructor(props) {
     super(props);
+    // List Data Dosen
     this.state = {
       ListDosen: [
         {
@@ -38,12 +38,15 @@ class Dosen extends Component {
     };
   }
 
+  // Bagian Edit Data Dosen
   editlist = (newData) => {
     this.setState({
       ListDosen: newData,
     });
+    console.log("editlist", newData);
   };
 
+  // Me render Data
   renderedMaster = () => {
     return (
       <TabelDosen ListDosen={this.state.ListDosen} editlist={this.editlist} />

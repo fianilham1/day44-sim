@@ -13,12 +13,14 @@ class TabelJurusan extends Component {
   }
   setEditDosen = this.props.setEditDosen;
 
+  // ComponentDidMOunt
   componentDidMount = () => {
     this.setState({
       ListJurusan: this.props.ListJurusan,
     });
   };
 
+  // Bagian Edit Data
   editHandler = (id) => {
     const checkFilter = this.state.ListJurusan.filter((admin) => admin.status);
 
@@ -38,6 +40,7 @@ class TabelJurusan extends Component {
       ListJurusan: adminUpdate,
       inputJurusan: admin.jurusan,
     });
+    console.log("adminUpdate", adminUpdate);
   };
 
   onChangeHandler = (e) => {
@@ -46,6 +49,7 @@ class TabelJurusan extends Component {
     });
   };
 
+  // Bagian Untuk Save Data
   onSaveEdit = (id) => {
     const newData = {
       id: id + 1,
@@ -58,8 +62,10 @@ class TabelJurusan extends Component {
     this.setState({
       inputJurusan: "",
     });
+    console.log("newData", newData);
   };
 
+  // BAGIAN Untuk Membatalkan save Data
   onCancel = (id) => {
     const newData = {
       id: id + 1,
@@ -72,30 +78,30 @@ class TabelJurusan extends Component {
     this.setState({
       inputJurusan: "",
     });
+    console.log("updateJurusan", updateJurusan);
   };
 
+  // Bagian Delete Data
   deleteHandler = (id) => {
     let updateJurusan = this.state.ListJurusan;
     updateJurusan.splice(id, 1);
     this.setState({
       ListJurusan: updateJurusan,
     });
+    console.log("delete", updateJurusan);
   };
 
+  // Bagian Untuk Tambah Data
   addHandler = () => {
     const newList = {
       id: "",
-      nama: "",
-      NID: "",
       jurusan: "",
-      matkul1: "",
-      matkul2: "",
-      matkul3: "",
       status: "new",
     };
     this.setState((oldState) => ({
       ListJurusan: [newList, ...oldState.ListJurusan],
     }));
+    console.log("add", newList);
   };
 
   renderList = () => {
@@ -106,6 +112,7 @@ class TabelJurusan extends Component {
             <td>{index + 1}</td>
             <td>
               <input
+                placeholder="Jurusan"
                 name="inputJurusan"
                 type="text"
                 value={this.state.inputJurusan}
@@ -137,6 +144,7 @@ class TabelJurusan extends Component {
             <td></td>
             <td>
               <input
+                placeholder="Jurusan"
                 type="text"
                 name="inputJurusan"
                 onChange={this.onChangeHandler}

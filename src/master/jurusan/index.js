@@ -4,6 +4,7 @@ import { TabelJurusan } from "../../component";
 class MasterSKS extends Component {
   constructor(props) {
     super(props);
+    // List Data Jurusan
     this.state = {
       ListJurusan: [
         {
@@ -22,12 +23,14 @@ class MasterSKS extends Component {
     };
   }
 
+  // Bagian Untuk Mengedit  Data Jurusan
   editListJurusan = (newDataJurusan) => {
     this.setState({
       ListJurusan: newDataJurusan,
     });
   };
 
+  // Me renderData
   renderedMaster = () => {
     return (
       <TabelJurusan

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./tabeldosen.css";
 import EditIcon from "@material-ui/icons/Edit";
+import { ListDosen } from "../../page";
 
 class TabelDosen extends Component {
   constructor(props) {
@@ -17,12 +18,15 @@ class TabelDosen extends Component {
   }
   setEditDosen = this.props.setEditDosen;
 
+  // ComponentDidMount
   componentDidMount = () => {
     this.setState({
       ListDosen: this.props.ListDosen,
     });
+    console.log("ListDosen", ListDosen);
   };
 
+  // Bagian Edit Data Dosen
   editHandler = (id) => {
     const checkFilter = this.state.ListDosen.filter((admin) => admin.status);
 
@@ -53,6 +57,7 @@ class TabelDosen extends Component {
       inputMataKuliah2: admin.matkul2,
       inputMataKuliah3: admin.matkul3,
     });
+    console.log("Edit", newData);
   };
 
   onChangeHandler = (e) => {
@@ -61,6 +66,7 @@ class TabelDosen extends Component {
     });
   };
 
+  // Bagian Save Data
   onSaveEdit = (id) => {
     const newData = {
       id: id + 1,
@@ -72,7 +78,13 @@ class TabelDosen extends Component {
       matkul3: this.state.inputMataKuliah3,
       status: "",
     };
-
+    // if (!newData === null) {
+    //   this.props.addNewDosen(newData);
+    //   alert("success Input");
+    // } else {
+    //   this.props.onSaveEdit(newData);
+    //   return alert("Data Kosong");
+    // }
     let dosenUpdate = this.state.ListDosen;
     dosenUpdate.splice(id, 1, newData);
     this.setState({
@@ -83,8 +95,10 @@ class TabelDosen extends Component {
       inputMataKuliah2: "",
       inputMataKuliah3: "",
     });
+    console.log("save", newData);
   };
 
+  // Bagian Tombol Cancel Untuk Membatalkan Edit
   onCancel = (id) => {
     const newData = {
       id: id + 1,
@@ -107,14 +121,18 @@ class TabelDosen extends Component {
       inputMataKuliah2: "",
       inputMataKuliah3: "",
     });
+    console.log("cancel", newData);
   };
 
+  // Bagian Delete Data
   deleteHandler = (id) => {
     let dosenUpdate = this.state.ListDosen;
     dosenUpdate.splice(id, 1);
+    console.log("delete", dosenUpdate);
   };
 
-  addHandler = () => {
+  // Bagian Tambah Data
+  addHandler = (e) => {
     const newList = {
       id: "",
       nama: "",
@@ -127,7 +145,15 @@ class TabelDosen extends Component {
     };
     this.setState((oldState) => ({
       ListDosen: [newList, ...oldState.ListDosen],
+      // id: e.target[0].value,
+      // nama: e.target[0].value,
+      // NID: e.target[0].value,
+      // jurusan: e.target[0].value,
+      // matkul1: e.target[0].value,
+      // matkul2: e.target[0].value,
+      // matkul3: e.target[0].value,
     }));
+    console.log("Add", ListDosen);
   };
 
   renderList = () => {
@@ -138,6 +164,7 @@ class TabelDosen extends Component {
             <td>{index + 1}</td>
             <td>
               <input
+                placeholder="Nama"
                 name="inputNama"
                 type="text"
                 value={this.state.inputNama}
@@ -146,6 +173,7 @@ class TabelDosen extends Component {
             </td>
             <td>
               <input
+                placeholder="Nomor Induk Dosen"
                 name="inputNID"
                 type="text"
                 value={this.state.inputNID}
@@ -154,6 +182,7 @@ class TabelDosen extends Component {
             </td>
             <td>
               <input
+                placeholder="Jurusan"
                 name="inputJurusan"
                 type="text"
                 value={this.state.inputJurusan}
@@ -162,6 +191,7 @@ class TabelDosen extends Component {
             </td>
             <td>
               <input
+                placeholder="Mata Kuliah Ke-1"
                 name="inputMataKuliah1"
                 type="text"
                 value={this.state.inputMataKuliah1}
@@ -170,6 +200,7 @@ class TabelDosen extends Component {
               <br />
               <br />
               <input
+                placeholder="Mata Kuliah Ke-2"
                 name="inputMataKuliah2"
                 type="text"
                 value={this.state.inputMataKuliah2}
@@ -178,6 +209,7 @@ class TabelDosen extends Component {
               <br />
               <br />
               <input
+                placeholder="Mata Kuliah Ke-3"
                 name="inputMataKuliah3"
                 type="text"
                 value={this.state.inputMataKuliah3}
@@ -206,6 +238,7 @@ class TabelDosen extends Component {
             <td></td>
             <td>
               <input
+                placeholder="Nama"
                 type="text"
                 name="inputNama"
                 onChange={this.onChangeHandler}
@@ -213,6 +246,7 @@ class TabelDosen extends Component {
             </td>
             <td>
               <input
+                placeholder="Nomor Induk Dosen"
                 type="text"
                 name="inputNID"
                 onChange={this.onChangeHandler}
@@ -220,6 +254,7 @@ class TabelDosen extends Component {
             </td>
             <td>
               <input
+                placeholder="Jurusan"
                 type="text"
                 name="inputJurusan"
                 onChange={this.onChangeHandler}
@@ -227,18 +262,23 @@ class TabelDosen extends Component {
             </td>
             <td>
               <input
+                placeholder="Mata Kuliah Ke-1"
                 type="text"
                 name="inputMataKuliah1"
                 onChange={this.onChangeHandler}
               ></input>
               <br />
+              <br />
               <input
+                placeholder="Mata Kuliah Ke-2"
                 type="text"
                 name="inputMataKuliah2"
                 onChange={this.onChangeHandler}
               ></input>
               <br />
+              <br />
               <input
+                placeholder="Mata Kuliah Ke-3"
                 type="text"
                 name="inputMataKuliah3"
                 onChange={this.onChangeHandler}
