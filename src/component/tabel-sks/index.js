@@ -194,7 +194,8 @@ class TabelSks extends Component {
                         <hr></hr>
                     </div>
                 <div className="thishome">
-					<table id="table" className="container table table-striped sampleTable table-responsive">
+					{/* <table id="table" className="customers-list"> */}
+					<table className="customers-list">
 					<thead>
 						<tr>
 							<th>No</th>

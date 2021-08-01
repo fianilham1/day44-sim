@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {RegisterPage, ListPenerimaanPage} from "../../page";
+import {RegisterPage, ListPenerimaanPage, DetailProfile} from "../../page";
 import ListSKS from '../../page/list-sks-page';
 
 class Body extends Component {
@@ -9,12 +9,25 @@ class Body extends Component {
         this.state = {
             users: [],
             userEdit: {},
+            mhsProfileDetail: {
+                nama:"fian",
+                nim:"112021",
+                ttl:"2020-03-13",
+                gender:"Male",
+                mobile:"999",
+                email:"ff@gmail.com",
+                alamat:"Jkt",
+                tahun:"Semester Ganjil 2020/2021",
+                jurusan:"IT",
+                strata:"S1",
+                foto:"foto_fian.jpg"
+            },
             listPenerimaan:[]
         }
     }
 
     addNewListPenerimaanHandler = newMahasiswa => {
-        const {goToPage} = this.props
+        // const {goToPage} = this.props
         const listPenerimaan = this.state.listPenerimaan
         listPenerimaan.push(newMahasiswa)
         this.setState({
@@ -22,8 +35,18 @@ class Body extends Component {
         },console.log("listpenerimaan",this.state.listPenerimaan))
     }
 
+    saveProfileHandler = newMahasiswa => {
+        const oldMhs = this.state.listPenerimaan
+        const nimMhs = oldMhs.map(mhs => mhs.nim).indexOf(newMahasiswa.nim)
+        // console.log(idxUser);
+        oldMhs.splice(nimMhs, 1, newMahasiswa)
+        this.setState({
+            listPenerimaan: oldMhs
+        })
+    }
+
     renderPage = () => {
-        const { currentPage } = this.props
+        const { currentPage, goToPage } = this.props
         const { userEdit } = this.state
 
         if (currentPage === "form")
@@ -32,7 +55,8 @@ class Body extends Component {
         if (currentPage === "penerimaan")
             return <ListPenerimaanPage listPenerimaan={this.state.listPenerimaan} />
 
-        
+        if (currentPage === "detail-profile")
+            return <DetailProfile mhsProfileDetail={this.state.mhsProfileDetail} goToPage={goToPage} saveProfile={this.saveProfileHandler}/>
 
         if (currentPage === "sks")
             return <ListSKS />

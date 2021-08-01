@@ -9,14 +9,14 @@ class Input extends Component {
 
     renderOption = dataArr => {
         return dataArr.map((data, index) => {
-            if (index===0) return <option value=''>{data}</option>
+            if (index===0) return <option key={index} value=''>{data}</option>
 
-            return <option value={data}>{data}</option>
+            return <option key={index} value={data}>{data}</option>
         })
     }
 
     renderInput = () => {
-        const {name, dataArr, focus, blur, typeTx, handleChange} = this.props
+        const {name, dataArr, focus, blur, typeTx, handleChange, accept, submitStatus, state} = this.props
        if(typeTx==="select") return ( 
         <div>
             <h5>{name}</h5>
@@ -27,16 +27,23 @@ class Input extends Component {
        )
 
        if(typeTx==="radio") return (
-        <div>
+        <div >
             <h5>{name}</h5>
             <input className="radioInput" type={typeTx} value="Male" name={name.toLowerCase()} onChange={handleChange} required/> Male 
-            <input className="radioInput" type={typeTx} value="Male" name={name.toLowerCase()} onChange={handleChange} /> Female 
+            <input  className="radioInput" type={typeTx} value="Male" name={name.toLowerCase()} onChange={handleChange} /> Female 
         </div>
        )
 
+       if(typeTx==="file") return (
+        <div>
+            <h5>{name}</h5>
+            <input id={`isFocus${name}`} className="fileInput" type={typeTx} onFocus={focus} onBlur={blur} name={name.toLowerCase()} onChange={handleChange} accept={accept} value={submitStatus ? '' : state[`${name.toLowerCase()}`]}required/>
+        </div>
+        )
+
     return (<div>
                 <h5>{name}</h5>
-                <input id={`isFocus${name}`} className="input" type={typeTx} onFocus={focus} onBlur={blur} name={name.toLowerCase()} onChange={handleChange} required/>
+                <input id={`isFocus${name}`} className="input" type={typeTx} onFocus={focus} onBlur={blur} name={name.toLowerCase()} onChange={handleChange} value={submitStatus ? '' : state[`${name.toLowerCase()}`]} required/>
             </div>)
     }
 

@@ -28,6 +28,11 @@
     margin-left: -150px;
   }
 
+  .fileInput{
+    margin-top: 14px;
+    margin-left: -62px;
+  }
+
   .bgform.login{
     height: 500px;
   }

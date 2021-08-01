@@ -31,6 +31,7 @@ class RegisterPage extends Component {
             isFocusStrata:true,
             isFocusTahun:true,
             isFocusMobile:false,
+            isFocusFoto:true,
             nama:'',
             ttl:'',
             gender:'',
@@ -39,8 +40,10 @@ class RegisterPage extends Component {
             jurusan:'',
             tahun:'',
             strata:'',
-            mobile:''   
+            mobile:'',
+            foto:''   
         }
+        this.baseState = this.state
     }
 
     setValue = e => this.setState({ 
@@ -62,8 +65,12 @@ class RegisterPage extends Component {
         }       
     }
 
+    resetForm = () =>  this.setState(this.baseState)
+
     onSubmitHandler =  e => {
         e.preventDefault();
+
+        const myArr = this.state.foto.split("\\");
 
         let mahasiswaInputNew = {
             nama:this.state.nama,
@@ -75,15 +82,17 @@ class RegisterPage extends Component {
             tahun:this.state.tahun,
             strata:this.state.strata,
             mobile:this.state.mobile,
+            foto:myArr[myArr.length-1]
         }
 
+        
         this.setState({
             submitStatus:true
-        })
+        },this.resetForm)
 
         const stateArr = Object.keys(this.state)
         let emptyField = 0
-        const state = stateArr.map((key,index)=> {
+        stateArr.map((key,index)=> {
             if(this.state[key]==='') {
                 emptyField++
             } 
@@ -119,6 +128,7 @@ class RegisterPage extends Component {
                     <div className="input-name">Jurusan</div>
                     <div className="input-name">Tahun Akademik</div>
                     <div className="input-name">Strata</div>
+                    <div className="input-name">Foto Resmi</div>
                     
                  </div>
                 <div className="formInput">
@@ -130,7 +140,8 @@ class RegisterPage extends Component {
                     blur={this.blurHandler} 
                     icon={person} 
                     typeTx="text" 
-                    handleChange={this.setValue}/>
+                    handleChange={this.setValue}
+                    submitStatus={this.state.submitStatus}/>
 
                 <Input 
                     state={this.state} 
@@ -138,7 +149,8 @@ class RegisterPage extends Component {
                     focus={this.focusHandler} 
                     icon={person} 
                     typeTx="date" 
-                    handleChange={this.setValue}/>
+                    handleChange={this.setValue}
+                    submitStatus={this.state.submitStatus}/>
                 
                 <Input 
                     state={this.state} 
@@ -147,7 +159,8 @@ class RegisterPage extends Component {
                     blur={this.blurHandler} 
                     icon={genders} 
                     typeTx="radio"
-                    handleChange={this.setValue}/>
+                    handleChange={this.setValue}
+                    submitStatus={this.state.submitStatus}/>
 
                 <Input 
                     state={this.state} 
@@ -156,7 +169,8 @@ class RegisterPage extends Component {
                     blur={this.blurHandler} 
                     icon={envelope} 
                     typeTx="text" 
-                    handleChange={this.setValue}/> 
+                    handleChange={this.setValue}
+                    submitStatus={this.state.submitStatus}/> 
 
             <Input 
                 state={this.state} 
@@ -165,7 +179,8 @@ class RegisterPage extends Component {
                 blur={this.blurHandler} 
                 icon={phone} 
                 typeTx="text" 
-                handleChange={this.setValue}/>
+                handleChange={this.setValue}
+                submitStatus={this.state.submitStatus}/>
 
             <Input 
                 state={this.state} 
@@ -174,7 +189,8 @@ class RegisterPage extends Component {
                 blur={this.blurHandler} 
                 icon={map} 
                 typeTx="text" 
-                handleChange={this.setValue}/>
+                handleChange={this.setValue}
+                submitStatus={this.state.submitStatus}/>
 
             <Input 
                 state={this.state} 
@@ -184,7 +200,8 @@ class RegisterPage extends Component {
                 icon={book} 
                 typeTx="select" 
                 dataArr = {["Select..","IT","Peternakan","Kedokteran"]}
-                handleChange={this.setValue}/>
+                handleChange={this.setValue}
+                submitStatus={this.state.submitStatus}/>
 
             <Input 
                 state={this.state} 
@@ -194,7 +211,8 @@ class RegisterPage extends Component {
                 icon={check} 
                 typeTx="select"  
                 dataArr = {["Select..","Semester Genap 2020/2021","Semester Ganjil 2020/2021"]}
-                handleChange={this.setValue}/>
+                handleChange={this.setValue}
+                submitStatus={this.state.submitStatus}/>
 
             <Input 
                 state={this.state} 
@@ -204,11 +222,24 @@ class RegisterPage extends Component {
                 icon={graduate} 
                 typeTx="select" 
                 dataArr = {["Select..","S1","S2","S3"]} 
-                handleChange={this.setValue}/>  
+                handleChange={this.setValue}
+                submitStatus={this.state.submitStatus}/>  
+
+            <Input 
+                state={this.state} 
+                name="Foto" 
+                focus={this.focusHandler} 
+                icon={person} 
+                typeTx="file" 
+                handleChange={this.setValue}
+                accept="image/*"
+                submitStatus={this.state.submitStatus}/>  
         </div>
-            
+
+        {/* accept="image/*" */}
+     
             </form>
-            <Dialog onClick={this.onSubmitHandler} /> 
+            <Dialog onClick={this.onSubmitHandler} />        
             {/* <button className="button" onClick={this.onSubmitHandler} >Submit</button> */}
              {/* <table className="bgForm" width="700" border="0" align="center" cellPadding="0" cellSpacing="5">
                 <thead>
