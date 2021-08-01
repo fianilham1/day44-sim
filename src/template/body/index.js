@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import {ListMahasiswa, RegisterPage} from "../../page";
 import FormSubmitNilaiPage from "../../page/form-submit-nilai-page";
+=======
+import {RegisterPage, ListPenerimaanPage} from "../../page";
+>>>>>>> 0881797be63094044e02bd190c0ce51f68e2740c
 
 
 class Body extends Component {
@@ -8,6 +12,7 @@ class Body extends Component {
         super(props);
         this.state = {
             users: [],
+<<<<<<< HEAD
             mhsEdit: {}
         }
     }
@@ -16,6 +21,20 @@ class Body extends Component {
         this.setState({
             mhsEdit: mhs
         })
+=======
+            userEdit: {},
+            listPenerimaan:[]
+        }
+    }
+
+    addNewListPenerimaanHandler = newMahasiswa => {
+        const {goToPage} = this.props
+        const listPenerimaan = this.state.listPenerimaan
+        listPenerimaan.push(newMahasiswa)
+        this.setState({
+            listPenerimaan
+        },console.log("listpenerimaan",this.state.listPenerimaan))
+>>>>>>> 0881797be63094044e02bd190c0ce51f68e2740c
     }
 
     renderPage = () => {
@@ -23,7 +42,12 @@ class Body extends Component {
         const { users, userEdit } = this.state
 
         if (currentPage === "form")
-            return <RegisterPage selectedUser={userEdit} resetUserEdit={this.clearUserEdit} saveUser={this.updateUsers} />
+            return <RegisterPage addNewListPenerimaan={this.addNewListPenerimaanHandler} selectedUser={userEdit} resetUserEdit={this.clearUserEdit} saveUser={this.updateUsers} />
+
+        if (currentPage === "penerimaan")
+            return <ListPenerimaanPage listPenerimaan={this.state.listPenerimaan} />
+
+        
 
         // if (currentPage === "login")
         //     return <Login />

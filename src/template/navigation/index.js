@@ -28,8 +28,13 @@ class Nav extends Component {
                         className={`menu-item ${currentPage === "login" ? "active" : ""}`}>Login
                     </div>
                     <div
+<<<<<<< HEAD
                         onClick={() => goToPage("list-mahasiswa")}
                         className={`menu-item ${currentPage === "list-mahasiswa" ? "active" : ""}`}>List Penilaian Mahasiswa
+=======
+                        onClick={() => goToPage("penerimaan")}
+                        className={`menu-item ${currentPage === "penerimaan" ? "active" : ""}`}>List Penerimaan
+>>>>>>> 0881797be63094044e02bd190c0ce51f68e2740c
                     </div>
                 </div>
             </div>
