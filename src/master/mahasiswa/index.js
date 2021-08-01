@@ -5,9 +5,7 @@ class Mahasiswa extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            editMahasiswa:{
-
-            },
+            editMahasiswa: {},
             mahasiswas: [
                 {
                     id: 1,
@@ -16,10 +14,31 @@ class Mahasiswa extends Component {
                     jurusan: "IT",
                     strata: "S1",
                     semester: 4,
-                    mataKuliah: "Basic PHP",
-                    nilai: "",
                     ipk: 3.15,
-                    namaDosen: "Abidin"
+                    krs: [
+                        {
+                            mataKuliah: "Basic PHP",
+                            nilai: 0,
+                            nilaiHuruf: "",
+                            jumlahSks: 20,
+                            namaDosen: "Abidin"
+                        },
+                        {
+                            mataKuliah: "Basic Java",
+                            nilai: 0,
+                            nilaiHuruf: "",
+                            jumlahSks: 20,
+                            namaDosen: "Abidin"
+                        },
+                        {
+                            mataKuliah: "Basic Phyton",
+                            nilai: 0,
+                            nilaiHuruf: "",
+                            jumlahSks: 20,
+                            namaDosen: "Abidin"
+                        }
+                    ]
+
                 },
                 {
                     id: 2,
@@ -28,10 +47,30 @@ class Mahasiswa extends Component {
                     jurusan: "PETERNAKAN",
                     strata: "S1",
                     semester: 4,
-                    mataKuliah: "Ilmu Nutrisi Ternak Dasar",
-                    nilai: "",
                     ipk: 3.05,
-                    namaDosen: "Burhan"
+                    krs: [
+                        {
+                            mataKuliah: "Ilmu Nutrisi Ternak Dasar",
+                            nilai: 0,
+                            nilaiHuruf: "",
+                            jumlahSks: 19,
+                            namaDosen: "Burhan"
+                        },
+                        {
+                            mataKuliah: "Ilmu Nutrisi Ternak Dasar",
+                            nilai: 0,
+                            nilaiHuruf: "",
+                            jumlahSks: 19,
+                            namaDosen: "Burhan"
+                        },
+                        {
+                            mataKuliah: "Ilmu Nutrisi Ternak Dasar",
+                            nilai: 0,
+                            nilaiHuruf: "",
+                            jumlahSks: 19,
+                            namaDosen: "Burhan"
+                        }
+                    ]
                 },
                 {
                     id: 3,
@@ -40,30 +79,61 @@ class Mahasiswa extends Component {
                     jurusan: "KEDOKTERAN",
                     strata: "S1",
                     semester: 4,
-                    mataKuliah: "Ilmu Bedah",
-                    nilai: "",
                     ipk: 3.35,
-                    namaDosen: "Edi"
+                    krs: [
+                        {
+                            mataKuliah: "Ilmu Bedah",
+                            nilai: 0,
+                            nilaiHuruf: "",
+                            jumlahSks: 18,
+                            namaDosen: "Edi"
+                        },
+                        {
+                            mataKuliah: "Ilmu Bedah",
+                            nilai: 0,
+                            nilaiHuruf: "",
+                            jumlahSks: 18,
+                            namaDosen: "Edi"
+                        },
+                        {
+                            mataKuliah: "Ilmu Bedah",
+                            nilai: 0,
+                            nilaiHuruf: "",
+                            jumlahSks: 18,
+                            namaDosen: "Edi"
+                        }
+                    ]
                 }
             ]
         };
     }
 
-    handleSubmitNilai=id=>{
-        const oldMahasiswas = this.state.mahasiswas
-        const idxUser = oldMahasiswas.map(user => user.id).indexOf(id)
+    componentDidMount() {
+        const {updateNilaiMhs, gtp} = this.props
+        console.log("cekcek", updateNilaiMhs)
+        const dataArr = Object.keys(updateNilaiMhs)
+        console.log("data arr", dataArr)
+        if (dataArr.length!==0) {
+            let mahasiswaNew = updateNilaiMhs
 
-        this.props.dataEditMhs(oldMahasiswas[idxUser])
+            let oldMahasiswas = this.state.mahasiswas
+            const idxUser = oldMahasiswas.map(user => user.id).indexOf(mahasiswaNew.id)
+            console.log(idxUser);
+            oldMahasiswas.splice(idxUser, 1, mahasiswaNew)
 
-        this.setState({
-            editMahasiswa: oldMahasiswas[idxUser]
-        })
+            this.setState({
+                mahasiswas: oldMahasiswas
+            })
+        } else {
+
+        }
     }
 
-    handleUpdateSubmitNilai=e=>{
+
+    handleUpdateSubmitNilai = e => {
         e.preventDefault()
 
-        let mahasiswaNew={
+        let mahasiswaNew = {
             id: e.target.id.value,
             nama: e.target.nama.value,
             nim: e.target.nim.value,
@@ -84,10 +154,36 @@ class Mahasiswa extends Component {
         }, () => this.props.gtp("list-mahasiswa"))
     }
 
+    findMhsById = idToSearch => {
+        return this.state.mahasiswas.filter(item => {
+            return item.id == idToSearch
+        })
+    }
+
+    handleDetail = idMhsDetail => {
+        const {setDetailMhs} = this.props
+        const id = idMhsDetail
+        const mhsFound = this.findMhsById(id)
+        console.log("mhs", mhsFound[0])
+        setDetailMhs(mhsFound[0])
+    }
+
+    handleSubmitNilai = id => {
+        const {dataEditMhs} = this.props
+        const mhsFound = this.findMhsById(id)
+        console.log("mhs edit", mhsFound[0])
+        dataEditMhs(mhsFound[0])
+    }
+
     render() {
-        const {gtp}=this.props
+        const {gtp} = this.props
         return (
-            <TableMahasiswa handleSubmitNilai={this.handleSubmitNilai} gtp={gtp} dataMahasiswa={this.state.mahasiswas}/>
+            <TableMahasiswa
+                handleDetail={this.handleDetail}
+                handleSubmitNilai={this.handleSubmitNilai}
+                gtp={gtp}
+                dataMahasiswa={this.state.mahasiswas}
+            />
         );
     }
 }
