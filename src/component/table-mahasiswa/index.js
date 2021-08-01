@@ -44,7 +44,7 @@ class TableMahasiswa extends Component {
                             onClick={this.handleDetail}
                         >Detail KRS
                         </button>
-                        <button style={{borderRadius: 10, width: 100, height: 30,cursor: "pointer", marginRight: -150}} id={data.id}
+                        <button style={{borderRadius: 10, width: 100, height: 30,cursor: "pointer", marginRight: 0}} id={data.id}
                                 onClick={this.handleDetail}
                         >Detail Profile
                         </button>

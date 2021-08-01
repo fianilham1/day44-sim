@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ListMahasiswa, RegisterPage, ListPenerimaanPage, DetailProfile} from "../../page";
+import {ListMahasiswa, RegisterPage, DetailProfile, ListPenerimaanPage} from "../../page";
 import FormSubmitNilaiPage from "../../page/form-submit-nilai-page";
 import DetailMahasiswaPage from "../../page/detail-mahasiswa-page";
 import ListSKS from '../../page/list-sks-page';
@@ -48,7 +48,7 @@ class Body extends Component {
         listPenerimaan.push(newMahasiswa)
         this.setState({
             listPenerimaan
-        }, console.log("listpenerimaan", this.state.listPenerimaan))
+        })
 
         mhsEdit: {
         }
