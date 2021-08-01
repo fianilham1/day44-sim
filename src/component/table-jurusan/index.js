@@ -199,7 +199,7 @@ class TabelJurusan extends Component {
             </button>
             <hr></hr>
           </div>
-          <table id="table" className="customers-list" width="80%">
+          <table  className="customers-list" width="80%">
             <thead>
               <tr>
                 <th>No</th>

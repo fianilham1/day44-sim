@@ -339,7 +339,7 @@ class TabelDosen extends Component {
             <hr></hr>
           </div>
           <div className="thishome">
-            <table className="customers-list" width="80%" id="table">
+            <table className="customers-list" width="80%" >
               <thead>
                 <tr>
                   <th>No</th>

@@ -1,67 +1,3 @@
-button {
-  margin: 10px;
-  cursor: pointer;
-}
-.btn-delt:hover {
-  box-shadow: 0 0 10px 10px #ff0000;
-  cursor: pointer;
-}
-button:hover {
-  box-shadow: 0 0 10px 10px #ffffff;
-  cursor: pointer;
-}
-h2 {
-  text-align: center;
-  font-size: 2em;
-}
-.cancel {
-  color: white;
-
-  background-color: #a30000;
-  display: inline-block;
-  padding: 5px 15px;
-  border: 1px solid grey;
-  border-radius: 4px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-.cancel:hover {
-  color: white;
-
-  background-color: #a30000;
-  box-shadow: 0 0 10px 10px #fa0000;
-}
-
-.save {
-  color: white;
-  background-color: #0033ff;
-  display: inline-block;
-  padding: 5px 15px;
-  border: 1px solid grey;
-  border-radius: 4px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-.save:hover {
-  color: white;
-
-  background-color: #006cfaa6;
-  box-shadow: 0 0 10px 10px #0c00fa;
-}
-.add-data {
-  background-color: #00a305;
-  display: inline-block;
-  padding: 5px 15px;
-  border: 1px solid grey;
-  border-radius: 4px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-.add-data:hover {
-  background-color: #00a305;
-  box-shadow: 0 0 10px 10px #00fa08;
-}
 @import "https://fonts.googleapis.com/css?family=Montserrat:300,400,700";
 
 .customers-list {
@@ -98,8 +34,7 @@ h2 {
 }
 .customers-list th,
 .customers-list td {
-  border-bottom: solid 10px rgba(255, 255, 255, 0.515);
-  text-align: center;
+  text-align: left;
 }
 @media (min-width: 480px) {
   .customers-list th,

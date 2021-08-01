@@ -15,9 +15,13 @@ class Nav extends Component {
                 </div>
                 <div className="menu">
                     <div
-                        onClick={() => goToPage("list")}
-                        className={`menu-item ${currentPage === "list" ? "active" : ""}`}>List
+                        onClick={() => goToPage("login")}
+                        className={`menu-item ${currentPage === "login" ? "active" : ""}`}>Login
                     </div>
+                    {/*<div*/}
+                    {/*    onClick={() => goToPage("list")}*/}
+                    {/*    className={`menu-item ${currentPage === "list" ? "active" : ""}`}>List*/}
+                    {/*</div>*/}
                     <div
                         onClick={() => goToPage("sks")}
                         className={`menu-item ${currentPage === "sks" ? "active" : ""}`}>SKS
@@ -26,10 +30,7 @@ class Nav extends Component {
                         onClick={() => goToPage("form")}
                         className={`menu-item ${currentPage === "form" ? "active" : ""}`}>Form
                     </div>
-                    <div
-                        onClick={() => goToPage("login")}
-                        className={`menu-item ${currentPage === "login" ? "active" : ""}`}>Login
-                    </div>
+
                     
                     <div
                       onClick={() => goToPage("list-dosen")}

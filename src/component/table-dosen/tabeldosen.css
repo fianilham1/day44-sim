@@ -1,36 +1,6 @@
-button {
-  cursor: pointer;
-}
-button:hover {
-  box-shadow: 0 0 10px 10px #ffffff;
-  cursor: pointer;
-}
-
-li {
-  text-align: left;
-}
-
-.add-data {
-  color: white;
-
-  background-color: #00a305;
-  display: inline-block;
-  padding: 15px 25px;
-  border: 1px solid grey;
-  border-radius: 4px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-.add-data:hover {
-  background-color: #00a305;
-  box-shadow: 0 0 10px 10px #00fa08;
-}
-
 @import "https://fonts.googleapis.com/css?family=Montserrat:300,400,700";
 
 .customers-list {
-  box-shadow: 0 0 10px 10px #3f3f3f;
   margin: 1em 0;
   min-width: 300px;
   margin-left: 150px;
@@ -99,9 +69,7 @@ h1 {
   margin-left: 200px;
   margin-bottom: 20px;
 }
-h2 {
-  text-align: center;
-}
+
 .customers-list {
   background: #34495e;
   color: #fff;
@@ -113,7 +81,6 @@ h2 {
 }
 .customers-list th,
 .customers-list td {
-  text-align: center;
   margin: 0.5em 1em;
 }
 @media (min-width: 480px) {
