@@ -1,57 +1,58 @@
 import React, { Component } from "react";
+// import "./tabeldosen.css";
 import { TabelDosen } from "../../component";
 
-class dosen extends Component {
+class Dosen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dosen: [
+      ListDosen: [
         {
           id: 1,
-          nama: "Abidin",
-          NID: "12312322",
+          nama: "Abidin Salamah",
+          NID: "12.31232.2123",
           jurusan: "IT",
-          mataKuliah: "Biologi Seluler",
+          matkul1: "Basic Java",
+          matkul2: "Basic PHP",
+          matkul3: "Basis Data",
         },
         {
           id: 2,
-          nama: "Burhan",
-          NID: "46323987987",
+          nama: "Burhan Udin",
+          NID: "46.32398.7987",
           jurusan: "Peternakan",
-          mataKuliah: "Genetika",
+          matkul1: "Ilmu Nutrisi Ternak Dasar",
+          matkul2: "Ilmu Ternak Potong",
+          matkul3: "Anatomi Ternak",
         },
         {
           id: 3,
-          nama: "Edi",
-          NID: "23242345233",
+          nama: "Edi Sujoko",
+          NID: "23.24234.5233",
           jurusan: "Kedokteran",
-          mataKuliah: "Ilmu Bedah",
+          matkul1: "Biologi Seluler",
+          matkul2: "Genetika",
+          matkul3: "Ilmu Bedah",
         },
       ],
-      deleteDosen: {},
     };
   }
 
-  handlerDelete = (index) => {
-    // const newDosen = this.state.dosen.filter(
-    //   (element) => element.id !== index.id
-    // );
-    // this.setState({ dosen: newDosen });
-    const dltData = [...this.state.dosen];
-    dltData.splice(index, 1);
-    this.setState((state) => ({
-      dosen: dltData,
-    }));
+  editlist = (newData) => {
+    this.setState({
+      ListDosen: newData,
+    });
+  };
+
+  renderedMaster = () => {
+    return (
+      <TabelDosen ListDosen={this.state.ListDosen} editlist={this.editlist} />
+    );
   };
 
   render() {
-    return (
-      <TabelDosen
-        dosenData={this.state.dosen}
-        deleteDosen={this.handlerDelete}
-      />
-    );
+    return <>{this.renderedMaster()}</>;
   }
 }
 
-export default dosen;
+export default Dosen;

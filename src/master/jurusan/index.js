@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { TabelJurusan } from "../../component";
 
-class jurusan extends Component {
+class MasterSKS extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      jurusan: [
+      ListJurusan: [
         {
           id: 1,
           jurusan: "IT",
@@ -21,9 +21,25 @@ class jurusan extends Component {
       ],
     };
   }
+
+  editListJurusan = (newDataJurusan) => {
+    this.setState({
+      ListJurusan: newDataJurusan,
+    });
+  };
+
+  renderedMaster = () => {
+    return (
+      <TabelJurusan
+        ListJurusan={this.state.ListJurusan}
+        editListJurusan={this.editListJurusan}
+      />
+    );
+  };
+
   render() {
-    return <TabelJurusan dataJurusan={this.state.jurusan} />;
+    return <>{this.renderedMaster()}</>;
   }
 }
 
-export default jurusan;
+export default MasterSKS;
