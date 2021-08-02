@@ -30,17 +30,27 @@ class DetailMahasiswaPage extends Component{
 
     }
 
+    hitungIps=()=>{
+        const {dataDetailMhs}=this.props
+        //jumlah nilai dibagi 3 x 4 dibagi 100
+        let ipsTotal = dataDetailMhs.krs[0].nilai+dataDetailMhs.krs[1].nilai+dataDetailMhs.krs[2].nilai
+        console.log("ips total", ipsTotal)
+        return ipsTotal
+    }
+
     render() {
         const {dataDetailMhs}=this.props
         return(
             <>
-                <h1 style={{marginLeft: 150}}>Detail Mahasiswa</h1>
-                <button style={{marginLeft: 150, cursor: "pointer"}} onClick={this.buttonBack}>back</button>
-                <h3 style={{marginLeft: 150}}>Nama : {dataDetailMhs.nama}</h3>
-                <h3 style={{marginLeft: 150}}>NIM : {dataDetailMhs.nim}</h3>
-                <h3 style={{marginLeft: 150}}>Jurusan : {dataDetailMhs.jurusan}</h3>
-                <h3 style={{marginLeft: 150}}>Jumlah SKS : {dataDetailMhs.krs[0].jumlahSks+dataDetailMhs.krs[1].jumlahSks+dataDetailMhs.krs[2].jumlahSks}</h3>
-                <h3 style={{marginLeft: 150}}>IPS : {dataDetailMhs.krs[0].nilai}</h3>
+                <h1 style={{marginLeft: 100}}>Detail Mahasiswa</h1>
+                <button style={{marginLeft: 100, cursor: "pointer"}} onClick={this.buttonBack}>back</button>
+                <h3 style={{marginLeft: 100}}>Nama : {dataDetailMhs.nama}</h3>
+                <h3 style={{marginLeft: 100}}>NIM : {dataDetailMhs.nim}</h3>
+                <h3 style={{marginLeft: 100}}>Jurusan : {dataDetailMhs.jurusan}</h3>
+                <h3 style={{marginLeft: 100}}>Jumlah SKS : {dataDetailMhs.krs[0].jumlahSks+dataDetailMhs.krs[1].jumlahSks+dataDetailMhs.krs[2].jumlahSks}</h3>
+                <h3 style={{marginLeft: 100}}>IPS : {
+                    parseFloat((dataDetailMhs.krs[0].nilai+dataDetailMhs.krs[1].nilai+dataDetailMhs.krs[2].nilai)/3*(4/100)).toFixed(2)
+                }</h3>
                 <table className="customers-list" width="80%">
                     <thead>
                         <th>Mata Kuliah</th>

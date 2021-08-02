@@ -190,12 +190,12 @@ class TabelSks extends Component {
             <>
                 <div className="main">
                     <div>
-						<button className="btn-add" onClick={() => this.addHandler()}>Add New</button>
+						<button style={{marginLeft: 100}} className="btn-add" onClick={() => this.addHandler()}>Add New</button>
                         <hr></hr>
                     </div>
                 <div className="thishome">
 					{/* <table id="table" className="customers-list"> */}
-					<table className="customers-list">
+					<table className="customers-list" width="80%">
 					<thead>
 						<tr>
 							<th>No</th>

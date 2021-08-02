@@ -10,8 +10,8 @@ class Nav extends Component {
         const {currentPage, goToPage} = this.props
         return (
             <div className="nav-container">
-                <div className="logo">
-                    Ini Logo
+                <div className="logo" >
+                    <img style={{width: 50, marginLeft: 10}} src="https://www.pngfind.com/pngs/m/595-5951984_broken-shield-icon-png-transparent-png.png" alt=""/>
                 </div>
                 <div className="menu">
                     <div

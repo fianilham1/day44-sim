@@ -63,6 +63,8 @@ class TableMahasiswa extends Component {
                 {/*<div style={{marginLeft: 150}}>*/}
                 {/*    <button style={{cursor: "pointer"}}>Add Nilai Mahasiswa</button>*/}
                 {/*</div>*/}
+                <h2 style={{marginLeft: 100}}>List Data Nilai Mahasiswa</h2>
+
                 <table className="customers-list" width="80%">
                     <thead>
                     <th>No</th>

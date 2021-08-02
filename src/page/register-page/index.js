@@ -115,7 +115,7 @@ class RegisterPage extends Component {
         // console.log("NEWuser",this.state.date)
         return (
             <div className="bg">
-             <h1 className="titleRegister" align="center">UNIVERSITY OF WIBU</h1>
+             <h1 className="titleRegister1" align="center">UNIVERSITY OF WIBU</h1>
              <h2 className="titleRegister" align="center">Form Registratis Mahasiswa</h2>
              <form className="bgform">
                  <div className="formName">
