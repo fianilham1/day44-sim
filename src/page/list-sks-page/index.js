@@ -8,9 +8,10 @@ class ListSKS extends Component {
         this.state = {  }
     }
     render() { 
+        const { editlist, listSks } =this.props
         return ( 
             <>
-            <MasterSKS />
+            <MasterSKS editlist={editlist} listSks={listSks}/>
             </>
          );
     }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Table} from '../../component';
+import "./penerimaan.css"
 
 class Penerimaan extends Component {
     constructor(props) {
@@ -22,7 +23,7 @@ class Penerimaan extends Component {
         const list = listPenerimaan.map((data,index)=> {
             return{
                 nama:data.nama,
-                nim:`${index+1}${index+1}2021`,
+                nim:data.nim,
                 jurusan:data.jurusan,
                 strata:data.strata,
                 tahun:data.tahun
@@ -33,16 +34,17 @@ class Penerimaan extends Component {
             }
         })
         console.log("list fix",list)
-
+       
         return ( 
-            <>
-            <Table 
-                className="customers-list"
-                dataList={list} 
-                headerName={["No","Nama","NIM","Jurusan","Strata","Tahun Masuk Akademik"]}
-                //NOTE : dataList.length must be headerName.length-1 (for cell number)
-            />
-            </>
+            <div className="penerimaan-container">
+                <Table 
+                    className="customers-list"
+                    dataList={list} 
+                    headerName={["No","Nama","NIM","Jurusan","Strata","Tahun Masuk Akademik"]}
+                    //NOTE : dataList.length must be headerName.length-1 (for cell number)
+                />
+                <button className="backButtonToForm" onClick={() => this.props.goToPage("form")}> Back to Form </button>
+            </div>
          );
     }
 }

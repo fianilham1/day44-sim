@@ -11,8 +11,7 @@ import Table from "./table";
 import Dialog from "./dialog";
 import TabelSks from "./tabel-sks";
 
-export {TableMahasiswa, Form, FormInput, FormButton, FormHeader, Input }
-export {Table, Dialog, TabelSks}
-export { TabelJurusan, TabelDosen };
+export {TableMahasiswa, Form, FormInput, FormButton, FormHeader, Input, Table, Dialog, TabelSks,  TabelJurusan, TabelDosen  }
+
 
 

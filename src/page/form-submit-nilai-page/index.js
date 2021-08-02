@@ -4,7 +4,8 @@ import {Form, FormHeader} from "../../component";
 class FormSubmitNilaiPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+        };
     }
 
     updateNilai = (e) => {
@@ -14,9 +15,9 @@ class FormSubmitNilaiPage extends Component {
         let nilaiHuruf1 = e.target.nilaiHuruf[0].value
         let nilaiHuruf2 = e.target.nilaiHuruf[1].value
         let nilaiHuruf3 = e.target.nilaiHuruf[2].value
-        console.log(e.target.nilaiHuruf[0].value)
-        console.log(e.target.nilaiHuruf[1].value)
-        console.log(e.target.nilaiHuruf[2].value)
+        // console.log(e.target.nilaiHuruf[0].value)
+        // console.log(e.target.nilaiHuruf[1].value)
+        // console.log(e.target.nilaiHuruf[2].value)
         const dataKrs = dataEditMhs.krs
 
 
@@ -119,14 +120,14 @@ class FormSubmitNilaiPage extends Component {
                 <h3 style={{marginLeft: 100}}>IPS : </h3>
                 <table className="customers-list">
                     <thead>
-                    <th>Mata Kuliah</th>
-                    <th>Jumlah SKS</th>
-                    <th>Nilai</th>
-                    <th>Nilai</th>
-                    <th>Nama Dosen</th>
+                        <th>Mata Kuliah</th>
+                        <th>Jumlah SKS</th>
+                        <th>Nilai</th>
+                        <th>Nilai</th>
+                        <th>Nama Dosen</th>
                     </thead>
                     <tbody>
-                    {this.renderPageSubmit()}
+                        {this.renderPageSubmit()}
                     </tbody>
                 </table>
             </form>

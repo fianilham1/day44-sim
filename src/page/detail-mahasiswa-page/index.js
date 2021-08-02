@@ -30,27 +30,77 @@ class DetailMahasiswaPage extends Component{
 
     }
 
-    hitungIps=()=>{
+
+    getJumlahSks = () => {
         const {dataDetailMhs}=this.props
-        //jumlah nilai dibagi 3 x 4 dibagi 100
-        let ipsTotal = dataDetailMhs.krs[0].nilai+dataDetailMhs.krs[1].nilai+dataDetailMhs.krs[2].nilai
-        console.log("ips total", ipsTotal)
-        return ipsTotal
+        let jumlahSks = 0
+        if(dataDetailMhs.krs.length!==0){
+            dataDetailMhs.krs.map((mk,index)=>{
+                jumlahSks += mk.jumlahSks
+            })
+            return jumlahSks
+        }
+        return 0
+    }
+
+    getNilaiIPS = () => {
+        const {dataDetailMhs}=this.props
+        let totalPoin = 0
+        let jumlahSks = 0
+        if(dataDetailMhs.krs.length!==0){
+            dataDetailMhs.krs.map((mk,index)=>{
+                totalPoin += mk.jumlahSks*this.getPoin(mk.nilaiHuruf)
+                jumlahSks += mk.jumlahSks
+               
+            })
+         
+            return (totalPoin/jumlahSks)
+        }
+
+        return 0.00
+    }
+
+    getNilaiIPK = () => {
+        const {dataDetailMhs}=this.props
+        let ipkSekarang = dataDetailMhs.ipk
+
+        if(ipkSekarang!==0.00 && this.getNilaiIPS()!==0.00){
+            return (ipkSekarang+this.getNilaiIPS())/2
+        }
+
+        return ipkSekarang
+    }
+
+    getPoin = huruf => {
+        if(huruf === "A"){
+            return 4
+        }else if (huruf === "B"){
+            return 3
+        } else if (huruf === "C"){
+            return 2
+        } else if (huruf === "D"){
+            return 1
+        }else if (huruf === "E"){
+            return 0
+        } else {
+            return 0
+        }
     }
 
     render() {
         const {dataDetailMhs}=this.props
         return(
             <>
+
                 <h1 style={{marginLeft: 100}}>Detail Mahasiswa</h1>
                 <button style={{marginLeft: 100, cursor: "pointer"}} onClick={this.buttonBack}>back</button>
                 <h3 style={{marginLeft: 100}}>Nama : {dataDetailMhs.nama}</h3>
                 <h3 style={{marginLeft: 100}}>NIM : {dataDetailMhs.nim}</h3>
                 <h3 style={{marginLeft: 100}}>Jurusan : {dataDetailMhs.jurusan}</h3>
-                <h3 style={{marginLeft: 100}}>Jumlah SKS : {dataDetailMhs.krs[0].jumlahSks+dataDetailMhs.krs[1].jumlahSks+dataDetailMhs.krs[2].jumlahSks}</h3>
-                <h3 style={{marginLeft: 100}}>IPS : {
-                    parseFloat((dataDetailMhs.krs[0].nilai+dataDetailMhs.krs[1].nilai+dataDetailMhs.krs[2].nilai)/3*(4/100)).toFixed(2)
-                }</h3>
+                <h3 style={{marginLeft: 100}}>Jumlah SKS : {this.getJumlahSks()}</h3>
+                <h3 style={{marginLeft: 100}}>IPS : {this.getNilaiIPS().toFixed(2)}</h3>
+                <h3 style={{marginLeft: 100}}>IPK : {this.getNilaiIPK()}</h3>
+
                 <table className="customers-list" width="80%">
                     <thead>
                         <th>Mata Kuliah</th>

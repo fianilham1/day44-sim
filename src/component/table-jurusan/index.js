@@ -188,16 +188,12 @@ class TabelJurusan extends Component {
       <>
         <div className="main">
           <div>
-            {/*<hr></hr>*/}
-            {/*<hr></hr>*/}
             <h2 style={{marginLeft: 100}}>List Data Jurusan</h2>
-            {/*<hr></hr>*/}
           </div>
           <div>
             <button style={{marginLeft: 100}} className="add-data" onClick={() => this.addHandler()}>
               Add New
             </button>
-            {/*<hr></hr>*/}
           </div>
           <table  className="customers-list" width="80%">
             <thead>

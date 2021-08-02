@@ -9,24 +9,76 @@ class Body extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            listSks :[ {idsks: 1, matkul:"Basic Java", jmlsks:"4", idjurusan: "IT", dosen:""},
+                       {idsks: 2, matkul:"Basic PHP", jmlsks:"4", idjurusan: "IT", dosen:""},
+                       {idsks: 3, matkul:"Basis Data", jmlsks:"3", idjurusan: "IT", dosen:""},
+                       {idsks: 4, matkul:"Ilmu Nutrisi Ternak Dasar", jmlsks:"4", idjurusan: "PETERNAKAN", dosen:""},
+                       {idsks: 5, matkul:"Anatomi Ternak", jmlsks:"3", idjurusan: "PETERNAKAN", dosen:""},
+                       {idsks: 6, matkul:"Ilmu Ternak Potong", jmlsks:"4", idjurusan: "PETERNAKAN", dosen:""},
+                       {idsks: 7, matkul:"Biologi Seluler", jmlsks:"4", idjurusan: "KEDOKTERAN", dosen:""},
+                       {idsks: 8, matkul:"Genetika", jmlsks:"4", idjurusan: "KEDOKTERAN", dosen:""},
+                       {idsks: 9, matkul:"Ilmu Bedah", jmlsks:"3", idjurusan: "KEDOKTERAN", dosen:""} ],
             users: [],
             mhsEdit: {},
-            listPenerimaan: [],
+            listPenerimaan: [
+                {
+                    nama:"fian",
+                    id:1,
+                    nim:"112021",
+                    ttl:"2020-03-13",
+                    gender:"Male",
+                    mobile:"999",
+                    email:"ff@gmail.com",
+                    alamat:"Jkt",
+                    tahun:"Semester Ganjil 2020/2021",
+                    jurusan:"IT",
+                    strata:"S1",
+                    foto:"foto.jpeg"
+                },
+                {
+                    nama:"john",
+                    id:2,
+                    nim:"222021",
+                    ttl:"2020-05-13",
+                    gender:"Male",
+                    mobile:"119",
+                    email:"john@gmail.com",
+                    alamat:"Sby",
+                    tahun:"Semester Ganjil 2020/2021",
+                    jurusan:"Peternakan",
+                    strata:"S1",
+                    foto:"foto.jpeg"
+                },
+                {
+                    nama:"steve",
+                    id:3,
+                    nim:"332021",
+                    ttl:"2020-11-01",
+                    gender:"Male",
+                    mobile:"555",
+                    email:"ff@gmail.com",
+                    alamat:"Mlg",
+                    tahun:"Semester Ganjil 2020/2021",
+                    jurusan:"Kedokteran",
+                    strata:"S1",
+                    foto:"foto.jpeg"
+                }
+            ],
             detailMhs: {},
             nilaiMhs:{},
             userEdit: {},
             mhsProfileDetail: {
-                nama:"fian",
-                nim:"112021",
-                ttl:"2020-03-13",
-                gender:"Male",
-                mobile:"999",
-                email:"ff@gmail.com",
-                alamat:"Jkt",
-                tahun:"Semester Ganjil 2020/2021",
-                jurusan:"IT",
-                strata:"S1",
-                foto:"foto_fian.jpg"
+                // nama:"fian",
+                // nim:"112021",
+                // ttl:"2020-03-13",
+                // gender:"Male",
+                // mobile:"999",
+                // email:"ff@gmail.com",
+                // alamat:"Jkt",
+                // tahun:"Semester Ganjil 2020/2021",
+                // jurusan:"IT",
+                // strata:"S1",
+                // foto:"foto_fian.jpg"
             }
         }
     }
@@ -43,16 +95,45 @@ class Body extends Component {
         })
     }
 
+    setProfileDetailMhs = detailMhs => {
+        let mhsObject = {
+            nama:detailMhs.nama,
+            nim:detailMhs.nim,
+            ttl:detailMhs.ttl,
+            gender:detailMhs.gender,
+            mobile:detailMhs.mobile,
+            email:detailMhs.email,
+            alamat:detailMhs.alamat,
+            tahun:detailMhs.tahun,
+            jurusan:detailMhs.jurusan,
+            strata:detailMhs.strata,
+            foto:detailMhs.foto
+        }
+        
+        this.setState({
+            mhsProfileDetail: mhsObject
+        })
+    }
+
     addNewListPenerimaanHandler = newMahasiswa => {
         // const {goToPage} = this.props
         const listPenerimaan = this.state.listPenerimaan
-        listPenerimaan.push(newMahasiswa)
+        const idNew = Math.max(...listPenerimaan.map(mhs => mhs.id)) + 1
+        console.log("IDCEK",idNew)
+        const mhsObject = {
+            ...newMahasiswa,
+            id:idNew,
+            nim:`${idNew}${idNew}2021`
+        }
+        listPenerimaan.push(mhsObject)
         this.setState({
             listPenerimaan
         })
 
+
         mhsEdit: {
         }
+
     }
 
     handlerEditMahasiswa = mhs => {
@@ -71,7 +152,14 @@ class Body extends Component {
         })
     }
 
+    editlist = newData =>{
+        this.setState({
+            listSks:newData
+        })
+    }
+
     renderPage = () => {
+        console.log("PROFILE SELECTED",this.state.mhsProfileDetail)
         const {currentPage, goToPage} = this.props
         const {users, userEdit} = this.state
 
@@ -81,20 +169,26 @@ class Body extends Component {
         
         if (currentPage === "form")
             return <RegisterPage
+                goToPage={goToPage}
                 addNewListPenerimaan={this.addNewListPenerimaanHandler}
                 selectedUser={userEdit}
                 resetUserEdit={this.clearUserEdit}
                 saveUser={this.updateUsers}/>
+       
 
         if (currentPage === "penerimaan")
-            return <ListPenerimaanPage listPenerimaan={this.state.listPenerimaan}/>
+            return <ListPenerimaanPage 
+            listPenerimaan={this.state.listPenerimaan}
+            goToPage={goToPage}/>
 
         if (currentPage === "list-mahasiswa")
             return <ListMahasiswa
                 updateNilaiMhs={  this.state.mhsEdit  }
                 setDetailMhs={this.setDetailMhs}
+                setProfileDetailMhs={this.setProfileDetailMhs}
                 dataEditMhs={this.handlerEditMahasiswa}
-                gtp={goToPage}/>
+                gtp={goToPage}
+                dataMhsBaru={this.state.listPenerimaan}/>
 
         if (currentPage === "submit-nilai-mahasiswa")
             return <FormSubmitNilaiPage setNilaiMhs={this.setNilaiMhs} dataEditMhs={this.state.mhsEdit} gtp={goToPage}/>
@@ -102,11 +196,11 @@ class Body extends Component {
         if (currentPage === "detail-krs-mahasiswa")
             return <DetailMahasiswaPage dataDetailMhs={this.state.detailMhs} gtp={goToPage}/>
         
-        if (currentPage === "detail-profile")
+        if (currentPage === "detail-profile-mahasiswa")
             return <DetailProfile mhsProfileDetail={this.state.mhsProfileDetail} goToPage={goToPage} saveProfile={this.saveProfileHandler}/>
 
         if (currentPage === "sks")
-            return <ListSKS />
+            return <ListSKS listSks={this.state.listSks} editlist={this.editlist}/>
 
         return ""
 

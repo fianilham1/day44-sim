@@ -11,7 +11,7 @@ class Table extends Component {
         const {headerName} = this.props
         return headerName.map((header, index) => {
             return (
-                <th>{header}</th>
+                <th key={index}>{header}</th>
             )
         })
     }
@@ -23,7 +23,7 @@ class Table extends Component {
             if(key==="clickEvent") {
                 const clickArr = Object.keys(data[key])
                 const button = clickArr.map((key2,index)=> {
-                    return <button className={key2} onClick={data[key][key2]}></button>
+                    return <button key={index} className={key2} onClick={data[key][key2]}></button>
                 })
                 return (
                     <td key={index} className="cell">
@@ -58,7 +58,9 @@ class Table extends Component {
             <>
                 <table className={className} width="80%">
                     <thead>
+                        <tr>
                         {this.renderHeaderTable()}
+                        </tr>
                     </thead>
                     <tbody>
                         {this.renderBodyTable()}

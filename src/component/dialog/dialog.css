@@ -1,4 +1,4 @@
-.buttonSubmit{
+.submitButton{
     display: block;
     width: 150px;
     height: 40px;
@@ -20,7 +20,7 @@
     justify-content: center;
   }
   
-  .buttonSubmit:hover{
+  .submitButton:hover{
     background-color: #3e5cc2;
   }
  
