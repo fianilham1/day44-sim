@@ -12,7 +12,6 @@ class TabelSks extends Component {
             sksList:[],
          }
     }
-    setEditSKS = this.props.setEditSKS
 
     componentDidMount = () => {
 		this.setState({
