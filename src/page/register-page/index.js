@@ -124,7 +124,7 @@ class RegisterPage extends Component {
 
     
     render() {
-        // console.log("NEWuser",this.state)
+        console.log("routerCEK",this.props.location)
         return (
 
             <div className="bg">

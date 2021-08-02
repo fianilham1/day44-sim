@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import {Form, FormHeader} from "../../component";
+import { Link } from "react-router-dom"
+import { Redirect } from "react-router-dom"
 
 class FormSubmitNilaiPage extends Component {
     constructor(props) {
@@ -15,9 +17,6 @@ class FormSubmitNilaiPage extends Component {
         let nilaiHuruf1 = e.target.nilaiHuruf[0].value
         let nilaiHuruf2 = e.target.nilaiHuruf[1].value
         let nilaiHuruf3 = e.target.nilaiHuruf[2].value
-        // console.log(e.target.nilaiHuruf[0].value)
-        // console.log(e.target.nilaiHuruf[1].value)
-        // console.log(e.target.nilaiHuruf[2].value)
         const dataKrs = dataEditMhs.krs
 
 
@@ -79,7 +78,8 @@ class FormSubmitNilaiPage extends Component {
 
         console.log("123", dataEditMhs)
         setNilaiMhs(dataEditMhs)
-        gtp("list-mahasiswa")
+        // gtp("list-mahasiswa")
+        return <Redirect to="/list-mahasiswa" />
     }
 
     renderPageSubmit = () => {
@@ -112,6 +112,10 @@ class FormSubmitNilaiPage extends Component {
                 <h1 style={{marginLeft: 100}}>Edit Nilai Mahasiswa</h1>
                 <button type="submit" style={{borderRadius: 10, marginLeft: 100, width: 100, height: 30, cursor: "pointer"}}>Update
                 </button>
+                 {/* <Link to="/list-mahasiswa">
+                    <button type="submit" style={{borderRadius: 10, marginLeft: 100, width: 100, height: 30, cursor: "pointer"}}>Update
+                    </button>
+                </Link> */}
                 <h3 style={{marginLeft: 100}}>Nama : {dataEditMhs.nama}</h3>
                 <h3 style={{marginLeft: 100}}>NIM : {dataEditMhs.nim}</h3>
                 <h3 style={{marginLeft: 100}}>Jurusan : {dataEditMhs.jurusan}</h3>

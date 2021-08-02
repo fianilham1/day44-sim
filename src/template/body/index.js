@@ -4,6 +4,7 @@ import FormSubmitNilaiPage from "../../page/form-submit-nilai-page";
 import DetailMahasiswaPage from "../../page/detail-mahasiswa-page";
 import ListSKS from '../../page/list-sks-page';
 import { ListDosen, ListJurusan } from "../../page";
+import { Switch, Route} from 'react-router-dom'
 
 class Body extends Component {
     constructor(props) {
@@ -131,9 +132,6 @@ class Body extends Component {
         })
 
 
-        mhsEdit: {
-        }
-
     }
 
     handlerEditMahasiswa = mhs => {
@@ -163,46 +161,93 @@ class Body extends Component {
         const {currentPage, goToPage} = this.props
         const {users, userEdit} = this.state
 
-        if (currentPage === "list-dosen") return <ListDosen />;
+        return (
+        <Switch>
+            <Route path="/list-dosen">
+                <ListDosen />
+            </Route>
+            <Route path="/list-jurusan">
+                <ListJurusan />
+            </Route>
+            <Route path="/form">
+                <RegisterPage
+                    goToPage={goToPage}
+                    addNewListPenerimaan={this.addNewListPenerimaanHandler}
+                    selectedUser={userEdit}
+                    resetUserEdit={this.clearUserEdit}
+                    saveUser={this.updateUsers}/>
+            </Route>
+            <Route path="/penerimaan">
+                <ListPenerimaanPage 
+                    listPenerimaan={this.state.listPenerimaan}
+                    goToPage={goToPage}/>
+            </Route>
+            <Route path="/list-mahasiswa" exact >
+                <ListMahasiswa
+                    updateNilaiMhs={  this.state.mhsEdit  }
+                    setDetailMhs={this.setDetailMhs}
+                    setProfileDetailMhs={this.setProfileDetailMhs}
+                    dataEditMhs={this.handlerEditMahasiswa}
+                    gtp={goToPage}
+                    dataMhsBaru={this.state.listPenerimaan}/>
+            </Route>
+            <Route path="/submit-nilai-mahasiswa">
+                <FormSubmitNilaiPage setNilaiMhs={this.setNilaiMhs} dataEditMhs={this.state.mhsEdit} gtp={goToPage}/>
+            </Route>
+            <Route path="/detail-krs-mahasiswa">
+                <DetailMahasiswaPage dataDetailMhs={this.state.detailMhs} gtp={goToPage}/>
+            </Route>
+            <Route path="/detail-profile-mahasiswa">
+                <DetailProfile 
+                    mhsProfileDetail={this.state.mhsProfileDetail} 
+                    goToPage={goToPage} 
+                    saveProfile={this.saveProfileHandler}/>
+            </Route>
+            <Route path="/sks">
+            <ListSKS listSks={this.state.listSks} editlist={this.editlist}/>
+            </Route>
+        </Switch>
+        )
+        // if (currentPage === "list-dosen") return <ListDosen />;
 
-        if (currentPage === "list-jurusan") return <ListJurusan />;
+        // if (currentPage === "list-jurusan") return <ListJurusan />;
         
-        if (currentPage === "form")
-            return <RegisterPage
-                goToPage={goToPage}
-                addNewListPenerimaan={this.addNewListPenerimaanHandler}
-                selectedUser={userEdit}
-                resetUserEdit={this.clearUserEdit}
-                saveUser={this.updateUsers}/>
+        // if (currentPage === "form")
+        //     return <RegisterPage
+        //         goToPage={goToPage}
+        //         addNewListPenerimaan={this.addNewListPenerimaanHandler}
+        //         selectedUser={userEdit}
+        //         resetUserEdit={this.clearUserEdit}
+        //         saveUser={this.updateUsers}/>
        
 
-        if (currentPage === "penerimaan")
-            return <ListPenerimaanPage 
-            listPenerimaan={this.state.listPenerimaan}
-            goToPage={goToPage}/>
+        // if (currentPage === "penerimaan")
+        //     return <ListPenerimaanPage 
+        //     listPenerimaan={this.state.listPenerimaan}
+        //     goToPage={goToPage}/>
 
-        if (currentPage === "list-mahasiswa")
-            return <ListMahasiswa
-                updateNilaiMhs={  this.state.mhsEdit  }
-                setDetailMhs={this.setDetailMhs}
-                setProfileDetailMhs={this.setProfileDetailMhs}
-                dataEditMhs={this.handlerEditMahasiswa}
-                gtp={goToPage}
-                dataMhsBaru={this.state.listPenerimaan}/>
+        // if (currentPage === "list-mahasiswa")
+        //     return <ListMahasiswa
+        //         updateNilaiMhs={  this.state.mhsEdit  }
+        //         setDetailMhs={this.setDetailMhs}
+        //         setProfileDetailMhs={this.setProfileDetailMhs}
+        //         dataEditMhs={this.handlerEditMahasiswa}
+        //         gtp={goToPage}
+        //         dataMhsBaru={this.state.listPenerimaan}/>
 
-        if (currentPage === "submit-nilai-mahasiswa")
-            return <FormSubmitNilaiPage setNilaiMhs={this.setNilaiMhs} dataEditMhs={this.state.mhsEdit} gtp={goToPage}/>
+        // if (currentPage === "submit-nilai-mahasiswa")
+        //     return <FormSubmitNilaiPage setNilaiMhs={this.setNilaiMhs} dataEditMhs={this.state.mhsEdit} gtp={goToPage}/>
 
-        if (currentPage === "detail-krs-mahasiswa")
-            return <DetailMahasiswaPage dataDetailMhs={this.state.detailMhs} gtp={goToPage}/>
+        // if (currentPage === "detail-krs-mahasiswa")
+        //     return <DetailMahasiswaPage dataDetailMhs={this.state.detailMhs} gtp={goToPage}/>
         
-        if (currentPage === "detail-profile-mahasiswa")
-            return <DetailProfile mhsProfileDetail={this.state.mhsProfileDetail} goToPage={goToPage} saveProfile={this.saveProfileHandler}/>
+        // if (currentPage === "detail-profile-mahasiswa")
+        //     return <DetailProfile mhsProfileDetail={this.state.mhsProfileDetail} goToPage={goToPage} saveProfile={this.saveProfileHandler}/>
 
-        if (currentPage === "sks")
-            return <ListSKS listSks={this.state.listSks} editlist={this.editlist}/>
+        // if (currentPage === "sks")
+        //     return <ListSKS listSks={this.state.listSks} editlist={this.editlist}/>
 
-        return ""
+        // return ""
 
     }
 
@@ -238,6 +283,7 @@ class Body extends Component {
         console.log("detail state", this.state.detailMhs)
         return (
             this.renderPage()
+        
         )
     }
 }

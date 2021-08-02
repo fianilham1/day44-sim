@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./detail.css"
 import profileImg from "./profile.svg";
-// import EditIcon from "@material-ui/icons/Edit";
+import { Link } from "react-router-dom"
 
 
 class Detail extends Component {
@@ -108,7 +108,11 @@ class Detail extends Component {
                     </div>
                     {this.renderPage()}
                 </div>
-                <button className="backButton" onClick={() => goToPage("list-mahasiswa")}> Back to List </button>
+                <Link to="/list-mahasiswa">
+                    <button className="backButton" onClick={() => goToPage("list-mahasiswa")}>Back to List
+                    </button>
+                </Link>
+              
             </div>
             </>
          );

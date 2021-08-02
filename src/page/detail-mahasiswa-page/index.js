@@ -1,4 +1,5 @@
 import React,{Component} from "react";
+import { Link } from "react-router-dom"
 
 class DetailMahasiswaPage extends Component{
     constructor(props) {
@@ -8,9 +9,9 @@ class DetailMahasiswaPage extends Component{
         };
     }
 
-    buttonBack=()=>{
-        this.props.gtp("list-mahasiswa")
-    }
+    // buttonBack=()=>{
+    //     this.props.gtp("list-mahasiswa")
+    // }
 
     renderPageDetail=()=>{
         const {dataDetailMhs}=this.props
@@ -93,7 +94,10 @@ class DetailMahasiswaPage extends Component{
             <>
 
                 <h1 style={{marginLeft: 100}}>Detail Mahasiswa</h1>
-                <button style={{marginLeft: 100, cursor: "pointer"}} onClick={this.buttonBack}>back</button>
+                <Link to="/list-mahasiswa">
+                    <button  style={{marginLeft: 100, cursor: "pointer"}} >back
+                    </button>
+                </Link>
                 <h3 style={{marginLeft: 100}}>Nama : {dataDetailMhs.nama}</h3>
                 <h3 style={{marginLeft: 100}}>NIM : {dataDetailMhs.nim}</h3>
                 <h3 style={{marginLeft: 100}}>Jurusan : {dataDetailMhs.jurusan}</h3>
