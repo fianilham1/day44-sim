@@ -1,5 +1,5 @@
 import RegisterPage from "./register-page";
-import ListPenerimaanPage from "./list-penerimaan";
+import ListPenerimaanPage from "./list-penerimaan-page";
 import ListMahasiswa from "./list-mahasiswa-page";
 import ListSKS from "./list-sks-page";
 import DetailProfile from "./detail-profile-page"

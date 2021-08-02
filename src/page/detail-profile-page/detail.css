@@ -29,12 +29,12 @@
 .detail-container {
     background-color: white;
     position: absolute;
-    top: 220px;
+    top: 100%;
     transform: translateX(-50%);
     margin-left: 50%;
     display: flex;
     flex-direction: column;
-    width: 55%;
+    width: 42%;
     box-shadow: 4px 5px 15px 4px rgba(49, 45, 29, 0.35);
   }
 
@@ -69,7 +69,7 @@
     height: 50px;
     font-size: 19px;
     border: none;
-    padding-left: 260px;
+    padding-left: 45%;
   }
  
 
@@ -98,34 +98,32 @@
     color: #ffffff;
     transform: translateX(-50%);
     width: 100px;
-    margin-top: 20px;
-    margin-left: 50%;
+    padding: 13px 10px; 
     font-size: 15px;
-   background-color: #1d212e;
-   padding: 13px 10px; 
-   cursor: pointer;
-   transition: .4s;
-   border: none;
+    background-color: #1d212e;
+    cursor: pointer;
+    transition: .4s;
+    border: none;
   }
 
   .backButton{
     position: absolute;
-    left: -350px;
-    top: 270px;
+    left: 22%;
+    top: 130%;
   }
 
   .editButton{
     background-color: #e9182d;
     position: absolute;
-    left: -350px;
-    top: 200px;
+    left: 22%;
+    top: 100%;
   }
 
   .saveButton{
     background-color: #100da1;
     position: absolute;
-    left: -350px;
-    top: 200px;
+    left: 22%;
+    top: 100%;
   }
 
   .hide{
@@ -159,7 +157,7 @@
  }
 
  .inputProfile{
-    width: 250px;
+    width: 45%;
     height: 22px;
     margin: 7px 5px;
      /* border: 2px solid gray; */

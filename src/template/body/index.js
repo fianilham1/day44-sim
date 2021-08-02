@@ -76,13 +76,17 @@ class Body extends Component {
         
         if (currentPage === "form")
             return <RegisterPage
+                goToPage={goToPage}
                 addNewListPenerimaan={this.addNewListPenerimaanHandler}
                 selectedUser={userEdit}
                 resetUserEdit={this.clearUserEdit}
                 saveUser={this.updateUsers}/>
+       
 
         if (currentPage === "penerimaan")
-            return <ListPenerimaanPage listPenerimaan={this.state.listPenerimaan}/>
+            return <ListPenerimaanPage 
+            listPenerimaan={this.state.listPenerimaan}
+            goToPage={goToPage}/>
 
         if (currentPage === "list-mahasiswa")
             return <ListMahasiswa

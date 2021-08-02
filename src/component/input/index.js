@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import "./input.css"
 
+// const options = [
+//   { value: "one", label: "One" },
+//   { value: "two", label: "Two" }
+// ];
+
 class Input extends Component {
     constructor(props) {
         super(props);
@@ -8,42 +13,57 @@ class Input extends Component {
     }
 
     renderOption = dataArr => {
+        // const {state, name, submitStatus} = this.props
         return dataArr.map((data, index) => {
-            if (index===0) return <option key={index} value=''>{data}</option>
+            if (index===0) return <option key={index} value='' hidden selected >{data}</option>
 
             return <option key={index} value={data}>{data}</option>
         })
     }
 
     renderInput = () => {
-        const {name, dataArr, focus, blur, typeTx, handleChange, accept, submitStatus, state} = this.props
-       if(typeTx==="select") return ( 
-        <div>
-            <h5>{name}</h5>
-            <select name={name.toLowerCase()} className="selectOpt" onChange={handleChange} required>
-                {this.renderOption(dataArr)}
-            </select>
-         </div>
-       )
+        const {label, name, dataArr, focus, blur, typeTx, handleChange, accept, state} = this.props
+       if(typeTx==="select") { 
+        // const options = dataArr.map((data,index)=> {
+        //    return { value: data, label: data }
+        // })
+       
+           return ( 
+            <div>
+                <h5>{label}</h5>
+                 {/* <Select
+                    name={name.toLowerCase()}
+                    className="selectOpt"
+                    value= {state[`${name.toLowerCase()}`]}
+                    onChange={handleChange}
+                    options={options}
+                />         */}
+                <select name={name.toLowerCase()} className="selectOpt" onChange={handleChange} required>
+                    {this.renderOption(dataArr)}
+                </select>
+              
+             </div>
+           )
+       }
 
        if(typeTx==="radio") return (
         <div >
-            <h5>{name}</h5>
+            <h5>{label}</h5>
             <input className="radioInput" type={typeTx} value="Male" name={name.toLowerCase()} onChange={handleChange} required/> Male 
-            <input  className="radioInput" type={typeTx} value="Male" name={name.toLowerCase()} onChange={handleChange} /> Female 
+            <input  className="radioInput" type={typeTx} value="Female" name={name.toLowerCase()} onChange={handleChange} /> Female 
         </div>
        )
 
        if(typeTx==="file") return (
         <div>
-            <h5>{name}</h5>
-            <input id={`isFocus${name}`} className="fileInput" type={typeTx} onFocus={focus} onBlur={blur} name={name.toLowerCase()} onChange={handleChange} accept={accept} value={submitStatus ? '' : state[`${name.toLowerCase()}`]}required/>
+            <h5>{label}</h5>
+            <input id={`isFocus${name}`} className="fileInput" type={typeTx} onFocus={focus} onBlur={blur} name={name.toLowerCase()} onChange={handleChange} accept={accept} value={state[`${name.toLowerCase()}`]} required/>
         </div>
         )
 
     return (<div>
-                <h5>{name}</h5>
-                <input id={`isFocus${name}`} className="input" type={typeTx} onFocus={focus} onBlur={blur} name={name.toLowerCase()} onChange={handleChange} value={submitStatus ? '' : state[`${name.toLowerCase()}`]} required/>
+                <h5>{label}</h5>
+                <input id={`isFocus${name}`} className="input" type={typeTx} onFocus={focus} onBlur={blur} name={name.toLowerCase()} onChange={handleChange} value={state[`${name.toLowerCase()}`]} required/>
             </div>)
     }
 
@@ -56,9 +76,10 @@ class Input extends Component {
 
     render() {
         const { state, icon, name } = this.props
+        console.log("cek",state['submitStatus'])
         return (
             <>
-            <div className={`input-div ${ state[`isFocus${name}`] ? 'focus' : ''} ${ state[`${name.toLowerCase()}`]==='' && state['submitStatus']? 'redAlert' : ''}`}>
+            <div className={`input-div ${ state[`isFocus${name}`] ? 'focus' : ''} ${ state[`${name.toLowerCase()}`]==='' && state['submitStatus'] ? 'redAlert' : ''}`}>
                 <div className="i">
                     {icon}      
                 </div>

@@ -17,6 +17,7 @@ const check = <FontAwesomeIcon icon={faClipboardCheck} />
 class RegisterPage extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             // id: props.selectedUser.id ? props.selectedUser.id : "",
             // name: props.selectedUser.name ? props.selectedUser.name : "",
@@ -43,17 +44,19 @@ class RegisterPage extends Component {
             mobile:'',
             foto:''   
         }
-        this.baseState = this.state
+        this.baseSate=this.state
+       
     }
 
-    setValue = e => this.setState({ 
+    setValue = e => {
+        this.setState({ 
         [e.target.name]: e.target.value,
         submitStatus:false
      })
-
-    componentWillUnmount() {
-        this.props.resetUserEdit()
     }
+    // componentWillUnmount() {
+    //     this.props.resetUserEdit()
+    // }
 
     focusHandler = e => {
         this.setState({[e.target.id]:true})
@@ -65,13 +68,14 @@ class RegisterPage extends Component {
         }       
     }
 
-    resetForm = () =>  this.setState(this.baseState)
+    resetForm = () => {
+        this.setState(this.baseSate)
+    }
 
     onSubmitHandler =  e => {
         e.preventDefault();
 
         const myArr = this.state.foto.split("\\");
-
         let mahasiswaInputNew = {
             nama:this.state.nama,
             ttl:this.state.ttl,
@@ -85,10 +89,10 @@ class RegisterPage extends Component {
             foto:myArr[myArr.length-1]
         }
 
-        
+      
         this.setState({
             submitStatus:true
-        },this.resetForm)
+        })
 
         const stateArr = Object.keys(this.state)
         let emptyField = 0
@@ -99,10 +103,17 @@ class RegisterPage extends Component {
             return ''
         })
     
-        if(emptyField!==0) return alert("Silahkan Isi Semua Field")
+        if(emptyField!==0) return Swal.fire({
+            icon: 'error',
+            title: 'Silahkan Isi Semua Field',
+            showConfirmButton: false,
+            timer: 3500
+          })
 
         console.log("NEWuser",mahasiswaInputNew)
         this.props.addNewListPenerimaan(mahasiswaInputNew)
+        this.props.goToPage("penerimaan")
+       
         return Swal.fire({
             icon: 'success',
             title: 'Register Sukses',
@@ -111,15 +122,17 @@ class RegisterPage extends Component {
           })
       }
 
+    
     render() {
-        // console.log("NEWuser",this.state.date)
+        // console.log("NEWuser",this.state)
         return (
+
             <div className="bg">
              <h1 className="titleRegister" align="center">UNIVERSITY OF WIBU</h1>
              <h2 className="titleRegister" align="center">Form Registratis Mahasiswa</h2>
              <form className="bgform">
                  <div className="formName">
-                    <div className="input-name">Nama</div>
+                    <div className="input-name">Nama Lengkap</div>
                     <div className="input-name">Tanggal lahir</div>
                     <div className="input-name">Gender</div>
                     <div className="input-name">Email</div>
@@ -129,6 +142,7 @@ class RegisterPage extends Component {
                     <div className="input-name">Tahun Akademik</div>
                     <div className="input-name">Strata</div>
                     <div className="input-name">Foto Resmi</div>
+                    <div className="input-name"></div>
                     
                  </div>
                 <div className="formInput">
@@ -136,6 +150,7 @@ class RegisterPage extends Component {
                 <Input 
                     state={this.state} 
                     name="Nama" 
+                    label="Nama"
                     focus={this.focusHandler} 
                     blur={this.blurHandler} 
                     icon={person} 
@@ -146,6 +161,7 @@ class RegisterPage extends Component {
                 <Input 
                     state={this.state} 
                     name="Ttl" 
+                    label="DOB"
                     focus={this.focusHandler} 
                     icon={person} 
                     typeTx="date" 
@@ -155,6 +171,7 @@ class RegisterPage extends Component {
                 <Input 
                     state={this.state} 
                     name="Gender" 
+                    label="Gender"
                     focus={this.focusHandler} 
                     blur={this.blurHandler} 
                     icon={genders} 
@@ -165,6 +182,7 @@ class RegisterPage extends Component {
                 <Input 
                     state={this.state} 
                     name="Email" 
+                    label="Email"
                     focus={this.focusHandler} 
                     blur={this.blurHandler} 
                     icon={envelope} 
@@ -175,6 +193,7 @@ class RegisterPage extends Component {
             <Input 
                 state={this.state} 
                 name="Mobile" 
+                label="No. Hp"
                 focus={this.focusHandler} 
                 blur={this.blurHandler} 
                 icon={phone} 
@@ -185,6 +204,7 @@ class RegisterPage extends Component {
             <Input 
                 state={this.state} 
                 name="Alamat" 
+                label="Kota"
                 focus={this.focusHandler} 
                 blur={this.blurHandler} 
                 icon={map} 
@@ -195,6 +215,7 @@ class RegisterPage extends Component {
             <Input 
                 state={this.state} 
                 name="Jurusan" 
+                label="Jurusan"
                 focus={this.focusHandler} 
                 blur={this.blurHandler} 
                 icon={book} 
@@ -206,6 +227,7 @@ class RegisterPage extends Component {
             <Input 
                 state={this.state} 
                 name="Tahun" 
+                label="Tahun Masuk"
                 focus={this.focusHandler} 
                 blur={this.blurHandler} 
                 icon={check} 
@@ -217,6 +239,7 @@ class RegisterPage extends Component {
             <Input 
                 state={this.state} 
                 name="Strata" 
+                label="Strata"
                 focus={this.focusHandler} 
                 blur={this.blurHandler} 
                 icon={graduate} 
@@ -234,101 +257,13 @@ class RegisterPage extends Component {
                 handleChange={this.setValue}
                 accept="image/*"
                 submitStatus={this.state.submitStatus}/>  
-        </div>
 
-        {/* accept="image/*" */}
-     
-            </form>
-            <Dialog onClick={this.onSubmitHandler} />        
-            {/* <button className="button" onClick={this.onSubmitHandler} >Submit</button> */}
-             {/* <table className="bgForm" width="700" border="0" align="center" cellPadding="0" cellSpacing="5">
-                <thead>
-                    <tr>
-                        <td width="25%" height="60">&nbsp;</td>
-                        <td><p>Form Registrasi Mahasiswa</p></td>
-                        <td width="10%">&nbsp;</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Nama:</strong></td>
-                        <td><input name="nama" type="text" size="35" onChange={e => this.setState({[e.target.name]:e.target.value})}/></td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Tanggal lahir:</strong></td>
-                        <td><input name="ttl" type="date" type="number" size="35" required onChange={e => this.setState({[e.target.name]:e.target.value})
-                        }/></td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Jenis Kelamin:</strong></td>
-                        <td><input type="radio" name="gender" value="male" required onChange={e => this.setState({[e.target.name]:e.target.value})}/>Male
-                            <input type="radio" name="gender" value="female" onChange={e => this.setState({[e.target.name]:e.target.value})}/>Female
-                        </td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Email:</strong></td>
-                        <td><input name="email" type="email" size="35" required onChange={e => this.setState({[e.target.name]:e.target.value})}/></td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    
-                    <tr>
-                        <td><strong>Alamat:</strong></td>
-                        <td><input name="alamat" type="text" size="35" required onChange={e => this.setState({[e.target.name]:e.target.value})}/></td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    
-                    <tr>
-                        <td><strong>Jurusan:</strong></td>
-                        <td><select id="slct2" name="jurusan" required onChange={e => this.setState({[e.target.name]:e.target.value})}>
-                                <option>Select..</option>
-                                <option value="IT">IT</option>
-                                <option value="Peternakan">Peternakan</option>
-                                <option value="Kedokteran">Kedokteran</option>    
-                            </select>
-                        </td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Strata:</strong></td>
-                        <td><select id="slct2" name="strata" required onChange={e => this.setState({[e.target.name]:e.target.value})}>
-                                <option>Select..</option>
-                                <option value="S1">S1</option>
-                                <option value="S2">S2</option>
-                                <option value="S3">S3</option>    
-                            </select>
-                        </td>
-                        <td>&nbsp;</td>
-                    </tr>   
-                    <tr>
-                        <td><strong>Tahun Masuk:</strong></td>
-                        <td><select id="slct2" name="tahun" required onChange={e => this.setState({[e.target.name]:e.target.value})}>
-                                <option>Select..</option>
-                                <option value="Semester Genap 2020/2021">Semester Genap 2020/2021</option>
-                                <option value="Semester Ganjil 2020/2021">Semester Ganjil 2020/2021</option>
-                                <option value="Semester Genap 2019/2020">Semester Genap 2019/2020</option>
-                                <option value="Semester Ganjil 2019/2020">Semester Ganjil 2019/2020</option>    
-                            </select>
-                        </td>
-                        <td>&nbsp;</td>
-                    </tr>         
-                    <tr>
-                        <td><strong>Mobile Number:</strong></td>
-                        <td><input name="mobile" type="text" size="35" onChange={e => this.setState({[e.target.name]:e.target.value})}/></td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td><button className="button" type="reset">Reset</button></td>
-                        <td><button className="button" onClick={this.onSubmitHandler}>Submit</button></td>
-                        <td>&nbsp;</td>
-                    </tr>
-                </tbody>
-                </table> */}
-                
-        {/* <div align="center">Start Your Impossible From Now</div> */}
-      
+        {/* <button type="reset" type="submit" className="submitButton" >Submit</button> */}
+        <Dialog onClick={this.onSubmitHandler}/>
+        </div>
+    
+            </form>        
+           
         </div>
         );
     }
