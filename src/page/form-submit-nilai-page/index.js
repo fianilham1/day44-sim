@@ -109,15 +109,15 @@ class FormSubmitNilaiPage extends Component {
         return (
             <form onSubmit={this.updateNilai}>
 
-                <h1 style={{marginLeft: 150}}>Edit Nilai Mahasiswa</h1>
-                <button type="submit" style={{borderRadius: 10, marginLeft: 150, width: 100, height: 30, cursor: "pointer"}}>Update
+                <h1 style={{marginLeft: 100}}>Edit Nilai Mahasiswa</h1>
+                <button type="submit" style={{borderRadius: 10, marginLeft: 100, width: 100, height: 30, cursor: "pointer"}}>Update
                 </button>
-                <h3 style={{marginLeft: 150}}>Nama : {dataEditMhs.nama}</h3>
-                <h3 style={{marginLeft: 150}}>NIM : {dataEditMhs.nim}</h3>
-                <h3 style={{marginLeft: 150}}>Jurusan : {dataEditMhs.jurusan}</h3>
-                <h3 style={{marginLeft: 150}}>Jumlah SKS
+                <h3 style={{marginLeft: 100}}>Nama : {dataEditMhs.nama}</h3>
+                <h3 style={{marginLeft: 100}}>NIM : {dataEditMhs.nim}</h3>
+                <h3 style={{marginLeft: 100}}>Jurusan : {dataEditMhs.jurusan}</h3>
+                <h3 style={{marginLeft: 100}}>Jumlah SKS
                     : {dataEditMhs.krs[0].jumlahSks + dataEditMhs.krs[1].jumlahSks + dataEditMhs.krs[2].jumlahSks}</h3>
-                <h3 style={{marginLeft: 150}}>IPS : </h3>
+                <h3 style={{marginLeft: 100}}>IPS : </h3>
                 <table className="customers-list">
                     <thead>
                         <th>Mata Kuliah</th>

@@ -50,7 +50,9 @@ class TableMahasiswa extends Component {
                             onClick={this.handleDetail}
                         >Detail KRS
                         </button>
+
                         <button name="profileDetail" style={{borderRadius: 10, width: 100, height: 30,cursor: "pointer", marginRight: 0}} id={data.id}
+
                                 onClick={this.handleDetail}
                         >Detail Profile
                         </button>
@@ -69,6 +71,8 @@ class TableMahasiswa extends Component {
                 {/*<div style={{marginLeft: 150}}>*/}
                 {/*    <button style={{cursor: "pointer"}}>Add Nilai Mahasiswa</button>*/}
                 {/*</div>*/}
+                <h2 style={{marginLeft: 100}}>List Data Nilai Mahasiswa</h2>
+
                 <table className="customers-list" width="80%">
                     <thead>
                         <tr>

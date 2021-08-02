@@ -2,34 +2,47 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    /* height: 70px; */
-    /* border: 1px solid red; */
-    margin-bottom: 30px;
+    height: 50px;
+    border: 5px solid #34495e;
+    border-radius: 15px;
+    margin-bottom: 0px;
+    /*color-background: #FFFF;*/
+    width: 79%;
+    margin-left: 100px;
+    background-color: #34495e;
 }
 
 .logo {
     width: 150px;
     font-weight: bold;
     font-family: "Courier New", Courier, monospace;
+    margin-right: -40px;
 }
 
 .menu-item {
     display: inline-block;
     padding: 5px 15px;
-    border: 1px solid grey;
-    border-radius: 4px;
+    height: 30px;
+    /*border: 1px solid grey;*/
+    border-radius: 5px;
     margin-right: 10px;
     cursor: pointer;
+    text-align: center;
+    /*height: 100px;*/
+    /*margin-top: 20px;*/
+    font-weight: bold;
+    color: white;
 }
 
 .menu-item:hover {
-    background-color: lightgrey;
+    background-color: grey;
 }
 
 .menu-item.active {
     background-color: grey;
+    /*height: 20px;*/
 }
 
 .menu-item:last-child {
-    margin-right: 0;
+    margin-right: 0px;
 }

@@ -30,6 +30,7 @@ class DetailMahasiswaPage extends Component{
 
     }
 
+
     getJumlahSks = () => {
         const {dataDetailMhs}=this.props
         let jumlahSks = 0
@@ -86,22 +87,20 @@ class DetailMahasiswaPage extends Component{
         }
     }
 
-    hitungIP = () => {
-
-    }
-
     render() {
         const {dataDetailMhs}=this.props
         return(
             <>
-                <h1 style={{marginLeft: 150}}>Detail Mahasiswa</h1>
-                <button style={{marginLeft: 150, cursor: "pointer"}} onClick={this.buttonBack}>back</button>
-                <h3 style={{marginLeft: 150}}>Nama : {dataDetailMhs.nama}</h3>
-                <h3 style={{marginLeft: 150}}>NIM : {dataDetailMhs.nim}</h3>
-                <h3 style={{marginLeft: 150}}>Jurusan : {dataDetailMhs.jurusan}</h3>
-                <h3 style={{marginLeft: 150}}>Jumlah SKS : {this.getJumlahSks()}</h3>
-                <h3 style={{marginLeft: 150}}>IPS : {this.getNilaiIPS().toFixed(2)}</h3>
-                <h3 style={{marginLeft: 150}}>IPK : {this.getNilaiIPK()}</h3>
+
+                <h1 style={{marginLeft: 100}}>Detail Mahasiswa</h1>
+                <button style={{marginLeft: 100, cursor: "pointer"}} onClick={this.buttonBack}>back</button>
+                <h3 style={{marginLeft: 100}}>Nama : {dataDetailMhs.nama}</h3>
+                <h3 style={{marginLeft: 100}}>NIM : {dataDetailMhs.nim}</h3>
+                <h3 style={{marginLeft: 100}}>Jurusan : {dataDetailMhs.jurusan}</h3>
+                <h3 style={{marginLeft: 100}}>Jumlah SKS : {this.getJumlahSks()}</h3>
+                <h3 style={{marginLeft: 100}}>IPS : {this.getNilaiIPS().toFixed(2)}</h3>
+                <h3 style={{marginLeft: 100}}>IPK : {this.getNilaiIPK()}</h3>
+
                 <table className="customers-list" width="80%">
                     <thead>
                         <th>Mata Kuliah</th>

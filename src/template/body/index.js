@@ -129,6 +129,11 @@ class Body extends Component {
         this.setState({
             listPenerimaan
         })
+
+
+        mhsEdit: {
+        }
+
     }
 
     handlerEditMahasiswa = mhs => {
