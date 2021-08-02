@@ -99,7 +99,7 @@ class DetailMahasiswaPage extends Component{
                 <h3 style={{marginLeft: 100}}>Jurusan : {dataDetailMhs.jurusan}</h3>
                 <h3 style={{marginLeft: 100}}>Jumlah SKS : {this.getJumlahSks()}</h3>
                 <h3 style={{marginLeft: 100}}>IPS : {this.getNilaiIPS().toFixed(2)}</h3>
-                <h3 style={{marginLeft: 100}}>IPK : {this.getNilaiIPK()}</h3>
+                <h3 style={{marginLeft: 100}}>IPK : {this.getNilaiIPK().toFixed(2)}</h3>
 
                 <table className="customers-list" width="80%">
                     <thead>

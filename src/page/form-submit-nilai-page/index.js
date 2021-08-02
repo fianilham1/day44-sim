@@ -116,8 +116,13 @@ class FormSubmitNilaiPage extends Component {
                 <h3 style={{marginLeft: 100}}>NIM : {dataEditMhs.nim}</h3>
                 <h3 style={{marginLeft: 100}}>Jurusan : {dataEditMhs.jurusan}</h3>
                 <h3 style={{marginLeft: 100}}>Jumlah SKS
-                    : {dataEditMhs.krs[0].jumlahSks + dataEditMhs.krs[1].jumlahSks + dataEditMhs.krs[2].jumlahSks}</h3>
-                <h3 style={{marginLeft: 100}}>IPS : </h3>
+                    : {
+                    dataEditMhs.krs.length!=0?
+                    dataEditMhs.krs[0].jumlahSks +
+                    dataEditMhs.krs[1].jumlahSks +
+                    dataEditMhs.krs[2].jumlahSks:0
+                }</h3>
+                {/*<h3 style={{marginLeft: 100}}>IPS : </h3>*/}
                 <table className="customers-list">
                     <thead>
                         <th>Mata Kuliah</th>
