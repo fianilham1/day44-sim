@@ -7,7 +7,7 @@ class Header extends Component {
     }
     render() {
         return (
-            <><h1>ini header</h1></>
+            <><h1>Sistem Informasi Mahasiswa Universitas WIBU cabang Babelan</h1></>
         );
     }
 }
