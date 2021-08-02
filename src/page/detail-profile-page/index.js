@@ -100,6 +100,8 @@ class Detail extends Component {
                 <div className="detail-container">
                     <div className="rowDetail"> 
                         <div className="cellDetail header">Detail</div>
+                        <div></div>
+                        <div></div>
                     </div>
                     {this.renderPage()}
                 </div>

@@ -34,7 +34,7 @@ class CustomDialog extends Component {
         
         return ( 
             <div stlye={{}}>
-            <Button class="buttonSubmit" variant="outlined" color="primary" 
+            <Button class="submitButton" variant="outlined" color="primary" 
                     onClick={this.handleClickToOpen} >
                 Submit
             </Button>
