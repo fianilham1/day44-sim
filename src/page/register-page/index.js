@@ -4,6 +4,7 @@ import { Input, Dialog } from '../../component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faClipboardCheck, faEnvelope, faVenusMars, faPhone, faMapMarkerAlt, faBook, faUserGraduate } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
+import { Link } from "react-router-dom"
 
 const graduate = <FontAwesomeIcon icon={faUserGraduate} />
 const book = <FontAwesomeIcon icon={faBook} />
@@ -124,7 +125,6 @@ class RegisterPage extends Component {
 
     
     render() {
-        console.log("routerCEK",this.props.location)
         return (
 
             <div className="bg">
@@ -258,8 +258,11 @@ class RegisterPage extends Component {
                 accept="image/*"
                 submitStatus={this.state.submitStatus}/>  
 
-        {/* <button type="reset" type="submit" className="submitButton" >Submit</button> */}
-        <Dialog onClick={this.onSubmitHandler}/>
+                <Link to="/penerimaan">
+                    <button class="submitButton" onClick={this.onSubmitHandler}>Submit
+                    </button>
+                </Link>
+        {/* <Dialog onClick={this.onSubmitHandler}/> */}
         </div>
     
             </form>        
