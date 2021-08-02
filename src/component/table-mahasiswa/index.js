@@ -18,10 +18,16 @@ class TableMahasiswa extends Component {
     handleDetail=(e)=>{
         const {gtp, handleDetail}=this.props
         let id = e.target.id
+        let name = e.target.name
         console.log("id detail", id)
-        handleDetail(id)
+        handleDetail(id,name)
 
-        gtp("detail-krs-mahasiswa")
+        if(name==="nilaiDetail"){
+            gtp("detail-krs-mahasiswa")
+        }else{
+            gtp("detail-profile-mahasiswa")
+        }
+
     }
 
     renderListMahasiswas = () => {
@@ -40,11 +46,11 @@ class TableMahasiswa extends Component {
                                 onClick={this.handleSubmitNilai}
                         >Submit Nilai
                         </button>
-                        <button style={{borderRadius: 10, width: 100, height: 30,cursor: "pointer", marginRight: 10}} id={data.id}
+                        <button name="nilaiDetail" style={{borderRadius: 10, width: 100, height: 30,cursor: "pointer", marginRight: 10}} id={data.id}
                             onClick={this.handleDetail}
                         >Detail KRS
                         </button>
-                        <button style={{borderRadius: 10, width: 100, height: 30,cursor: "pointer", marginRight: 0}} id={data.id}
+                        <button name="profileDetail" style={{borderRadius: 10, width: 100, height: 30,cursor: "pointer", marginRight: 0}} id={data.id}
                                 onClick={this.handleDetail}
                         >Detail Profile
                         </button>
@@ -65,13 +71,15 @@ class TableMahasiswa extends Component {
                 {/*</div>*/}
                 <table className="customers-list" width="80%">
                     <thead>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>NIM</th>
-                    <th>Jurusan</th>
-                    <th>Strata</th>
-                    <th>Semester</th>
-                    <th>Actions</th>
+                        <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>NIM</th>
+                        <th>Jurusan</th>
+                        <th>Strata</th>
+                        <th>Semester</th>
+                        <th>Actions</th>
+                        </tr>
                     </thead>
 
                     <tbody>

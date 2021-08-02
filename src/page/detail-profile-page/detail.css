@@ -8,7 +8,11 @@
 }
 
 .avatar{
-  width: 100px;
+  width: 200px;
+}
+
+.defAvatar{
+  width: 130px;
 }
 
 
@@ -104,6 +108,7 @@
     cursor: pointer;
     transition: .4s;
     border: none;
+    border-radius: 10%;
   }
 
   .backButton{
@@ -135,11 +140,11 @@
  }
 
  .editButton:hover{
-    background-color: #505d8b;
+    background-color: #e94e5e;
  }
 
  .saveButton:hover{
-    background-color: #505d8b;
+    background-color: #3431c2;
  }
 
 

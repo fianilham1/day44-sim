@@ -9,9 +9,9 @@ class ListMahasiswa extends Component {
          };
     }
     render() {
-        const {gtp, dataEditMhs, setDetailMhs, updateNilaiMhs}=this.props
+        const {dataMhsBaru, gtp, dataEditMhs, setDetailMhs, updateNilaiMhs,  setProfileDetailMhs}=this.props
         return (
-            <Mahasiswa updateNilaiMhs={updateNilaiMhs} setDetailMhs={setDetailMhs} dataEditMhs={dataEditMhs} gtp={gtp} />
+            <Mahasiswa dataMhsBaru={dataMhsBaru} updateNilaiMhs={updateNilaiMhs} setDetailMhs={setDetailMhs}  setProfileDetailMhs={ setProfileDetailMhs} dataEditMhs={dataEditMhs} gtp={gtp} />
         );
     }
 }

@@ -15,7 +15,7 @@ class Input extends Component {
     renderOption = dataArr => {
         // const {state, name, submitStatus} = this.props
         return dataArr.map((data, index) => {
-            if (index===0) return <option key={index} value='' hidden selected >{data}</option>
+            if (index===0) return <option key={index} value='' hidden >{data}</option>
 
             return <option key={index} value={data}>{data}</option>
         })
@@ -76,7 +76,6 @@ class Input extends Component {
 
     render() {
         const { state, icon, name } = this.props
-        console.log("cek",state['submitStatus'])
         return (
             <>
             <div className={`input-div ${ state[`isFocus${name}`] ? 'focus' : ''} ${ state[`${name.toLowerCase()}`]==='' && state['submitStatus'] ? 'redAlert' : ''}`}>

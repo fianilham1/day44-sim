@@ -74,8 +74,11 @@ class Detail extends Component {
     render() {     
         const {goToPage, mhsProfileDetail} = this.props
         let image = profileImg
+        let defaultImg = true
+
         try{
             image = require(`../register-page/${mhsProfileDetail.foto}`).default;
+            defaultImg = false
         }catch{
             console.log("img not found>> display default img")
         }
@@ -86,7 +89,7 @@ class Detail extends Component {
                
                 <h2>Detail Profile Mahasiswa </h2>
                 
-                <img className="avatar" src={image} alt=""/>
+                <img className={`${defaultImg ? 'defAvatar' : 'avatar'}`} src={image} alt=""/>
                 <button 
                         className={`editButton ${this.state.editStatus ? 'hide':''}`} 
                         onClick={this.editHandler}>
@@ -105,7 +108,7 @@ class Detail extends Component {
                     </div>
                     {this.renderPage()}
                 </div>
-                <button className="backButton" onClick={() => goToPage("penerimaan")}> Back to List </button>
+                <button className="backButton" onClick={() => goToPage("list-mahasiswa")}> Back to List </button>
             </div>
             </>
          );

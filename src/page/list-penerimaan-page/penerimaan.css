@@ -10,7 +10,8 @@
     border: none;
     position: absolute;
     left: 4%;
-    top: 5%;
+    top: 2px;
+    border-radius: 10%;
   }
 
   .backButtonToForm:hover{
@@ -19,4 +20,5 @@
 
   .penerimaan-container{
       position: relative;
+      /* border: 2px solid gray; */
   }

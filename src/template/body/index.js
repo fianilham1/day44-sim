@@ -11,22 +11,65 @@ class Body extends Component {
         this.state = {
             users: [],
             mhsEdit: {},
-            listPenerimaan: [],
+            listPenerimaan: [
+                {
+                    nama:"fian",
+                    id:1,
+                    nim:"112021",
+                    ttl:"2020-03-13",
+                    gender:"Male",
+                    mobile:"999",
+                    email:"ff@gmail.com",
+                    alamat:"Jkt",
+                    tahun:"Semester Ganjil 2020/2021",
+                    jurusan:"IT",
+                    strata:"S1",
+                    foto:"foto.jpeg"
+                },
+                {
+                    nama:"john",
+                    id:2,
+                    nim:"222021",
+                    ttl:"2020-05-13",
+                    gender:"Male",
+                    mobile:"119",
+                    email:"john@gmail.com",
+                    alamat:"Sby",
+                    tahun:"Semester Ganjil 2020/2021",
+                    jurusan:"Peternakan",
+                    strata:"S1",
+                    foto:"foto.jpeg"
+                },
+                {
+                    nama:"steve",
+                    id:3,
+                    nim:"332021",
+                    ttl:"2020-11-01",
+                    gender:"Male",
+                    mobile:"555",
+                    email:"ff@gmail.com",
+                    alamat:"Mlg",
+                    tahun:"Semester Ganjil 2020/2021",
+                    jurusan:"Kedokteran",
+                    strata:"S1",
+                    foto:"foto.jpeg"
+                }
+            ],
             detailMhs: {},
             nilaiMhs:{},
             userEdit: {},
             mhsProfileDetail: {
-                nama:"fian",
-                nim:"112021",
-                ttl:"2020-03-13",
-                gender:"Male",
-                mobile:"999",
-                email:"ff@gmail.com",
-                alamat:"Jkt",
-                tahun:"Semester Ganjil 2020/2021",
-                jurusan:"IT",
-                strata:"S1",
-                foto:"foto_fian.jpg"
+                // nama:"fian",
+                // nim:"112021",
+                // ttl:"2020-03-13",
+                // gender:"Male",
+                // mobile:"999",
+                // email:"ff@gmail.com",
+                // alamat:"Jkt",
+                // tahun:"Semester Ganjil 2020/2021",
+                // jurusan:"IT",
+                // strata:"S1",
+                // foto:"foto_fian.jpg"
             }
         }
     }
@@ -43,16 +86,40 @@ class Body extends Component {
         })
     }
 
+    setProfileDetailMhs = detailMhs => {
+        let mhsObject = {
+            nama:detailMhs.nama,
+            nim:detailMhs.nim,
+            ttl:detailMhs.ttl,
+            gender:detailMhs.gender,
+            mobile:detailMhs.mobile,
+            email:detailMhs.email,
+            alamat:detailMhs.alamat,
+            tahun:detailMhs.tahun,
+            jurusan:detailMhs.jurusan,
+            strata:detailMhs.strata,
+            foto:detailMhs.foto
+        }
+        
+        this.setState({
+            mhsProfileDetail: mhsObject
+        })
+    }
+
     addNewListPenerimaanHandler = newMahasiswa => {
         // const {goToPage} = this.props
         const listPenerimaan = this.state.listPenerimaan
-        listPenerimaan.push(newMahasiswa)
+        const idNew = Math.max(...listPenerimaan.map(mhs => mhs.id)) + 1
+        console.log("IDCEK",idNew)
+        const mhsObject = {
+            ...newMahasiswa,
+            id:idNew,
+            nim:`${idNew}${idNew}2021`
+        }
+        listPenerimaan.push(mhsObject)
         this.setState({
             listPenerimaan
         })
-
-        mhsEdit: {
-        }
     }
 
     handlerEditMahasiswa = mhs => {
@@ -72,6 +139,7 @@ class Body extends Component {
     }
 
     renderPage = () => {
+        console.log("PROFILE SELECTED",this.state.mhsProfileDetail)
         const {currentPage, goToPage} = this.props
         const {users, userEdit} = this.state
 
@@ -97,8 +165,10 @@ class Body extends Component {
             return <ListMahasiswa
                 updateNilaiMhs={  this.state.mhsEdit  }
                 setDetailMhs={this.setDetailMhs}
+                setProfileDetailMhs={this.setProfileDetailMhs}
                 dataEditMhs={this.handlerEditMahasiswa}
-                gtp={goToPage}/>
+                gtp={goToPage}
+                dataMhsBaru={this.state.listPenerimaan}/>
 
         if (currentPage === "submit-nilai-mahasiswa")
             return <FormSubmitNilaiPage setNilaiMhs={this.setNilaiMhs} dataEditMhs={this.state.mhsEdit} gtp={goToPage}/>
@@ -106,7 +176,7 @@ class Body extends Component {
         if (currentPage === "detail-krs-mahasiswa")
             return <DetailMahasiswaPage dataDetailMhs={this.state.detailMhs} gtp={goToPage}/>
         
-        if (currentPage === "detail-profile")
+        if (currentPage === "detail-profile-mahasiswa")
             return <DetailProfile mhsProfileDetail={this.state.mhsProfileDetail} goToPage={goToPage} saveProfile={this.saveProfileHandler}/>
 
         if (currentPage === "sks")
