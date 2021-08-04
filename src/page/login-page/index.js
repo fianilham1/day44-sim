@@ -61,30 +61,44 @@ class LoginPage extends Component {
         //     submitStatus:true
         // })
 
+        const userList = this.props.userList
 
+        for(let i=0;i<userList.length;i++){
+            
+            if(this.state.username===userList[i].username && this.state.password===userList[i].password) {
+                const userLogin = {
+                    name:userList[i].name,
+                    username:this.state.username,
+                    role:userList[i].role
+                }
+                this.props.doLogin(userLogin)
+                return Swal.fire({
+                    icon: 'success',
+                    title: 'Login Sukses',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            }
+
+        }
     
-        if(this.state.username!=="fian1@gmail.com" && this.state.password!=="fian123@") return Swal.fire({
+        return Swal.fire({
             icon: 'error',
             title: 'Invalid username/password',
             showConfirmButton: false,
             timer: 1500
           })
-
-        this.props.doLogin(this.state.username)
        
-        return Swal.fire({
-            icon: 'success',
-            title: 'Login Sukses',
-            showConfirmButton: false,
-            timer: 1500
-          })
       }
 
     
     render() {
         
-        if (this.props.isLogedIn)
+        if (this.props.isLogedIn && this.props.userLogin.role==="Admin")
             return <Redirect to="/list-mahasiswa" />
+        
+        if (this.props.isLogedIn && this.props.userLogin.role==="Mahasiswa")
+            return <Redirect to="/detail-krs-mahasiswa" />
         
         return (
 
@@ -107,7 +121,7 @@ class LoginPage extends Component {
                     focus={this.focusHandler} 
                     blur={this.blurHandler} 
                     icon={envelope} 
-                    typeTx="text" 
+                    typeTx="email" 
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/>
 
@@ -117,13 +131,13 @@ class LoginPage extends Component {
                     label="password"
                     focus={this.focusHandler} 
                     icon={unlock} 
-                    typeTx="text" 
+                    typeTx="password" 
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/>
             
  
 
-                <button class="submitButton" onClick={this.onSubmitHandler}>Sign in</button>
+                <button  type="submit" className="submitButton" onClick={this.onSubmitHandler}>Sign in</button>
         
         </div>
     
@@ -135,7 +149,9 @@ class LoginPage extends Component {
 }
 
 const mapStateToProps = state => ({
-    isLogedIn: state.Auth.statusLogin
+    isLogedIn: state.Auth.statusLogin,
+    userList: state.UserList.users,
+    userLogin: state.Auth.userLogin
 })
 
 const mapDispatchToProps = dispatch => ({

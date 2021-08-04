@@ -137,20 +137,17 @@ class Body extends Component {
         })
     }
 
-    // saveProfileHandler = newMahasiswa => {
-    //     const oldMhs = this.state.listPenerimaan
-    //     const nimMhs = oldMhs.map(mhs => mhs.nim).indexOf(newMahasiswa.nim)
-    //     // console.log(idxUser);
-    //     oldMhs.splice(nimMhs, 1, newMahasiswa)
-    //     this.setState({
-    //         listPenerimaan: oldMhs
-    //     })
-    // }
-
     editlist = newData =>{
         this.setState({
             listSks:newData
         })
+    }
+
+    getDetailMhsLogged = () => {
+        const listMhs = this.props.mhsList
+        const idxMhs = listMhs.map(mhs => mhs.email).indexOf(this.props.userLogin.username)
+        // console.log("CEK LOGGED MHS",idxMhs)
+        return listMhs[idxMhs]
     }
 
     renderPage = () => {
@@ -189,7 +186,7 @@ class Body extends Component {
                 <FormSubmitNilaiPage dataEditMhs={this.state.mhsEdit} />
             </Route>
             <Route path="/detail-krs-mahasiswa">
-                <DetailMahasiswaPage dataDetailMhs={this.state.detailMhs} />
+                <DetailMahasiswaPage dataDetailMhs={this.props.userLogin.role==="Mahasiswa"? this.getDetailMhsLogged() : this.state.detailMhs} />
             </Route>
             <Route path="/detail-profile-mahasiswa">
                 <DetailProfile 
@@ -232,7 +229,8 @@ class Body extends Component {
     clearUserEdit = () => this.setState({userEdit: {}})
 
     render() {
-        console.log("detail state", this.state.detailMhs)
+        // console.log("detail state", this.state.detailMhs)
+        console.log("logged user", this.props.userLogin)
         return (
             this.renderPage()
         
@@ -242,7 +240,8 @@ class Body extends Component {
 
 const mapStateToProps = state => ({
     isLogedIn: state.Auth.statusLogin,
-    mhsList: state.MhsList.mahasiswas
+    mhsList: state.MhsList.mahasiswas,
+    userLogin: state.Auth.userLogin
 })
 
 const mapDispatchToProps = dispatch => ({

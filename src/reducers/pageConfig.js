@@ -17,9 +17,9 @@ const pageConfig = (state = defaultState, action) => {
             return {
                 currentPage:"/login"
             }
-        case "/signup":
+        case "/sign-up":
             return {
-                currentPage:"/signup"
+                currentPage:"/sign-up"
             }
        case "/list-sks":
             return {

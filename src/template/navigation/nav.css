@@ -2,12 +2,12 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    height: 50px;
+    height: 60px;
     border: 5px solid #34495e;
     border-radius: 15px;
     margin-bottom: 0px;
     /*color-background: #FFFF;*/
-    width: 79%;
+    width: 89%;
     margin-left: 100px;
     background-color: #34495e;
 }
@@ -29,12 +29,12 @@
     cursor: pointer;
     text-align: center;
     /*height: 100px;*/
-    /*margin-top: 20px;*/
+    margin-top: -20px;
     font-weight: bold;
     color: white;
 }
 
-.menu-item:hover {
+.menu-item:hover:not(:last-child) {
     background-color: grey;
 }
 
@@ -45,4 +45,27 @@
 
 .menu-item:last-child {
     margin-right: 0px;
+}
+
+/* .welcome{
+    margin-left: 1000px;
+} */
+
+
+.welcome{
+    /* position: absolute;
+    top: 30%;
+    left: 70%; */
+    font-size: 16px;
+    color: white;
+    margin-left: 30px;
+}
+
+.nameWelcome{
+    /* position: absolute;
+    top: 30%;
+    left: 70%; */
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
 }

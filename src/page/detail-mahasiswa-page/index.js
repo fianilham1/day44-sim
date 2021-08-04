@@ -90,16 +90,25 @@ class DetailMahasiswaPage extends Component{
         }
     }
 
+    renderButton = () => {
+       
+        if(this.props.userLogin.role!=="Mahasiswa") return (
+            <Link to="/list-mahasiswa">
+                <button  style={{marginLeft: 100, cursor: "pointer"}} >back
+                </button>
+            </Link>
+        )
+
+        return ''
+    }
+
     render() {
         const {dataDetailMhs}=this.props
         return(
             <>
 
                 <h1 style={{marginLeft: 100}}>Detail Mahasiswa</h1>
-                <Link to="/list-mahasiswa">
-                    <button  style={{marginLeft: 100, cursor: "pointer"}} >back
-                    </button>
-                </Link>
+                {this.renderButton()}
                 <h3 style={{marginLeft: 100}}>Nama : {dataDetailMhs.nama}</h3>
                 <h3 style={{marginLeft: 100}}>NIM : {dataDetailMhs.nim}</h3>
                 <h3 style={{marginLeft: 100}}>Jurusan : {dataDetailMhs.jurusan}</h3>
@@ -126,8 +135,12 @@ class DetailMahasiswaPage extends Component{
     }
 }
 
+const mapStateToProps = state => ({
+    userLogin: state.Auth.userLogin
+})
+
 const mapDispatchToProps = dispatch => ({
     changePage: page => dispatch({ type: page })
 })
 
-export default connect(null, mapDispatchToProps)(DetailMahasiswaPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailMahasiswaPage);

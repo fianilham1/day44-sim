@@ -9,5 +9,5 @@ export default combineReducers({
     Auth: AuthReducer,
     MhsList: MhsListReducer,
     pageConfig: pageConfigReducer,
-    userList:userListReducer
+    UserList:userListReducer
 })

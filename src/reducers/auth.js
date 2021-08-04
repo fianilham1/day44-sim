@@ -1,6 +1,11 @@
 const defaultState = {
     statusLogin: false,
-    username: ""
+    userLogin:{
+        name:"",
+        username: "",
+        role:""
+    }
+   
 }
 
 const authReducer = (state = defaultState, action) => {
@@ -10,7 +15,7 @@ const authReducer = (state = defaultState, action) => {
         case "LOGIN_OK":
             return {
                 ...state,
-                username: action.payload.user,
+                userLogin:action.payload.user,
                 statusLogin: true,
             }
         case "LOGOUT":

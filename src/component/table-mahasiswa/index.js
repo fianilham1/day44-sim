@@ -69,20 +69,6 @@ class TableMahasiswa extends Component {
 
                     <button name="profileDetail" style={{borderRadius: 10, width: 100, height: 30,cursor: "pointer", marginRight: 0}} id={data.id} onClick={this.handleDetail}>Detail Profile
                     </button>
-                         {/* <Link to="/submit-nilai-mahasiswa">
-                            <button style={{borderRadius: 10, width: 100, height: 30,cursor: "pointer", marginRight: 0}} id={data.id} onClick={this.handleSubmitNilai}>Submit Nilai
-                            </button>
-                        </Link> */}
-                        
-                        {/* <Link to="/detail-krs-mahasiswa">
-                            <button name="nilaiDetail" style={{borderRadius: 10, width: 100, height: 30,cursor: "pointer", marginRight: 0}} id={data.id} onClick={this.handleDetail}>Detail KRS
-                            </button>
-                        </Link> */}
-
-                        {/* <Link to="/detail-profile-mahasiswa">
-                            <button name="profileDetail" style={{borderRadius: 10, width: 100, height: 30,cursor: "pointer", marginRight: 0}} id={data.id} onClick={this.handleDetail}>Detail Profile
-                            </button>
-                        </Link> */}
 
                     </td>
                 </tr>

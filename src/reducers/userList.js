@@ -1,15 +1,22 @@
 const defaultState = {
-    userList:[
+    users:[
         {
             name:"fian",
             username:"fian1@gmail.com",
-            password:"fian123@"
+            password:"fian123@",
+            role:"Admin"
+        },
+        {
+            name:"ridhwan",
+            username:"rid@gmail.com",
+            password:"rid123@",
+            role:"Mahasiswa"   
         }
     ]
 }
 
 const addUser = newUser => {
-    const userList = defaultState.userList
+    const userList = defaultState.users
     userList.push(newUser)
 }
 

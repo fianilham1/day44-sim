@@ -200,7 +200,7 @@ class RegisterPage extends Component {
                     focus={this.focusHandler} 
                     blur={this.blurHandler} 
                     icon={envelope} 
-                    typeTx="text" 
+                    typeTx="email" 
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/> 
 

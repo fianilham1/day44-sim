@@ -22,10 +22,12 @@ class SignUpPage extends Component {
             isFocusUsername:false,
             isFocusPassword:false,
             isFocusConfirmPassword:false,
+            isFocusRole:true,
             name:'',
             username:'',
             password:'',
-            confirmpassword:''
+            confirmpassword:'',
+            role:''
           
         }
         this.baseSate=this.state
@@ -33,7 +35,7 @@ class SignUpPage extends Component {
     }
 
     componentDidMount(){
-        this.props.changePage("/signup")
+        this.props.changePage("/sign-up")
     }
 
     setValue = e => {
@@ -82,7 +84,8 @@ class SignUpPage extends Component {
         const user = {
             name:this.state.name,
             username:this.state.username,
-            password:this.state.password
+            password:this.state.password,
+            role:this.state.role
         }
         this.props.doSignUp(user)
        
@@ -108,6 +111,7 @@ class SignUpPage extends Component {
              <form className="bgform">
                  <div className="formName">
                     <div className="input-name">Name</div>
+                    <div className="input-name">Role</div>
                     <div className="input-name">Username</div>
                     <div className="input-name">Password</div>
                     <div className="input-name">Confirm Password</div>
@@ -129,12 +133,24 @@ class SignUpPage extends Component {
 
                 <Input 
                     state={this.state} 
+                    name="Role" 
+                    label="Role"
+                    focus={this.focusHandler} 
+                    blur={this.blurHandler} 
+                    icon={person} 
+                    typeTx="select" 
+                    dataArr = {["Select..","Admin","Mahasiswa","Dosen"]} 
+                    handleChange={this.setValue}
+                    submitStatus={this.state.submitStatus}/>  
+
+                <Input 
+                    state={this.state} 
                     name="Username" 
                     label="Username"
                     focus={this.focusHandler} 
                     blur={this.blurHandler} 
                     icon={envelope} 
-                    typeTx="text" 
+                    typeTx="email" 
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/>
 
@@ -144,7 +160,7 @@ class SignUpPage extends Component {
                     label="password"
                     focus={this.focusHandler} 
                     icon={unlock} 
-                    typeTx="text" 
+                    typeTx="password" 
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/>
 
@@ -154,11 +170,12 @@ class SignUpPage extends Component {
                     label="Confirm password"
                     focus={this.focusHandler} 
                     icon={unlock} 
-                    typeTx="text" 
+                    typeTx="password" 
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/>
+
             
-                <button class="submitButton" onClick={this.onSubmitHandler}>Sign Up</button>
+                <button type="submit" className="submitButton" onClick={this.onSubmitHandler}>Sign Up</button>
         
         </div>
     
