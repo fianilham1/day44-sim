@@ -8,7 +8,7 @@ class Form extends Component {
     }
 
     render() {
-        const {dataEditMhs}=this.props
+        // const {dataEditMhs}=this.props
         return (
           <div>
             <FormInput

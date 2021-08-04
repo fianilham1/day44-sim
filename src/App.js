@@ -24,7 +24,7 @@ class App extends Component {
      
             <Router>
                 <Header></Header>
-                <Nav currentPage={page} goToPage={this.setPage} />
+                <Nav/>
                 <Body currentPage={page} goToPage={this.setPage} />
             </Router>
                

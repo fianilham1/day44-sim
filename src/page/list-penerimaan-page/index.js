@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Table} from '../../component';
 import "./penerimaan.css"
 import { Link } from "react-router-dom"
+import { connect } from 'react-redux';
 
 class Penerimaan extends Component {
     constructor(props) {
@@ -9,6 +10,10 @@ class Penerimaan extends Component {
         this.state = { 
             listPenerimaan : []
          }
+    }
+
+    componentDidMount(){
+        this.props.changePage("/penerimaan")
     }
 
     clickHandler = e => {
@@ -20,6 +25,7 @@ class Penerimaan extends Component {
     }
 
     render() { 
+      
         const {listPenerimaan} = this.props
         const list = listPenerimaan.map((data,index)=> {
             return{
@@ -45,7 +51,7 @@ class Penerimaan extends Component {
                     //NOTE : dataList.length must be headerName.length-1 (for cell number)
                 />
                 <Link to="/form">
-                    <button class="backButtonToForm" onClick={() => this.props.goToPage("form")}>Back to Form
+                    <button className="backButtonToForm">Back to Form
                     </button>
                 </Link>
             </div>
@@ -53,4 +59,8 @@ class Penerimaan extends Component {
     }
 }
  
-export default Penerimaan;
+const mapDispatchToProps = dispatch => ({
+    changePage: page => dispatch({ type: page })
+})
+
+export default connect(null, mapDispatchToProps)(Penerimaan);

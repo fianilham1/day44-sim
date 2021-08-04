@@ -1,33 +1,47 @@
 import React, {Component} from 'react'
-import {Form, FormHeader} from "../../component";
-import { Link } from "react-router-dom"
+// import {Form, FormHeader} from "../../component";
+// import { Link } from "react-router-dom"
 import { Redirect } from "react-router-dom"
+import { connect } from 'react-redux';
 
 class FormSubmitNilaiPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            submitStatus:false
         };
+    }
+
+    componentDidMount(){
+        this.props.changePage("/submit-nilai-mahasiswa")
+    }    
+
+    componentWillMount(){
+        this.resetSubmitStatus()
+    }
+
+    resetSubmitStatus = () => {
+        this.setState({
+            submitStatus:false
+        })
     }
 
     updateNilai = (e) => {
         e.preventDefault()
-        const {dataEditMhs, gtp, setNilaiMhs} = this.props
+        const {dataEditMhs} = this.props
 
         let nilaiHuruf1 = e.target.nilaiHuruf[0].value
         let nilaiHuruf2 = e.target.nilaiHuruf[1].value
         let nilaiHuruf3 = e.target.nilaiHuruf[2].value
-        const dataKrs = dataEditMhs.krs
-
 
         // console.log("data krs lama", dataKrs)
         dataEditMhs.krs[0].nilaiHuruf = nilaiHuruf1
         dataEditMhs.krs[1].nilaiHuruf = nilaiHuruf2
         dataEditMhs.krs[2].nilaiHuruf = nilaiHuruf3
 
-        let newHurufNilai1 = dataEditMhs.krs[0].nilaiHuruf
-        let newHurufNilai2 = dataEditMhs.krs[1].nilaiHuruf
-        let newHurufNilai3 = dataEditMhs.krs[2].nilaiHuruf
+        // let newHurufNilai1 = dataEditMhs.krs[0].nilaiHuruf
+        // let newHurufNilai2 = dataEditMhs.krs[1].nilaiHuruf
+        // let newHurufNilai3 = dataEditMhs.krs[2].nilaiHuruf
 
         if(nilaiHuruf1 === "A"){
             dataEditMhs.krs[0].nilai=85
@@ -70,16 +84,12 @@ class FormSubmitNilaiPage extends Component {
         }else {
             dataEditMhs.krs[2].nilai=0
         }
+       
+        this.setState({
+            submitStatus:true
+        })
 
-        console.log("cek", dataEditMhs.krs[0].nilaiHuruf)
-        console.log("cek nilai", dataEditMhs.krs[0].nilai)
-        console.log("cek", dataEditMhs.krs[1].nilaiHuruf)
-        console.log("cek", dataEditMhs.krs[2].nilaiHuruf)
-
-        console.log("123", dataEditMhs)
-        setNilaiMhs(dataEditMhs)
-        // gtp("list-mahasiswa")
-        return <Redirect to="/list-mahasiswa" />
+        this.props.editNilai(dataEditMhs)
     }
 
     renderPageSubmit = () => {
@@ -104,7 +114,10 @@ class FormSubmitNilaiPage extends Component {
 
 
     render() {
-        const {dataEditMhs, gtp} = this.props
+
+        if(this.state.submitStatus) return <Redirect to="/list-mahasiswa"/>
+
+        const {dataEditMhs} = this.props
         console.log("data 123", dataEditMhs)
         return (
             <form onSubmit={this.updateNilai}>
@@ -112,16 +125,13 @@ class FormSubmitNilaiPage extends Component {
                 <h1 style={{marginLeft: 100}}>Edit Nilai Mahasiswa</h1>
                 <button type="submit" style={{borderRadius: 10, marginLeft: 100, width: 100, height: 30, cursor: "pointer"}}>Update
                 </button>
-                 {/* <Link to="/list-mahasiswa">
-                    <button type="submit" style={{borderRadius: 10, marginLeft: 100, width: 100, height: 30, cursor: "pointer"}}>Update
-                    </button>
-                </Link> */}
+    
                 <h3 style={{marginLeft: 100}}>Nama : {dataEditMhs.nama}</h3>
                 <h3 style={{marginLeft: 100}}>NIM : {dataEditMhs.nim}</h3>
                 <h3 style={{marginLeft: 100}}>Jurusan : {dataEditMhs.jurusan}</h3>
                 <h3 style={{marginLeft: 100}}>Jumlah SKS
                     : {
-                    dataEditMhs.krs.length!=0?
+                    dataEditMhs.krs.length!==0?
                     dataEditMhs.krs[0].jumlahSks +
                     dataEditMhs.krs[1].jumlahSks +
                     dataEditMhs.krs[2].jumlahSks:0
@@ -144,4 +154,11 @@ class FormSubmitNilaiPage extends Component {
     }
 }
 
-export default FormSubmitNilaiPage;
+
+const mapDispatchToProps = dispatch => ({
+    changePage: page => dispatch({ type: page }),
+    editNilai: mhsKrsDetail => dispatch({ type: "EDIT_Nilai", payload:{mhsKrsDetail} })
+})
+
+
+export default connect(null, mapDispatchToProps)(FormSubmitNilaiPage);

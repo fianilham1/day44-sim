@@ -2,25 +2,30 @@ import React, { Component } from 'react';
 // import "./register.css"
 import { Input } from '../../component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUnlockAlt, faEnvelope} from '@fortawesome/free-solid-svg-icons'
+import { faUnlockAlt, faEnvelope, faUser} from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 const envelope = <FontAwesomeIcon icon={faEnvelope} />
 const unlock = <FontAwesomeIcon icon={faUnlockAlt} />
+const person = <FontAwesomeIcon icon={faUser} />
 
 
-class LoginPage extends Component {
+class SignUpPage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             submitStatus:false,
+            isFocusName:false,
             isFocusUsername:false,
             isFocusPassword:false,
+            isFocusConfirmPassword:false,
+            name:'',
             username:'',
-            password:''
+            password:'',
+            confirmpassword:''
           
         }
         this.baseSate=this.state
@@ -28,12 +33,13 @@ class LoginPage extends Component {
     }
 
     componentDidMount(){
-        this.props.changePage("/login")
+        this.props.changePage("/signup")
     }
 
     setValue = e => {
         this.setState({ 
-        [e.target.name]: e.target.value
+        [e.target.name]: e.target.value,
+        submitStatus:false
      })
     }
 
@@ -55,26 +61,34 @@ class LoginPage extends Component {
     onSubmitHandler =  e => {
         e.preventDefault();
 
-        
-      
-        // this.setState({
-        //     submitStatus:true
-        // })
+        this.setState({
+            submitStatus:true
+        })
 
-
-    
-        if(this.state.username!=="fian1@gmail.com" && this.state.password!=="fian123@") return Swal.fire({
+        if(this.state.name==='' || this.state.username==='' || this.state.password==='') return Swal.fire({
             icon: 'error',
-            title: 'Invalid username/password',
+            title: 'Semua Field Harus diisi',
+            showConfirmButton: false,
+            timer: 1500
+          })
+    
+        if(this.state.password!==this.state.confirmpassword) return Swal.fire({
+            icon: 'error',
+            title: 'Password Is Not Match',
             showConfirmButton: false,
             timer: 1500
           })
 
-        this.props.doLogin(this.state.username)
+        const user = {
+            name:this.state.name,
+            username:this.state.username,
+            password:this.state.password
+        }
+        this.props.doSignUp(user)
        
         return Swal.fire({
             icon: 'success',
-            title: 'Login Sukses',
+            title: 'Sign Up Sukses',
             showConfirmButton: false,
             timer: 1500
           })
@@ -83,22 +97,35 @@ class LoginPage extends Component {
     
     render() {
         
-        if (this.props.isLogedIn)
-            return <Redirect to="/list-mahasiswa" />
+        // if (this.props.isLogedIn)
+        //     return <Redirect to="/list-mahasiswa" />
         
         return (
 
             <div className="bg">
              <h1 className="titleRegister1" align="center">UNIVERSITY OF WIBU</h1>
-             <h2 className="titleRegister" align="center">Login</h2>
+             <h2 className="titleRegister" align="center">Sign Up User</h2>
              <form className="bgform">
                  <div className="formName">
+                    <div className="input-name">Name</div>
                     <div className="input-name">Username</div>
                     <div className="input-name">Password</div>
+                    <div className="input-name">Confirm Password</div>
                     <div className="input-name"></div>
                     
                  </div>
                 <div className="formInput">
+
+                <Input 
+                    state={this.state} 
+                    name="Name" 
+                    label="Name"
+                    focus={this.focusHandler} 
+                    blur={this.blurHandler} 
+                    icon={person} 
+                    typeTx="text" 
+                    handleChange={this.setValue}
+                    submitStatus={this.state.submitStatus}/>
 
                 <Input 
                     state={this.state} 
@@ -120,10 +147,18 @@ class LoginPage extends Component {
                     typeTx="text" 
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/>
-            
- 
 
-                <button class="submitButton" onClick={this.onSubmitHandler}>Sign in</button>
+                <Input 
+                    state={this.state} 
+                    name="ConfirmPassword" 
+                    label="Confirm password"
+                    focus={this.focusHandler} 
+                    icon={unlock} 
+                    typeTx="text" 
+                    handleChange={this.setValue}
+                    submitStatus={this.state.submitStatus}/>
+            
+                <button class="submitButton" onClick={this.onSubmitHandler}>Sign Up</button>
         
         </div>
     
@@ -134,13 +169,10 @@ class LoginPage extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    isLogedIn: state.Auth.statusLogin
-})
 
 const mapDispatchToProps = dispatch => ({
-    doLogin: user => dispatch({ type: "LOGIN_OK", payload: { user } }),
+    doSignUp: user => dispatch({ type: "SIGNUP_OK", payload: { user } }),
     changePage: page => dispatch({ type: page })
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(null, mapDispatchToProps)(SignUpPage);

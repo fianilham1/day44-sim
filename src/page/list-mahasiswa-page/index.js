@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Mahasiswa} from "../../master";
+import { connect } from 'react-redux';
 
 class ListMahasiswa extends Component {
     constructor(props) {
@@ -8,12 +9,22 @@ class ListMahasiswa extends Component {
             
          };
     }
+
+    componentDidMount(){
+        this.props.changePage("/list-mahasiswa")
+    }
+
     render() {
-        const {dataMhsBaru, gtp, dataEditMhs, setDetailMhs, updateNilaiMhs,  setProfileDetailMhs}=this.props
+       
+        const {dataMhsBaru, dataEditMhs, setDetailMhs,  setProfileDetailMhs}=this.props
         return (
-            <Mahasiswa dataMhsBaru={dataMhsBaru} updateNilaiMhs={updateNilaiMhs} setDetailMhs={setDetailMhs}  setProfileDetailMhs={ setProfileDetailMhs} dataEditMhs={dataEditMhs} gtp={gtp} />
+            <Mahasiswa dataMhsBaru={dataMhsBaru} setDetailMhs={setDetailMhs}  setProfileDetailMhs={ setProfileDetailMhs} dataEditMhs={dataEditMhs} />
         );
     }
 }
 
-export default ListMahasiswa;
+const mapDispatchToProps = dispatch => ({
+    changePage: page => dispatch({ type: page })
+})
+
+export default connect(null, mapDispatchToProps)(ListMahasiswa);

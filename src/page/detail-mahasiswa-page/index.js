@@ -1,5 +1,6 @@
 import React,{Component} from "react";
 import { Link } from "react-router-dom"
+import { connect } from 'react-redux';
 
 class DetailMahasiswaPage extends Component{
     constructor(props) {
@@ -9,9 +10,9 @@ class DetailMahasiswaPage extends Component{
         };
     }
 
-    // buttonBack=()=>{
-    //     this.props.gtp("list-mahasiswa")
-    // }
+    componentDidMount(){
+        this.props.changePage("/detail-krs-mahasiswa")
+    }
 
     renderPageDetail=()=>{
         const {dataDetailMhs}=this.props
@@ -19,7 +20,7 @@ class DetailMahasiswaPage extends Component{
         console.log("detail mhs", dataDetailMhs)
         return dataKrs.map((data, index) => {
             return(
-                <tr>
+                <tr key={index}>
                     <td className="cell">{data.mataKuliah}</td>
                     <td className="cell">{data.jumlahSks}</td>
                     <td className="cell">{data.nilai}</td>
@@ -38,6 +39,7 @@ class DetailMahasiswaPage extends Component{
         if(dataDetailMhs.krs.length!==0){
             dataDetailMhs.krs.map((mk,index)=>{
                 jumlahSks += mk.jumlahSks
+                return ''
             })
             return jumlahSks
         }
@@ -52,7 +54,7 @@ class DetailMahasiswaPage extends Component{
             dataDetailMhs.krs.map((mk,index)=>{
                 totalPoin += mk.jumlahSks*this.getPoin(mk.nilaiHuruf)
                 jumlahSks += mk.jumlahSks
-               
+                return ''
             })
          
             return (totalPoin/jumlahSks)
@@ -107,11 +109,13 @@ class DetailMahasiswaPage extends Component{
 
                 <table className="customers-list" width="80%">
                     <thead>
-                        <th>Mata Kuliah</th>
-                        <th>Jumlah SKS</th>
-                        <th>Nilai</th>
-                        <th>Nilai</th>
-                        <th>Nama Dosen</th>
+                        <tr>
+                            <th>Mata Kuliah</th>
+                            <th>Jumlah SKS</th>
+                            <th>Nilai</th>
+                            <th>Nilai</th>
+                            <th>Nama Dosen</th>
+                        </tr>
                     </thead>
                     <tbody>
                     {this.renderPageDetail()}
@@ -122,4 +126,8 @@ class DetailMahasiswaPage extends Component{
     }
 }
 
-export default DetailMahasiswaPage
+const mapDispatchToProps = dispatch => ({
+    changePage: page => dispatch({ type: page })
+})
+
+export default connect(null, mapDispatchToProps)(DetailMahasiswaPage);

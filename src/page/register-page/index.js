@@ -4,7 +4,8 @@ import { Input, Dialog } from '../../component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faClipboardCheck, faEnvelope, faVenusMars, faPhone, faMapMarkerAlt, faBook, faUserGraduate } from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
-import { Link } from "react-router-dom"
+import { Redirect} from 'react-router-dom'
+import { connect } from 'react-redux';
 
 const graduate = <FontAwesomeIcon icon={faUserGraduate} />
 const book = <FontAwesomeIcon icon={faBook} />
@@ -49,15 +50,27 @@ class RegisterPage extends Component {
        
     }
 
+    componentDidMount(){
+        this.props.changePage("/form")
+    }
+
+    componentWillMount(){
+        this.resetSubmitStatus()
+    }
+
+    resetSubmitStatus = () => {
+        this.setState({
+            submitStatus:false
+        })
+    }
+
     setValue = e => {
         this.setState({ 
         [e.target.name]: e.target.value,
         submitStatus:false
      })
     }
-    // componentWillUnmount() {
-    //     this.props.resetUserEdit()
-    // }
+   
 
     focusHandler = e => {
         this.setState({[e.target.id]:true})
@@ -113,7 +126,6 @@ class RegisterPage extends Component {
 
         console.log("NEWuser",mahasiswaInputNew)
         this.props.addNewListPenerimaan(mahasiswaInputNew)
-        this.props.goToPage("penerimaan")
        
         return Swal.fire({
             icon: 'success',
@@ -125,6 +137,8 @@ class RegisterPage extends Component {
 
     
     render() {
+        if(this.state.submitStatus) return <Redirect to="/penerimaan"/>
+
         return (
 
             <div className="bg">
@@ -258,11 +272,7 @@ class RegisterPage extends Component {
                 accept="image/*"
                 submitStatus={this.state.submitStatus}/>  
 
-                <Link to="/penerimaan">
-                    <button class="submitButton" onClick={this.onSubmitHandler}>Submit
-                    </button>
-                </Link>
-        {/* <Dialog onClick={this.onSubmitHandler}/> */}
+            <Dialog onClick={this.onSubmitHandler}/>
         </div>
     
             </form>        
@@ -272,4 +282,8 @@ class RegisterPage extends Component {
     }
 }
 
-export default RegisterPage;
+const mapDispatchToProps = dispatch => ({
+    changePage: page => dispatch({ type: page })
+})
+
+export default connect(null, mapDispatchToProps)(RegisterPage);

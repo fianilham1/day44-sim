@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./nav.css";
 import { Link } from "react-router-dom"
+import { connect } from 'react-redux';
 
 class Nav extends Component {
   constructor(props) {
@@ -8,7 +9,8 @@ class Nav extends Component {
     this.state = {};
   }
     render() {
-        const {currentPage, goToPage} = this.props
+        const {currentPage} = this.props
+
         return (
             <div className="nav-container">
                 <div className="logo" >
@@ -16,31 +18,31 @@ class Nav extends Component {
                 </div>
                 <div className="menu">
                   <Link to="/login">
-                    <div onClick={() => goToPage("login")} className={`menu-item ${currentPage === "login" ? "active" : ""}`}>Login
+                    <div className={`menu-item ${currentPage === "/login" ? "active" : ""}`}>Login
                     </div>
                   </Link>
-                  <Link to="/sks">
-                    <div onClick={() => goToPage("sks")} className={`menu-item ${currentPage === "sks" ? "active" : ""}`}>SKS
+                  <Link to="/list-sks">
+                    <div className={`menu-item ${currentPage === "/list-sks" ? "active" : ""}`}>SKS
                     </div>
                   </Link>
                   <Link to="/form">
-                    <div onClick={() => goToPage("form")} className={`menu-item ${currentPage === "form" ? "active" : ""}`}>Form
+                    <div className={`menu-item ${currentPage === "/form" ? "active" : ""}`}>Form
                     </div>
                   </Link>
                   <Link to="/list-dosen">
-                    <div onClick={() => goToPage("list-dosen")} className={`menu-item ${currentPage === "list-dosen" ? "active" : ""}`}> List Data Dosen
+                    <div className={`menu-item ${currentPage === "/list-dosen" ? "active" : ""}`}> List Data Dosen
                     </div>
                   </Link>
                   <Link to="/list-jurusan">
-                    <div onClick={() => goToPage("list-jurusan")} className={`menu-item ${currentPage === "list-jurusan" ? "active" : ""}`}> List Jurusan
+                    <div className={`menu-item ${currentPage === "/list-jurusan" ? "active" : ""}`}> List Jurusan
                     </div>
                   </Link>
                   <Link to="/penerimaan">
-                    <div onClick={() => goToPage("penerimaan")} className={`menu-item ${currentPage === "penerimaan" ? "active" : ""}`}>List Penerimaan
+                    <div className={`menu-item ${currentPage === "/penerimaan" ? "active" : ""}`}>List Penerimaan
                     </div>
                   </Link>
                   <Link to="/list-mahasiswa">
-                    <div onClick={() => goToPage("list-mahasiswa")} className={`menu-item ${currentPage === "list-mahasiswa" ? "active" : ""}`}>List Mahasiswa
+                    <div className={`menu-item ${currentPage === "/list-mahasiswa" ? "active" : ""}`}>List Mahasiswa
                     </div>
                   </Link>
                 
@@ -94,4 +96,9 @@ class Nav extends Component {
     }
 }
 
-export default Nav;
+const mapStateToProps = state => ({
+  currentPage: state.pageConfig.currentPage
+})
+
+// export default Detail;
+export default connect(mapStateToProps)(Nav);
