@@ -93,3 +93,20 @@ h1 {
 .customers-list td:before {
     color: #dd5;
 }
+
+.customers-list .actionList{
+    width: 150px;
+    display: flex;
+    text-align: left;
+    justify-content: left;
+}
+
+.customers-list .actionList button{
+    margin: 0px 10px;
+  
+}
+
+.customers-list .actionList button:first-child{
+    margin-left: -20px;
+   
+}

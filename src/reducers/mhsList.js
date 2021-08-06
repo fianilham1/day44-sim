@@ -2,7 +2,7 @@ const defaultState = {
     mahasiswas: [
         {
             id: 1,
-            nama: "ridhwan",
+            nama: "Ridhwan",
             nim: "2107001",
             ttl:"2020-05-13",
             gender:"Male",
@@ -42,7 +42,7 @@ const defaultState = {
         },
         {
             id: 2,
-            nama: "alfa",
+            nama: "Alfa",
             nim: "2107002",
             ttl:"2020-05-13",
             gender:"Male",
@@ -81,12 +81,12 @@ const defaultState = {
         },
         {
             id: 3,
-            nama: "johanes",
+            nama: "Shayla",
             nim: "2107003",
             ttl:"2020-05-13",
             gender:"Male",
             mobile:"119",
-            email:"alfa@gmail.com",
+            email:"shayla@gmail.com",
             alamat:"Sby",
             tahun:"Semester Ganjil 2020/2021",
             jurusan:"Kedokteran",
@@ -153,7 +153,7 @@ const saveNilaiHandler = newMahasiswa => {
 const addMhsHandler = newMahasiswa => {
 
         let listMhs = defaultState.mahasiswas
-        console.log("DARI PENERIMAAN",newMahasiswa)
+        console.log("ADDNEW : BEFORE ",listMhs)
         let mhsObject =  {
             ...newMahasiswa,
             id: Math.max(...listMhs.map(mhs => mhs.id)) + 1,
@@ -170,6 +170,7 @@ const addMhsHandler = newMahasiswa => {
             ]
         }
         listMhs.push(mhsObject)
+        console.log("ADDNEW : AFTER ",listMhs)
 }
 
 

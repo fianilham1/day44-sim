@@ -16,17 +16,20 @@ class Table extends Component {
         })
     }
 
-    renderCellTable = data => {
+    renderCellTable = (data) => {
+        const {userLogin} = this.props
         const cellArr = Object.keys(data)
         return cellArr.map((key, index) => {
 
             if(key==="clickEvent") {
                 const clickArr = Object.keys(data[key])
                 const button = clickArr.map((key2,index)=> {
-                    return <button key={index} className={key2} onClick={data[key][key2]}></button>
+                    if(userLogin.username===data['username'] && userLogin.role==="Admin" && data[key][key2]['label']==="Delete") return ''
+
+                    return <button id={data[key][key2]['idUser']} key={index} className={key2} onClick={data[key][key2]['clickFunc']}>{data[key][key2]['label']}</button>
                 })
                 return (
-                    <td key={index} className="cell">
+                    <td key={index} className="cell actionList">
                         {button}
                     </td>
                 )               
@@ -59,10 +62,10 @@ class Table extends Component {
                 <table className={className} width="80%">
                     <thead>
                         <tr>
-                        {this.renderHeaderTable()}
+                            {this.renderHeaderTable()}
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody>          
                         {this.renderBodyTable()}
                     </tbody>
                 </table>

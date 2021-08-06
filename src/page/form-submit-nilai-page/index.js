@@ -16,7 +16,7 @@ class FormSubmitNilaiPage extends Component {
         this.props.changePage("/submit-nilai-mahasiswa")
     }    
 
-    componentWillMount(){
+    componentWillUnmount(){
         this.resetSubmitStatus()
     }
 
@@ -115,6 +115,9 @@ class FormSubmitNilaiPage extends Component {
 
     render() {
 
+        if (this.props.userLogin==="Mahasiswa")
+        return <Redirect to="/detail-krs-mahasiswa" />
+
         if(this.state.submitStatus) return <Redirect to="/list-mahasiswa"/>
 
         const {dataEditMhs} = this.props
@@ -154,6 +157,10 @@ class FormSubmitNilaiPage extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    userLogin: state.Auth.userLogin
+  })
+
 
 const mapDispatchToProps = dispatch => ({
     changePage: page => dispatch({ type: page }),
@@ -161,4 +168,4 @@ const mapDispatchToProps = dispatch => ({
 })
 
 
-export default connect(null, mapDispatchToProps)(FormSubmitNilaiPage);
+export default connect(mapStateToProps, mapDispatchToProps)(FormSubmitNilaiPage);

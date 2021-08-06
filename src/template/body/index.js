@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ListMahasiswa, RegisterPage, DetailProfile, ListPenerimaanPage, Login, SignUp} from "../../page";
+import {ListMahasiswa, RegisterPage, DetailProfile, ListPenerimaanPage, Login, SignUp, ListUser} from "../../page";
 import FormSubmitNilaiPage from "../../page/form-submit-nilai-page";
 import DetailMahasiswaPage from "../../page/detail-mahasiswa-page";
 import ListSKS from '../../page/list-sks-page';
@@ -22,67 +22,61 @@ class Body extends Component {
                        {idsks: 9, matkul:"Ilmu Bedah", jmlsks:"3", idjurusan: "KEDOKTERAN", dosen:""} ],
             users: [],
             mhsEdit: {},
+            changeStatus:"getApiFirstTime",
             listPenerimaan: [
-                // {
-                //     nama:"fian",
-                //     id:1,
-                //     nim:"112021",
-                //     ttl:"2020-03-13",
-                //     gender:"Male",
-                //     mobile:"999",
-                //     email:"ff@gmail.com",
-                //     alamat:"Jkt",
-                //     tahun:"Semester Ganjil 2020/2021",
-                //     jurusan:"IT",
-                //     strata:"S1",
-                //     foto:"foto.jpeg"
-                // },
-                // {
-                //     nama:"john",
-                //     id:2,
-                //     nim:"222021",
-                //     ttl:"2020-05-13",
-                //     gender:"Male",
-                //     mobile:"119",
-                //     email:"john@gmail.com",
-                //     alamat:"Sby",
-                //     tahun:"Semester Ganjil 2020/2021",
-                //     jurusan:"Peternakan",
-                //     strata:"S1",
-                //     foto:"foto.jpeg"
-                // },
-                // {
-                //     nama:"steve",
-                //     id:3,
-                //     nim:"332021",
-                //     ttl:"2020-11-01",
-                //     gender:"Male",
-                //     mobile:"555",
-                //     email:"ff@gmail.com",
-                //     alamat:"Mlg",
-                //     tahun:"Semester Ganjil 2020/2021",
-                //     jurusan:"Kedokteran",
-                //     strata:"S1",
-                //     foto:"foto.jpeg"
-                // }
+              
             ],
             detailMhs: {},
             userEdit: {},
             mhsProfileDetail: {
-                // nama:"fian",
-                // nim:"112021",
-                // ttl:"2020-03-13",
-                // gender:"Male",
-                // mobile:"999",
-                // email:"ff@gmail.com",
-                // alamat:"Jkt",
-                // tahun:"Semester Ganjil 2020/2021",
-                // jurusan:"IT",
-                // strata:"S1",
-                // foto:"foto_fian.jpg"
+          
             }
         }
     }
+
+    componentDidMount(){
+        if(this.state.changeStatus==="getApiFirstTime"){
+            this.props.getApiUsers()
+            this.setState({
+                changeStatus:"waitingAnyReq"
+            })
+        }
+    }
+
+    componentDidUpdate(){
+        if(this.state.changeStatus==="doEdit" || this.state.changeStatus==="doDelete" ||  this.state.changeStatus==="doAdd"){
+            console.log("SERVICE START -> Wait... before get users api again")
+            setTimeout(() => { 
+                this.props.getApiUsers()
+                console.log("DONE -> get users api again to update")
+                this.setState({
+                    changeStatus:"waitingAnyReq"
+                })
+            }, 8000);
+        }
+    }
+
+    editUser = () => {
+        this.setState({
+            changeStatus:"doEdit"
+        })
+    }
+
+    deleteUser = () => {
+        this.setState({
+            changeStatus:"doDelete"
+        })
+    }
+
+    addNewUser = () => {
+        this.setState({
+            changeStatus:"doAdd"
+        })
+    }
+
+    //Code Above is Related to Api ^
+    //////////////////////////////////////////////////
+    //Code Below is Others 
 
 
     setDetailMhs = detailMhs => {
@@ -150,17 +144,25 @@ class Body extends Component {
         return listMhs[idxMhs]
     }
 
+   
+
     renderPage = () => {
         console.log("PROFILE SELECTED",this.state.mhsProfileDetail)
         const {userEdit} = this.state
 
         return (
         <Switch>
-             <Route path="/login">
+             <Route path="/" exact>
+                <Login/>
+            </Route>
+            <Route path="/login">
                 <Login/>
             </Route>
             <Route path="/sign-up">
-                <SignUp/>
+                <SignUp addNewTriggerApi={this.addNewUser}/>
+            </Route>
+            <Route path="/list-user">
+                <ListUser editTriggerApi={this.editUser} deleteTriggerApi={this.deleteUser}/>
             </Route>
             <Route path="/list-dosen">
                 <ListDosen />
@@ -168,7 +170,7 @@ class Body extends Component {
             <Route path="/list-jurusan">
                 <ListJurusan />
             </Route>
-            <Route path="/form">
+            <Route path="/registrasi-mahasiswa">
                 <RegisterPage
                     addNewListPenerimaan={this.addNewListPenerimaanHandler}/>
             </Route>
@@ -230,7 +232,7 @@ class Body extends Component {
 
     render() {
         // console.log("detail state", this.state.detailMhs)
-        console.log("logged user", this.props.userLogin)
+        console.log("current change STATUS", this.state.changeStatus)
         return (
             this.renderPage()
         
@@ -241,11 +243,12 @@ class Body extends Component {
 const mapStateToProps = state => ({
     isLogedIn: state.Auth.statusLogin,
     mhsList: state.MhsList.mahasiswas,
-    userLogin: state.Auth.userLogin
+    userLogin: state.Auth.userLogin,
 })
 
 const mapDispatchToProps = dispatch => ({
-    addNewMhs: newMhs => dispatch({ type: "ADD_NEW", payload:{newMhs} })
+    addNewMhs: newMhs => dispatch({ type: "ADD_NEW", payload:{newMhs} }),
+    getApiUsers: () =>  dispatch({ type: "GETALLUSERS" })
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Body);

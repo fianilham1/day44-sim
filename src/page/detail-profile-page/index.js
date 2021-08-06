@@ -24,7 +24,7 @@ class DetailProfilePage extends Component {
         this.props.changePage("/detail-profile-mahasiswa")
     }
 
-    componentWillMount(){
+    componentWillUnmount(){
         this.resetState()
     }
 

@@ -1,0 +1,52 @@
+.editUser, .deleteUser{
+    display: block;
+    width: 70px;
+    height: 30px;
+    border: none;
+    /* background: none; */
+    cursor: pointer;
+    color: white;
+    text-transform: uppercase;
+    font-family: 'Poppins',sans-serif;
+    background-size: 200%;
+    transition: .4s;
+    padding: 0px 10px;
+    font-size: 15px;
+    justify-content: center;
+    border-radius: 10%;
+    box-shadow: 3px 4px 0px rgba(28, 28, 29, 0.42);
+  }
+
+  .editUser{
+    background-color: #0f32a5;
+  }
+
+  
+  .editUser:hover{
+    background-color: #fff;
+    color: rgb(0, 0, 0);
+    box-shadow: 3px 4px 0px rgba(0, 0, 255, 0.597);
+  }
+
+
+  .deleteUser{
+    background-color: #e22b13;
+  }
+
+  .deleteUser:hover{
+    background-color: #fff;
+    color: rgb(0, 0, 0);
+    box-shadow: 3px 4px 0px rgba(231, 20, 12, 0.833);
+  }
+
+  .dialog-container{
+      width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+  }
+
+  .inputDialog{
+      width: 90%;
+  }
+
+  

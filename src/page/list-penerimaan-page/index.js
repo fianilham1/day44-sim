@@ -50,7 +50,7 @@ class Penerimaan extends Component {
                     headerName={["No","Nama","NIM","Jurusan","Strata","Tahun Masuk Akademik"]}
                     //NOTE : dataList.length must be headerName.length-1 (for cell number)
                 />
-                <Link to="/form">
+                <Link to="/registrasi-mahasiswa">
                     <button className="backButtonToForm">Back to Form
                     </button>
                 </Link>

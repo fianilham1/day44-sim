@@ -51,10 +51,10 @@ class RegisterPage extends Component {
     }
 
     componentDidMount(){
-        this.props.changePage("/form")
+        this.props.changePage("/registrasi-mahasiswa")
     }
 
-    componentWillMount(){
+    componentWillUnmount(){
         this.resetSubmitStatus()
     }
 
@@ -137,6 +137,10 @@ class RegisterPage extends Component {
 
     
     render() {
+
+        if (this.props.userLogin==="Mahasiswa")
+        return <Redirect to="/detail-krs-mahasiswa" />
+
         if(this.state.submitStatus) return <Redirect to="/penerimaan"/>
 
         return (
@@ -282,8 +286,12 @@ class RegisterPage extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    userLogin: state.Auth.userLogin
+})
+
 const mapDispatchToProps = dispatch => ({
     changePage: page => dispatch({ type: page })
 })
 
-export default connect(null, mapDispatchToProps)(RegisterPage);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);

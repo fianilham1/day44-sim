@@ -44,10 +44,6 @@ class Nav extends Component {
         <div className={`menu-item ${currentPage === "/login" ? "active" : ""}`}>Login
         </div>
       </Link>
-      <Link to="/form">
-        <div className={`menu-item ${currentPage === "/form" ? "active" : ""}`}>Form
-        </div>
-      </Link>
       </>
     )
   }
@@ -57,6 +53,10 @@ class Nav extends Component {
     if (this.props.isLogedIn && this.props.userLogin.role==="Admin"){
       return (
         <>
+                  <Link to="/list-user">
+                    <div className={`menu-item ${currentPage === "/list-user" ? "active" : ""}`}>List User
+                    </div>
+                  </Link>
                   <Link to="/sign-up">
                     <div className={`menu-item ${currentPage === "/sign-up" ? "active" : ""}`}>Sign Up
                     </div>
@@ -65,8 +65,8 @@ class Nav extends Component {
                     <div className={`menu-item ${currentPage === "/list-sks" ? "active" : ""}`}>SKS
                     </div>
                   </Link>
-                  <Link to="/form">
-                    <div className={`menu-item ${currentPage === "/form" ? "active" : ""}`}>Form
+                  <Link to="/registrasi-mahasiswa">
+                    <div className={`menu-item ${currentPage === "/registrasi-mahasiswa" ? "active" : ""}`}>Registrasi Mhs
                     </div>
                   </Link>
                   <Link to="/list-dosen">

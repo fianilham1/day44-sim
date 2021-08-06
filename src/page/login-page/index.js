@@ -6,6 +6,7 @@ import { faUnlockAlt, faEnvelope} from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import "./login.css"
 
 const envelope = <FontAwesomeIcon icon={faEnvelope} />
 const unlock = <FontAwesomeIcon icon={faUnlockAlt} />
@@ -16,11 +17,13 @@ class LoginPage extends Component {
         super(props);
 
         this.state = {
+            serviceStatus:'',
             submitStatus:false,
             isFocusUsername:false,
             isFocusPassword:false,
             username:'',
-            password:''
+            password:'',
+            checkApi:false
           
         }
         this.baseSate=this.state
@@ -29,7 +32,26 @@ class LoginPage extends Component {
 
     componentDidMount(){
         this.props.changePage("/login")
+
+        if(this.props.userList.length===0){
+            this.triggerRender()
+        }
     }
+
+    triggerRender = () => {
+        this.setState({
+            serviceStatus:"loading"
+        })
+        console.log("** delay re render of current page....")
+        setTimeout(() => { 
+            this.setState({
+                serviceStatus:"reRender"
+            })
+            console.log("** delay re render DONE....")
+        }, 10000);
+      
+      }
+
 
     setValue = e => {
         this.setState({ 
@@ -62,7 +84,7 @@ class LoginPage extends Component {
         // })
 
         const userList = this.props.userList
-
+        console.log("USERLIST MASUK?",userList)
         for(let i=0;i<userList.length;i++){
             
             if(this.state.username===userList[i].username && this.state.password===userList[i].password) {
@@ -92,10 +114,20 @@ class LoginPage extends Component {
       }
 
     
+
+    // renderLoading = () => {
+    //     console.log("LOADING?",this.props.loadingStatus)
+    //     setTimeout(myFunction, 3000)
+      
+    // }
+     
+    
     render() {
+        // console.log("userlist",this.props.userList)
+        // if (this.props.loadingStatus) return <div className="lds-ring">Loading<div></div><div></div><div></div></div>
         
         if (this.props.isLogedIn && this.props.userLogin.role==="Admin")
-            return <Redirect to="/list-mahasiswa" />
+            return <Redirect to="/list-user" />
         
         if (this.props.isLogedIn && this.props.userLogin.role==="Mahasiswa")
             return <Redirect to="/detail-krs-mahasiswa" />
@@ -134,10 +166,10 @@ class LoginPage extends Component {
                     typeTx="password" 
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/>
-            
- 
 
                 <button  type="submit" className="submitButton" onClick={this.onSubmitHandler}>Sign in</button>
+
+                <div className={`lds-ring modal ${this.state.serviceStatus==="loading" ? "loading":''}`}><div></div><div></div><div></div></div>
         
         </div>
     

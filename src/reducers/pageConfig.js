@@ -5,9 +5,9 @@ const defaultState = {
 const pageConfig = (state = defaultState, action) => {
     
     switch (action.type) {
-        case "/form":
+        case "/registrasi-mahasiswa":
             return {
-                currentPage:"/form"
+                currentPage:"/registrasi-mahasiswa"
             }
         case "/penerimaan":
             return {
@@ -20,6 +20,10 @@ const pageConfig = (state = defaultState, action) => {
         case "/sign-up":
             return {
                 currentPage:"/sign-up"
+            }
+        case "/list-user":
+            return {
+                currentPage:"/list-user"
             }
        case "/list-sks":
             return {

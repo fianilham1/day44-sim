@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MasterSKS from '../../master/sks'
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 class ListSKS extends Component {
     constructor(props) {
@@ -13,6 +14,9 @@ class ListSKS extends Component {
     }
 
     render() { 
+        if (this.props.userLogin==="Mahasiswa")
+        return <Redirect to="/detail-krs-mahasiswa" />
+
         const { editlist, listSks } =this.props
         return ( 
             <>
@@ -22,9 +26,13 @@ class ListSKS extends Component {
     }
 }
  
+const mapStateToProps = state => ({
+    userLogin: state.Auth.userLogin
+})
+
 const mapDispatchToProps = dispatch => ({
     changePage: page => dispatch({ type: page })
   })
   
-  export default connect(null, mapDispatchToProps)(ListSKS);
+  export default connect(mapStateToProps, mapDispatchToProps)(ListSKS);
 

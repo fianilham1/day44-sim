@@ -85,10 +85,25 @@ class SignUpPage extends Component {
             name:this.state.name,
             username:this.state.username,
             password:this.state.password,
-            role:this.state.role
+            role:"Admin"
         }
-        this.props.doSignUp(user)
+        this.resetForm()
        
+        const userList = this.props.userList
+        for(let i=0;i< userList.length;i++){
+            if(user.username===userList[i].username){
+                return Swal.fire({
+                    icon: 'error',
+                    title: 'Username already exist',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            }
+        }
+
+        this.props.doSignUp(user)
+        this.props.AddNewTriggerApi()
+
         return Swal.fire({
             icon: 'success',
             title: 'Sign Up Sukses',
@@ -100,8 +115,8 @@ class SignUpPage extends Component {
     
     render() {
         
-        // if (this.props.isLogedIn)
-        //     return <Redirect to="/list-mahasiswa" />
+        if (this.props.userLogin==="Mahasiswa")
+            return <Redirect to="/detail-krs-mahasiswa" />
         
         return (
 
@@ -111,7 +126,6 @@ class SignUpPage extends Component {
              <form className="bgform">
                  <div className="formName">
                     <div className="input-name">Name</div>
-                    <div className="input-name">Role</div>
                     <div className="input-name">Username</div>
                     <div className="input-name">Password</div>
                     <div className="input-name">Confirm Password</div>
@@ -131,7 +145,7 @@ class SignUpPage extends Component {
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/>
 
-                <Input 
+                {/* <Input 
                     state={this.state} 
                     name="Role" 
                     label="Role"
@@ -141,7 +155,7 @@ class SignUpPage extends Component {
                     typeTx="select" 
                     dataArr = {["Select..","Admin","Mahasiswa","Dosen"]} 
                     handleChange={this.setValue}
-                    submitStatus={this.state.submitStatus}/>  
+                    submitStatus={this.state.submitStatus}/>   */}
 
                 <Input 
                     state={this.state} 
@@ -186,10 +200,15 @@ class SignUpPage extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    userLogin: state.Auth.userLogin,
+    userList: state.UserList.users
+})
+
 
 const mapDispatchToProps = dispatch => ({
     doSignUp: user => dispatch({ type: "SIGNUP_OK", payload: { user } }),
     changePage: page => dispatch({ type: page })
 })
 
-export default connect(null, mapDispatchToProps)(SignUpPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

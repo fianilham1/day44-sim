@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Mahasiswa} from "../../master";
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 class ListMahasiswa extends Component {
     constructor(props) {
@@ -15,6 +16,9 @@ class ListMahasiswa extends Component {
     }
 
     render() {
+
+        if (this.props.userLogin==="Mahasiswa")
+        return <Redirect to="/detail-krs-mahasiswa" />
        
         const {dataMhsBaru, dataEditMhs, setDetailMhs,  setProfileDetailMhs}=this.props
         return (
@@ -23,8 +27,12 @@ class ListMahasiswa extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    userLogin: state.Auth.userLogin
+})
+
 const mapDispatchToProps = dispatch => ({
     changePage: page => dispatch({ type: page })
 })
 
-export default connect(null, mapDispatchToProps)(ListMahasiswa);
+export default connect(mapStateToProps, mapDispatchToProps)(ListMahasiswa);

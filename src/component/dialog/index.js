@@ -18,7 +18,7 @@ class CustomDialog extends Component {
     }
 
     handleClickToOpen = () => {
-       this.setState({open:true})
+        this.setState({open:true})
       };
       
     handleToYes = e => {
@@ -30,11 +30,10 @@ class CustomDialog extends Component {
         this.setState({open:false})
     };
 
-    render() { 
-        
-        return ( 
-            <div stlye={{}}>
-            <Button class="submitButton" variant="outlined" color="primary" 
+    renderPage = () => {
+        return (
+            <>
+            <Button className="submitButton" variant="outlined" color="primary" 
                     onClick={this.handleClickToOpen} >
                 Submit
             </Button>
@@ -56,6 +55,15 @@ class CustomDialog extends Component {
                 </Button>
                 </DialogActions>
             </Dialog>
+            </>
+        )
+    }
+
+    render() {
+        
+        return ( 
+            <div stlye={{}}>
+            {this.renderPage()}
             </div> 
          );
     }
