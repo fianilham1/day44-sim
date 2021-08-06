@@ -31,6 +31,7 @@ class ListUser extends Component {
             nameEdit:'',
             usernameEdit:'',
             passwordEdit:'',
+            roleEdit:'',
             showPassword:false
           
         }
@@ -84,7 +85,8 @@ class ListUser extends Component {
             idEdit:userChosen.id,
             nameEdit: userChosen.name,
             usernameEdit: userChosen.username,
-            passwordEdit: userChosen.password
+            passwordEdit: userChosen.password,
+            roleEdit: userChosen.role
         })
         console.log("id edit",e.target.id)
     }
@@ -98,7 +100,12 @@ class ListUser extends Component {
             name:this.state.nameEdit,
             username:this.state.usernameEdit,
             password:this.state.passwordEdit,
+            role:this.state.roleEdit
         }
+        if(user.id===this.props.userLogin.id){
+            this.props.doUpdateLogin(user)
+        }
+
         this.props.updateUser(user)
         this.props.editTriggerApi()
         this.triggerRender()
@@ -118,17 +125,22 @@ class ListUser extends Component {
         })
       };
 
-    triggerRender = () => {
+    triggerRender = () => { //to render userlist page >>>>>>>>>>>>>>>>>. for update data
         this.setState({
             serviceStatus:"loading"
         })
-        console.log("** delay re render of current page....")
-        setTimeout(() => { 
-            this.setState({
-                serviceStatus:"reRender"
-            })
-            console.log("** delay re render DONE....")
-        }, 17000);
+        console.log("***DELAY START -> re render of current page....")
+        const timeInterval = setInterval(() => { 
+          
+            if(this.props.changeStatusFromBody==="waitingAnyReq"){ //loading page until get api DONE
+                console.log("**DONE delay re render....")
+                this.setState({
+                    serviceStatus:"reRender"
+                })
+                clearInterval(timeInterval)
+            }
+           
+        }, 5000);
       
       }
 
@@ -205,6 +217,9 @@ class ListUser extends Component {
     
     render() {
 
+        if (!this.props.isLogedIn)
+        return <Redirect to="/login" />
+
         if (this.props.userLogin==="Mahasiswa")
         return <Redirect to="/detail-krs-mahasiswa" />
         
@@ -247,6 +262,7 @@ class ListUser extends Component {
 }
 
 const mapStateToProps = state => ({
+    isLogedIn: state.Auth.statusLogin,
     userList: state.UserList.users,
     userLogin: state.Auth.userLogin
 })
@@ -254,7 +270,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     changePage: page => dispatch({ type: page }),
     updateUser: user => dispatch({ type: "EDIT_USER", payload:{user}}),
-    deleteUser: idUser => dispatch({ type: "DELETE_USER", payload:{idUser}})
+    deleteUser: idUser => dispatch({ type: "DELETE_USER", payload:{idUser}}),
+    doUpdateLogin: user => dispatch({ type: "UPDATE_LOGIN_USER", payload: { user } }),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListUser);

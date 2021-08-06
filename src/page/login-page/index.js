@@ -89,6 +89,7 @@ class LoginPage extends Component {
             
             if(this.state.username===userList[i].username && this.state.password===userList[i].password) {
                 const userLogin = {
+                    id:userList[i].id,
                     name:userList[i].name,
                     username:this.state.username,
                     role:userList[i].role

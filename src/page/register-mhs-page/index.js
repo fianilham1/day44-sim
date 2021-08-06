@@ -138,6 +138,9 @@ class RegisterPage extends Component {
     
     render() {
 
+        if (!this.props.isLogedIn)
+        return <Redirect to="/login" />
+
         if (this.props.userLogin==="Mahasiswa")
         return <Redirect to="/detail-krs-mahasiswa" />
 
@@ -287,6 +290,7 @@ class RegisterPage extends Component {
 }
 
 const mapStateToProps = state => ({
+    isLogedIn: state.Auth.statusLogin,
     userLogin: state.Auth.userLogin
 })
 

@@ -89,6 +89,8 @@ class DetailProfilePage extends Component {
     }
     
     render() {     
+        if (!this.props.isLogedIn)
+        return <Redirect to="/login" />
 
         if (this.state.saveStatus)
             return <Redirect to="/list-mahasiswa" />
@@ -98,7 +100,7 @@ class DetailProfilePage extends Component {
         let defaultImg = true
 
         try{
-            image = require(`../register-page/${mhsProfileDetail.foto}`).default;
+            image = require(`../register-mhs-page/${mhsProfileDetail.foto}`).default;
             defaultImg = false
         }catch{
             console.log("img not found>> display default img")
@@ -140,11 +142,14 @@ class DetailProfilePage extends Component {
     }
 }
 
-
+const mapStateToProps = state => ({
+    isLogedIn: state.Auth.statusLogin,
+    userLogin: state.Auth.userLogin
+  })
  
 const mapDispatchToProps = dispatch => ({
     changePage: page => dispatch({ type: page }),
     editProfile: mhsProfileDetail => dispatch({ type: "EDIT_PROFILE", payload:{mhsProfileDetail} })
 })
 
-export default connect(null, mapDispatchToProps)(DetailProfilePage);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailProfilePage);

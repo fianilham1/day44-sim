@@ -102,7 +102,7 @@ class SignUpPage extends Component {
         }
 
         this.props.doSignUp(user)
-        this.props.AddNewTriggerApi()
+        this.props.addNewTriggerApi()
 
         return Swal.fire({
             icon: 'success',
@@ -114,6 +114,9 @@ class SignUpPage extends Component {
 
     
     render() {
+
+        if (!this.props.isLogedIn)
+            return <Redirect to="/login" />
         
         if (this.props.userLogin==="Mahasiswa")
             return <Redirect to="/detail-krs-mahasiswa" />
@@ -201,6 +204,7 @@ class SignUpPage extends Component {
 }
 
 const mapStateToProps = state => ({
+    isLogedIn: state.Auth.statusLogin,
     userLogin: state.Auth.userLogin,
     userList: state.UserList.users
 })

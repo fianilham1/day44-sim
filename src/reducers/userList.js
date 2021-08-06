@@ -24,16 +24,17 @@ const getUsers = () => {
         if(res.status === 200)
             return res.json()   
         }).then( resJson => {
-            const userList = defaultState.users
-            userList.length=0
-            resJson.map((data,index)=>{
-                console.log("JSONDATA:",data)
-                userList.push(data)
-            })
-            defaultState.serviceStatus="doGet"
-            defaultState.loadingStatus=false
-            console.log("Success Get All Users:")
-            return resJson
+            if(resJson && resJson.length!==0){
+                const userList = defaultState.users
+                userList.length=0
+                resJson.map((data,index)=>{
+                    console.log("JSONDATA:",data)
+                    userList.push(data)
+                })
+                defaultState.serviceStatus="doGet"
+                console.log("Success Get All Users:")
+                return resJson
+            }
         })
         .catch(() => console.log("Error api"))
         .finally(() => {
@@ -42,7 +43,6 @@ const getUsers = () => {
 }
 
 const addUser = newUser => {
-
     fetch('http://localhost:8080/api/register', {
     method: 'POST', // or 'PUT'
     headers: {

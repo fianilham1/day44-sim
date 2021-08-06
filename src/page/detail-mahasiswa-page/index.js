@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import { Link } from "react-router-dom"
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 class DetailMahasiswaPage extends Component{
     constructor(props) {
@@ -103,6 +104,10 @@ class DetailMahasiswaPage extends Component{
     }
 
     render() {
+
+        if (!this.props.isLogedIn)
+        return <Redirect to="/login" />
+
         const {dataDetailMhs}=this.props
         return(
             <>
@@ -136,6 +141,7 @@ class DetailMahasiswaPage extends Component{
 }
 
 const mapStateToProps = state => ({
+    isLogedIn: state.Auth.statusLogin,
     userLogin: state.Auth.userLogin
 })
 

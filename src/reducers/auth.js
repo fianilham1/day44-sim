@@ -20,6 +20,11 @@ const authReducer = (state = defaultState, action) => {
             }
         case "LOGOUT":
             return defaultState
+        case "UPDATE_LOGIN_USER":
+            return {
+                ...state,
+                userLogin:action.payload.user
+            }
         default:
             return state
     }

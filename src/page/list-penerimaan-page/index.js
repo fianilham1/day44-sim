@@ -3,6 +3,7 @@ import {Table} from '../../component';
 import "./penerimaan.css"
 import { Link } from "react-router-dom"
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 class Penerimaan extends Component {
     constructor(props) {
@@ -25,6 +26,9 @@ class Penerimaan extends Component {
     }
 
     render() { 
+
+        if (!this.props.isLogedIn)
+        return <Redirect to="/login" />
       
         const {listPenerimaan} = this.props
         const list = listPenerimaan.map((data,index)=> {
@@ -59,8 +63,13 @@ class Penerimaan extends Component {
     }
 }
  
+const mapStateToProps = state => ({
+    isLogedIn: state.Auth.statusLogin,
+    userLogin: state.Auth.userLogin
+})
+
 const mapDispatchToProps = dispatch => ({
     changePage: page => dispatch({ type: page })
 })
 
-export default connect(null, mapDispatchToProps)(Penerimaan);
+export default connect(mapStateToProps, mapDispatchToProps)(Penerimaan);

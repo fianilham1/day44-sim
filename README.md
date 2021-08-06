@@ -1,4 +1,18 @@
-# Note
+# Catatan Untuk Mas wawan
+
+RUN Server Back End => ada 2 file.java yang harus dirunning yaitu:
+
+1. TravelSayaApplication.java
+   lokasi: TravelSaya/src/main/java/TravelSayaApplication.java
+
+2. BackEndMain.java
+   lokasi:  TravelSaya/src/main/java/backend/BackEndMain.java
+
+Jika sudah, maka running react js nya
+
+Ada delay yang saya berikan di codingan react jsnya karena ram laptop saya terbatas sehingga proses get apinya cukup memakan waktu. Jadi sebelum get api berhasil di front end, maka page front end akan loading...
+
+List yang sudah ada backendnya(DB) hanya User List saja, list2 lain masih di redux(spt: list mahasiswa, list-dosen, list-sks, dll)
 
 in register page, must upload photo that located in ./register-page
 

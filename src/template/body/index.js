@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ListMahasiswa, RegisterPage, DetailProfile, ListPenerimaanPage, Login, SignUp, ListUser} from "../../page";
+import {ListMahasiswa, RegisterMahasiswaPage, DetailProfile, ListPenerimaanPage, Login, SignUp, ListUser} from "../../page";
 import FormSubmitNilaiPage from "../../page/form-submit-nilai-page";
 import DetailMahasiswaPage from "../../page/detail-mahasiswa-page";
 import ListSKS from '../../page/list-sks-page';
@@ -45,13 +45,26 @@ class Body extends Component {
 
     componentDidUpdate(){
         if(this.state.changeStatus==="doEdit" || this.state.changeStatus==="doDelete" ||  this.state.changeStatus==="doAdd"){
-            console.log("SERVICE START -> Wait... before get users api again")
+            console.log("^^^SERVICE START -> Wait... before get users api again")
+            // const timeInterval = setInterval(() => { 
+            //     console.log("Loading redux? =",this.props.loadingStatus)
+            //     if(!this.props.loadingStatus){ //waiting until service api DONE(edit/add/delete)
+            //         console.log("^^DONE -> get users api again to update")
+            //         this.setState({
+            //             changeStatus:"waitingAnyReq"
+            //         })
+            //         this.props.getApiUsers()
+            //         clearInterval(timeInterval)
+            //     }
+            // }, 5000);
             setTimeout(() => { 
                 this.props.getApiUsers()
-                console.log("DONE -> get users api again to update")
-                this.setState({
-                    changeStatus:"waitingAnyReq"
-                })
+                console.log("^^DONE -> get users api again to update")
+                setTimeout(() => {  //delay re render userlist page
+                    this.setState({
+                        changeStatus:"waitingAnyReq"
+                    })
+                }, 7000);
             }, 8000);
         }
     }
@@ -162,7 +175,10 @@ class Body extends Component {
                 <SignUp addNewTriggerApi={this.addNewUser}/>
             </Route>
             <Route path="/list-user">
-                <ListUser editTriggerApi={this.editUser} deleteTriggerApi={this.deleteUser}/>
+                <ListUser 
+                editTriggerApi={this.editUser} 
+                deleteTriggerApi={this.deleteUser}
+                changeStatusFromBody={this.state.changeStatus}/>
             </Route>
             <Route path="/list-dosen">
                 <ListDosen />
@@ -171,7 +187,7 @@ class Body extends Component {
                 <ListJurusan />
             </Route>
             <Route path="/registrasi-mahasiswa">
-                <RegisterPage
+                <RegisterMahasiswaPage
                     addNewListPenerimaan={this.addNewListPenerimaanHandler}/>
             </Route>
             <Route path="/penerimaan">
@@ -244,6 +260,7 @@ const mapStateToProps = state => ({
     isLogedIn: state.Auth.statusLogin,
     mhsList: state.MhsList.mahasiswas,
     userLogin: state.Auth.userLogin,
+    loadingStatus: state.UserList.loadingStatus
 })
 
 const mapDispatchToProps = dispatch => ({
