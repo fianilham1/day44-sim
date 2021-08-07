@@ -72,8 +72,7 @@ class ListUser extends Component {
             id:this.state.idDelete
         }
         this.props.deleteUser(deletedUser)
-        this.props.deleteTriggerApi()
-        this.triggerRender()
+        // this.triggerRender()
     }
 
     editHandler = e => {
@@ -107,8 +106,7 @@ class ListUser extends Component {
         }
 
         this.props.updateUser(user)
-        this.props.editTriggerApi()
-        this.triggerRender()
+        // this.triggerRender()
       };
 
     cancelHandler = e => {
@@ -125,24 +123,24 @@ class ListUser extends Component {
         })
       };
 
-    triggerRender = () => { //to render userlist page >>>>>>>>>>>>>>>>>. for update data
-        this.setState({
-            serviceStatus:"loading"
-        })
-        console.log("***DELAY START -> re render of current page....")
-        const timeInterval = setInterval(() => { 
+    // triggerRender = () => { //to render userlist page >>>>>>>>>>>>>>>>>. for update data
+    //     this.setState({
+    //         serviceStatus:"loading"
+    //     })
+    //     console.log("***DELAY START -> re render of current page....")
+    //     const timeInterval = setInterval(() => { 
           
-            if(this.props.changeStatusFromBody==="waitingAnyReq"){ //loading page until get api DONE
-                console.log("**DONE delay re render....")
-                this.setState({
-                    serviceStatus:"reRender"
-                })
-                clearInterval(timeInterval)
-            }
+    //         if(this.props.changeStatusFromBody==="waitingAnyReq"){ //loading page until get api DONE
+    //             console.log("**DONE delay re render....")
+    //             this.setState({
+    //                 serviceStatus:"reRender"
+    //             })
+    //             clearInterval(timeInterval)
+    //         }
            
-        }, 5000);
+    //     }, 5000);
       
-      }
+    //   }
 
     renderDialogContent = () => {
         if(this.state.editStatus) return (
@@ -217,42 +215,39 @@ class ListUser extends Component {
     
     render() {
 
-        if (!this.props.isLogedIn)
-        return <Redirect to="/login" />
+        // if (!this.props.isLogedIn)
+        // return <Redirect to="/login" />
 
-        if (this.props.userLogin==="Mahasiswa")
-        return <Redirect to="/detail-krs-mahasiswa" />
+        // if (this.props.userLogin==="Mahasiswa")
+        // return <Redirect to="/detail-krs-mahasiswa" />
         
-        const list = this.props.userList.map((data,index)=>{
-            return {
-                ...data,
-                 clickEvent:{
-                    editUser:{
-                        clickFunc:this.editHandler,
-                        idUser:data.id,
-                        label:"Edit"},
-                    deleteUser:{
-                        clickFunc:this.deleteHandler,
-                        idUser:data.id,
-                        label:"Delete"}
-                }
-            }
-        })
-        // if (this.props.isLogedIn && this.props.userLogin.role==="Admin")
-        //     return <Redirect to="/list-mahasiswa" />
-        // console.log("List",list)
+        // const list = this.props.userList.map((data,index)=>{
+        //     return {
+        //         ...data,
+        //          clickEvent:{
+        //             editUser:{
+        //                 clickFunc:this.editHandler,
+        //                 idUser:data.id,
+        //                 label:"Edit"},
+        //             deleteUser:{
+        //                 clickFunc:this.deleteHandler,
+        //                 idUser:data.id,
+        //                 label:"Delete"}
+        //         }
+        //     }
+        // })
 
         return (
             
             <div className="user-container">
-                <Table 
+                {/* <Table 
                     className="customers-list"
                     dataList={list} 
                     userLogin={this.props.userLogin}
                     headerName={["No","Id","Username","Password","Nama","Role","Action"]}
                     //NOTE : dataList.length must be headerName.length-1 (for cell number)
                 />
-              {this.renderDialog()}
+              {this.renderDialog()} */}
               <div className={`lds-ring modal ${this.state.serviceStatus==="loading" ? "loading":''}`}><div></div><div></div><div></div></div>
             </div>
         
@@ -261,17 +256,14 @@ class ListUser extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    isLogedIn: state.Auth.statusLogin,
-    userList: state.UserList.users,
-    userLogin: state.Auth.userLogin
-})
+// const mapStateToProps = state => ({
+//     isLogedIn: state.Auth.statusLogin,
+//     userList: state.UserList.users,
+//     userLogin: state.Auth.userLogin
+// })
 
 const mapDispatchToProps = dispatch => ({
     changePage: page => dispatch({ type: page }),
-    updateUser: user => dispatch({ type: "EDIT_USER", payload:{user}}),
-    deleteUser: idUser => dispatch({ type: "DELETE_USER", payload:{idUser}}),
-    doUpdateLogin: user => dispatch({ type: "UPDATE_LOGIN_USER", payload: { user } }),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListUser);
+export default connect(null, mapDispatchToProps)(ListUser);

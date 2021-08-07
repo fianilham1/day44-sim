@@ -7,16 +7,18 @@ import Swal from 'sweetalert2'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import "./login.css"
+import { FirebaseContext } from '../../config/firebase';
 
 const envelope = <FontAwesomeIcon icon={faEnvelope} />
 const unlock = <FontAwesomeIcon icon={faUnlockAlt} />
 
 
-class LoginPage extends Component {
+class LoginPageFirebase extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            isLogin:false,
             serviceStatus:'',
             submitStatus:false,
             isFocusUsername:false,
@@ -32,10 +34,21 @@ class LoginPage extends Component {
 
     componentDidMount(){
         this.props.changePage("/login")
+        this.props.firebase.currentLoggedFirebaseUser(user=>{
+            if(user) {
+              this.setState({
+                isLogin:true
+              })
+            }else{
+                this.setState({
+                    isLogin:false
+                })
+            }
+          })
 
-        if(this.props.userList.length===0){
-            this.triggerRender()
-        }
+        // if(this.props.userList.length===0){
+        //     this.triggerRender()
+        // }
     }
 
     triggerRender = () => {
@@ -52,13 +65,11 @@ class LoginPage extends Component {
       
       }
 
-
     setValue = e => {
         this.setState({ 
         [e.target.name]: e.target.value
      })
     }
-
 
     focusHandler = e => {
         this.setState({[e.target.id]:true})
@@ -70,74 +81,78 @@ class LoginPage extends Component {
         }       
     }
 
-    resetForm = () => {
+    resetState = () => {
         this.setState(this.baseSate)
     }
 
     onSubmitHandler =  e => {
         e.preventDefault();
 
-        
-      
-        // this.setState({
-        //     submitStatus:true
-        // })
-
-        const userList = this.props.userList
-        console.log("USERLIST MASUK?",userList)
-        for(let i=0;i<userList.length;i++){
+        // const userList = this.props.userList
+        // console.log("USERLIST MASUK?",userList)
+        // for(let i=0;i<userList.length;i++){
             
-            if(this.state.username===userList[i].username && this.state.password===userList[i].password) {
-                const userLogin = {
-                    id:userList[i].id,
-                    name:userList[i].name,
-                    username:this.state.username,
-                    role:userList[i].role
-                }
-                this.props.doLogin(userLogin)
-                return Swal.fire({
-                    icon: 'success',
-                    title: 'Login Sukses',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-            }
+        //     if(this.state.username===userList[i].username && this.state.password===userList[i].password) {
+        //         const userLogin = {
+        //             id:userList[i].id,
+        //             name:userList[i].name,
+        //             username:this.state.username,
+        //             role:userList[i].role
+        //         }
+        //         this.props.doLogin(userLogin)
+        //         return Swal.fire({
+        //             icon: 'success',
+        //             title: 'Login Sukses',
+        //             showConfirmButton: false,
+        //             timer: 1500
+        //           })
+        //     }
+        // }
 
+        const userLogin = {
+            id:1,
+            name:"Fian",
+            username:this.state.username,
+            role:"Admin"
         }
-    
-        return Swal.fire({
+        const {username, password} = this.state
+        if (username !== "" && password !== "") {
+            this.props.firebase
+                .loginFirebaseUser({email:username, password})
+                .then(res => 
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Login Is Success',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                    )
+                .catch(err => 
+                    Swal.fire({
+                        icon: 'error',
+                        title: err.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+                    )
+        } else Swal.fire({
             icon: 'error',
-            title: 'Invalid username/password',
+            title: 'Fill All Fields',
             showConfirmButton: false,
             timer: 1500
           })
-       
+
       }
 
-    
-
-    // renderLoading = () => {
-    //     console.log("LOADING?",this.props.loadingStatus)
-    //     setTimeout(myFunction, 3000)
-      
-    // }
-     
-    
     render() {
-        // console.log("userlist",this.props.userList)
-        // if (this.props.loadingStatus) return <div className="lds-ring">Loading<div></div><div></div><div></div></div>
-        
-        if (this.props.isLogedIn && this.props.userLogin.role==="Admin")
-            return <Redirect to="/list-user" />
-        
-        if (this.props.isLogedIn && this.props.userLogin.role==="Mahasiswa")
-            return <Redirect to="/detail-krs-mahasiswa" />
+       
+        if(this.state.isLogin) return <Redirect to="/dashboard" />
         
         return (
-
+            <>
             <div className="bg">
-             <h1 className="titleRegister1" align="center">UNIVERSITY OF WIBU</h1>
-             <h2 className="titleRegister" align="center">Login</h2>
+             <h1 className="titleLogin" align="center">MALL OF WIBU</h1>
+             <h2 className="titleLogin" align="center">Login</h2>
              <form className="bgform">
                  <div className="formName">
                     <div className="input-name">Username</div>
@@ -171,25 +186,37 @@ class LoginPage extends Component {
                 <button  type="submit" className="submitButton" onClick={this.onSubmitHandler}>Sign in</button>
 
                 <div className={`lds-ring modal ${this.state.serviceStatus==="loading" ? "loading":''}`}><div></div><div></div><div></div></div>
-        
-        </div>
-    
+            </div>
             </form>        
-           
         </div>
+        
+       </>
         );
     }
 }
 
-const mapStateToProps = state => ({
-    isLogedIn: state.Auth.statusLogin,
-    userList: state.UserList.users,
-    userLogin: state.Auth.userLogin
-})
+class LoginPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {  }
+    }
+    render() { 
+        return ( 
+            <FirebaseContext.Consumer>
+                {firebase => <LoginPageFirebase {...this.props} firebase={firebase} />}
+            </FirebaseContext.Consumer>
+         );
+    }
+}
+ 
+// const mapStateToProps = state => ({
+//     isLogedIn: state.Auth.statusLogin,
+//     userList: state.UserList.users,
+//     userLogin: state.Auth.userLogin
+// })
 
 const mapDispatchToProps = dispatch => ({
-    doLogin: user => dispatch({ type: "LOGIN_OK", payload: { user } }),
     changePage: page => dispatch({ type: page })
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(null, mapDispatchToProps)(LoginPage);

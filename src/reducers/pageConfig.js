@@ -5,14 +5,6 @@ const defaultState = {
 const pageConfig = (state = defaultState, action) => {
     
     switch (action.type) {
-        case "/registrasi-mahasiswa":
-            return {
-                currentPage:"/registrasi-mahasiswa"
-            }
-        case "/penerimaan":
-            return {
-                currentPage:"/penerimaan"
-            }
         case "/login":
             return {
                 currentPage:"/login"
@@ -21,37 +13,13 @@ const pageConfig = (state = defaultState, action) => {
             return {
                 currentPage:"/sign-up"
             }
-        case "/list-user":
+        case "/dashboard":
             return {
-                currentPage:"/list-user"
+                currentPage:"/dashboard"
             }
-       case "/list-sks":
+        case "/book-park":
             return {
-                currentPage:"/list-sks"
-            }
-        case "/list-mahasiswa":
-            return {
-                currentPage:"/list-mahasiswa"
-            }
-        case "/list-dosen":
-            return {
-                currentPage:"/list-dosen"
-            }
-        case "/list-jurusan":
-            return {
-                currentPage:"/list-jurusan"
-            }
-        case "/detail-krs-mahasiswa":
-            return {
-                currentPage:"/detail-krs-mahasiswa"
-            }
-        case "/detail-profile-mahasiswa":
-            return {
-                currentPage:"/detail-profile-mahasiswa"
-            }
-        case "/submit-nilai-mahasiswa":
-            return {
-                currentPage:"/submit-nilai-mahasiswa"
+                currentPage:"/book-park"
             }
         default:
             return state

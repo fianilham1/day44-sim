@@ -3,39 +3,72 @@ import "./nav.css";
 import { Link } from "react-router-dom"
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2'
+import { FirebaseContext } from '../../config/firebase';
 
-class Nav extends Component {
+class NavFirebase extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isLogin:false
+    };
   }
 
-  logoutHandler = e => {
-    this.props.doLogout()
-    this.props.changePage("/login")
-    Swal.fire({
-      icon: 'success',
-      title: 'Logout',
-      showConfirmButton: false,
-      timer: 1500
+  componentDidMount(){
+    this.props.firebase.currentLoggedFirebaseUser(user=>{
+      if(user) {
+        this.setState({
+          isLogin:true
+        })
+
+      }else{
+
+      }
     })
   }
 
-  renderWelcome = () => {
-    if (this.props.isLogedIn) return <div className="welcome"> Welcome, <span className="nameWelcome">{this.props.userLogin.name}</span><div className="nameWelcome">{this.props.userLogin.role}</div> </div>
+  logoutHandler = e => {
+   
+    this.props.firebase
+    .logoutFirebaseUser()
+    .then(res => 
+      this.props.changePage("/login"),
+        Swal.fire({
+            icon: 'success',
+            title: 'Logout',
+            showConfirmButton: false,
+            timer: 1500
+          }),
+          this.setState({
+            isLogin:false
+          })
+        )
+    .catch(err => 
+        Swal.fire({
+            icon: 'error',
+            title: err.message,
+            showConfirmButton: false,
+            timer: 1500
+          })
+        )
 
-    return <div></div>
   }
+
+  renderWelcome = () => {
+    
+    if(this.state.isLogin) return <div className="welcome"> Welcome, <span className="nameWelcome">nama?</span><div className="nameWelcome">nama?</div> </div>
+  
+    return ''
+  }
+
 
   renderLoggedNav = () => {
     const {currentPage} = this.props
-    if (this.props.isLogedIn) return (
-      <>
+
+    if(this.state.isLogin) return (
       <Link to="/login">
-        <div onClick={this.logoutHandler} className={`menu-item ${currentPage === "/logout" ? "active" : ""}`}>Logout
-        </div>
+      <div onClick={this.logoutHandler} className={`menu-item ${currentPage === "/logout" ? "active" : ""}`}>Logout
+      </div>
       </Link>
-      </>
     )
 
     return (
@@ -50,58 +83,29 @@ class Nav extends Component {
 
   renderNav = () => {
     const {currentPage} = this.props
-    if (this.props.isLogedIn && this.props.userLogin.role==="Admin"){
-      return (
+    if(this.state.isLogin) return (
         <>
-                  <Link to="/list-user">
-                    <div className={`menu-item ${currentPage === "/list-user" ? "active" : ""}`}>List User
+                  <Link to="/dashboard">
+                    <div className={`menu-item ${currentPage === "/dashboard" ? "active" : ""}`}>Dashboard
+                    </div>
+                  </Link>
+                  <Link to="/book-park">
+                    <div className={`menu-item ${currentPage === "/book-park" ? "active" : ""}`}>Book Parking
                     </div>
                   </Link>
                   <Link to="/sign-up">
                     <div className={`menu-item ${currentPage === "/sign-up" ? "active" : ""}`}>Sign Up
                     </div>
                   </Link>
-                  <Link to="/list-sks">
-                    <div className={`menu-item ${currentPage === "/list-sks" ? "active" : ""}`}>SKS
-                    </div>
-                  </Link>
-                  <Link to="/registrasi-mahasiswa">
-                    <div className={`menu-item ${currentPage === "/registrasi-mahasiswa" ? "active" : ""}`}>Registrasi Mhs
-                    </div>
-                  </Link>
-                  <Link to="/list-dosen">
-                    <div className={`menu-item ${currentPage === "/list-dosen" ? "active" : ""}`}> List Data Dosen
-                    </div>
-                  </Link>
-                  <Link to="/list-jurusan">
-                    <div className={`menu-item ${currentPage === "/list-jurusan" ? "active" : ""}`}> List Jurusan
-                    </div>
-                  </Link>
-                  <Link to="/penerimaan">
-                    <div className={`menu-item ${currentPage === "/penerimaan" ? "active" : ""}`}>List Penerimaan
-                    </div>
-                  </Link>
-                  <Link to="/list-mahasiswa">
-                    <div className={`menu-item ${currentPage === "/list-mahasiswa" ? "active" : ""}`}>List Mahasiswa
-                    </div>
-                  </Link>
+                
         </>
       )
-    }
-
-    if (this.props.isLogedIn && this.props.userLogin.role==="Mahasiswa") return (
-      <>
-                  <Link to="/detail-krs-mahasiswa">
-                    <div className={`menu-item ${currentPage === "/detail-krs-mahasiswa" ? "active" : ""}`}>Krs Mahasiswa
-                    </div>
-                  </Link>
-      </>
-    )
 
     return ''
   }
 
     render() {
+      console.log(this.state.isLogin)
         return (
             <div className="nav-container">
                 <div className="logo" >
@@ -118,16 +122,29 @@ class Nav extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-  currentPage: state.pageConfig.currentPage,
-  isLogedIn: state.Auth.statusLogin,
-  userLogin: state.Auth.userLogin
-})
+class Nav extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {  }
+  }
+  render() { 
+    return ( 
+      <FirebaseContext.Consumer>
+      {firebase => <NavFirebase {...this.props} firebase={firebase} />}
+      </FirebaseContext.Consumer>
+     );
+  }
+}
+
+// const mapStateToProps = state => ({
+//   currentPage: state.pageConfig.currentPage,
+//   isLogedIn: state.Auth.statusLogin,
+//   userLogin: state.Auth.userLogin
+// })
 
 const mapDispatchToProps = dispatch => ({
-  doLogout: () => dispatch({ type: "LOGOUT" }),
   changePage: page => dispatch({ type: page })
 })
 
 // export default Detail;
-export default connect(mapStateToProps,mapDispatchToProps)(Nav);
+export default connect(null,mapDispatchToProps)(Nav);

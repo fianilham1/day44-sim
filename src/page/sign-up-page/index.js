@@ -6,17 +6,19 @@ import { faUnlockAlt, faEnvelope, faUser} from '@fortawesome/free-solid-svg-icon
 import Swal from 'sweetalert2'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { FirebaseContext } from '../../config/firebase';
 
 const envelope = <FontAwesomeIcon icon={faEnvelope} />
 const unlock = <FontAwesomeIcon icon={faUnlockAlt} />
 const person = <FontAwesomeIcon icon={faUser} />
 
 
-class SignUpPage extends Component {
+class SignUpPageFirebase extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            isLogin:false,
             submitStatus:false,
             isFocusName:false,
             isFocusUsername:false,
@@ -36,6 +38,21 @@ class SignUpPage extends Component {
 
     componentDidMount(){
         this.props.changePage("/sign-up")
+        this.props.firebase.currentLoggedFirebaseUser(user=>{
+            if(user) {
+              this.setState({
+                isLogin:true
+              })
+            }else{
+           
+            }
+          })
+    }
+
+    componentWillUnmount(){
+        this.setState({
+            isLogin:false
+        })
     }
 
     setValue = e => {
@@ -67,62 +84,71 @@ class SignUpPage extends Component {
             submitStatus:true
         })
 
-        if(this.state.name==='' || this.state.username==='' || this.state.password==='') return Swal.fire({
+        // if(this.state.name==='' || this.state.username==='' || this.state.password==='') return Swal.fire({
+        //     icon: 'error',
+        //     title: 'Semua Field Harus diisi',
+        //     showConfirmButton: false,
+        //     timer: 1500
+        //   })
+        // if(this.state.password!==this.state.confirmpassword) return Swal.fire({
+        //     icon: 'error',
+        //     title: 'Password Is Not Match',
+        //     showConfirmButton: false,
+        //     timer: 1500
+        //   })
+        // const user = {
+        //     name:this.state.name,
+        //     username:this.state.username,
+        //     password:this.state.password,
+        //     role:"Admin"
+        // }
+        // this.resetForm()
+        // const userList = this.props.userList
+        // for(let i=0;i< userList.length;i++){
+        //     if(user.username===userList[i].username){
+        //         return Swal.fire({
+        //             icon: 'error',
+        //             title: 'Username already exist',
+        //             showConfirmButton: false,
+        //             timer: 1500
+        //           })
+        //     }
+        // }
+
+        const { username, password } = this.state
+        if (username !== "" && password !== "") {
+            this.props.firebase
+                .createFirebaseUser({email:username, password})
+                .then(res => console.log("res:", res))
+                .catch(err => 
+                    Swal.fire({
+                        icon: 'error',
+                        title: err.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                      }))
+        } else Swal.fire({
             icon: 'error',
-            title: 'Semua Field Harus diisi',
+            title: 'Fill All Fields',
             showConfirmButton: false,
             timer: 1500
           })
-    
-        if(this.state.password!==this.state.confirmpassword) return Swal.fire({
-            icon: 'error',
-            title: 'Password Is Not Match',
-            showConfirmButton: false,
-            timer: 1500
-          })
-
-        const user = {
-            name:this.state.name,
-            username:this.state.username,
-            password:this.state.password,
-            role:"Admin"
-        }
-        this.resetForm()
-       
-        const userList = this.props.userList
-        for(let i=0;i< userList.length;i++){
-            if(user.username===userList[i].username){
-                return Swal.fire({
-                    icon: 'error',
-                    title: 'Username already exist',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
-            }
-        }
-
-        this.props.doSignUp(user)
-        this.props.addNewTriggerApi()
-
-        return Swal.fire({
-            icon: 'success',
-            title: 'Sign Up Sukses',
-            showConfirmButton: false,
-            timer: 1500
-          })
+        // return Swal.fire({
+        //     icon: 'success',
+        //     title: 'Sign Up Sukses',
+        //     showConfirmButton: false,
+        //     timer: 1500
+        //   })
       }
 
     
     render() {
 
-        if (!this.props.isLogedIn)
-            return <Redirect to="/login" />
+        // if (!this.state.isLogin)
+        //     return <Redirect to="/login" />
         
-        if (this.props.userLogin==="Mahasiswa")
-            return <Redirect to="/detail-krs-mahasiswa" />
-        
+    
         return (
-
             <div className="bg">
              <h1 className="titleRegister1" align="center">UNIVERSITY OF WIBU</h1>
              <h2 className="titleRegister" align="center">Sign Up User</h2>
@@ -191,7 +217,6 @@ class SignUpPage extends Component {
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/>
 
-            
                 <button type="submit" className="submitButton" onClick={this.onSubmitHandler}>Sign Up</button>
         
         </div>
@@ -203,16 +228,29 @@ class SignUpPage extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    isLogedIn: state.Auth.statusLogin,
-    userLogin: state.Auth.userLogin,
-    userList: state.UserList.users
-})
+class SignUpPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {  }
+    }
+    render() { 
+        return ( 
+            <FirebaseContext.Consumer>
+            {firebase => <SignUpPageFirebase {...this.props} firebase={firebase} />}
+            </FirebaseContext.Consumer>
+         );
+    }
+}
+
+// const mapStateToProps = state => ({
+//     isLogedIn: state.Auth.statusLogin,
+//     userLogin: state.Auth.userLogin,
+//     userList: state.UserList.users
+// })
 
 
 const mapDispatchToProps = dispatch => ({
-    doSignUp: user => dispatch({ type: "SIGNUP_OK", payload: { user } }),
     changePage: page => dispatch({ type: page })
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);
+export default connect(null, mapDispatchToProps)(SignUpPage);

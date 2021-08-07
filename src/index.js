@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import AllReducers from "./reducers";
 import {loadState, saveState} from "./localStorage";
+import Firebase, { FirebaseContext } from './config/firebase';
 
 
 const persistedState = loadState();
@@ -23,7 +24,9 @@ const store = createStore(
 ReactDOM.render(
   // <React.StrictMode>
   <Provider store={store}>
-    <App />
+   <FirebaseContext.Provider value={new Firebase()}>
+        <App />
+      </FirebaseContext.Provider>
   </Provider>,
   // </React.StrictMode>,
   document.getElementById('root')
