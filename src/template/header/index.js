@@ -8,7 +8,11 @@ class Header extends Component {
     }
     render() {
         return (
-            <><h1 className="headerName">Aplikasi Parking System Mall of WIBU</h1></>
+            <>
+            <div className="header-width">
+            <h1 className="headerName">Aplikasi Parking System Mall of WIBU</h1>
+            </div>
+            </>
         );
     }
 }

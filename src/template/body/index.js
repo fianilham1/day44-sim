@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Login, SignUp, ListUser, Dashboard, BookPark} from "../../page";
+import {Login, SignUp, ListParking, Dashboard, CheckInPark} from "../../page";
 import { Switch, Route} from 'react-router-dom'
 import { connect } from 'react-redux';
 
@@ -144,12 +144,12 @@ class Body extends Component {
             <Route path="/dashboard">
                 <Dashboard />
             </Route>
-            <Route path="/book-park">
-                <BookPark />
+            <Route path="/check-in-park">
+                <CheckInPark />
             </Route>
-            {/* <Route path="/list-user">
-                <ListUser />
-            </Route> */}
+            <Route path="/list-parking">
+                <ListParking />
+            </Route>
            
         </Switch>
         )
@@ -185,8 +185,7 @@ class Body extends Component {
     clearUserEdit = () => this.setState({userEdit: {}})
 
     render() {
-        // console.log("detail state", this.state.detailMhs)
-        console.log("current change STATUS", this.state.changeStatus)
+        
         return (
             this.renderPage()
         

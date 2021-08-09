@@ -1,26 +1,18 @@
-.titleRegister{
-  margin-left: 100px;
+/* .titleRegister{
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: -40px;
   background-color: #34495e;
   color: #fff;
   padding-bottom: 15px;
   width: 80%;
-}
-
-.titleRegister1{
-  margin-left: 100px;
-  margin-bottom: -40px;
-  background-color: #34495e;
-  color: #fff;
-  padding-bottom: 15px;
-  width: 80%;
-}
+} */
 
 .bookButton{
   display: block;
-  width: 150px;
+  width: 220px;
   height: 40px;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
   background-color: #0f32a5;
@@ -41,3 +33,35 @@
 .bookButton:hover{
   background-color: #3e5cc2;
 }
+
+.car-photo{
+  width: 150px;
+  height: 100px;
+  background-color: #2A3E5D;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.photo-container {
+  color: white;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 15px;
+}
+
+.empty-photo{
+  background-color: #2A3E5D;
+  width: 150px;
+}
+
+.take-photo{
+  cursor: pointer;
+}
+
+.take-photo:hover{
+  background-color: #676767;
+}
+

@@ -1,26 +1,32 @@
-.bg{
-  /* background-color: #6273af; */
+
+
+.bgform{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  padding: 0;
+  height: 600px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  border:2px solid rgb(208, 209, 205); 
+  border-radius: 5%;
+  width: 600px;
+  box-shadow: 20px 20px 30px 0px rgb(116, 109, 109, 0.4);
 }
 
-  .bgform{
-    display: flex;
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-    padding: 0;
-    /* margin-left: 350px; */
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: white;
-    border:2px solid rgb(208, 209, 205); 
-    border-radius: 5%;
-    width: 900px;
-    box-shadow: 0px 0px 0px 0px rgb(116, 109, 109);
-    /* height: 780px;
-    padding: 20px; */
-  }
+.bgform h2{
+  font-size: 2.4rem;
+  text-transform: uppercase;
+  margin: -25px 0;
+  /* margin-top: -50px; */
+  color: #37436b;
+  font-family: 'Poppins', sans-serif;
+}
 
   .radioInput:nth-child(2){
     color: red;
@@ -34,7 +40,7 @@
   }
 
   .bgform.login{
-    height: 500px;
+    height: 300px;
   }
   
   .bgform.edit{
@@ -45,38 +51,33 @@
   .avatar{
     width: 150px;
   }
-
   
-  .bgform h2{
-    font-size: 2.4rem;
-    text-transform: uppercase;
-    margin: 15px 0;
-    color: #37436b;
-    font-family: 'Poppins', sans-serif;
-  }
-
   .input-name{
     position: relative;
     width: 170px;
-    margin: 20px;
+    margin: 18px;
     border: 2px solid #fff;
-    transition: .4s;
-    padding: 0px;
-    justify-content: center;
-    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     font-size: 18px;
     font-family: 'Poppins',sans-serif;
     padding: 10.5px 0px;
     font-weight: 500;
+    /* background-color: red; */
   }
-  
+
+  .input-name.wide{
+    /* margin: 40px 0px; */
+    height: 100px;
+  }
+
   .input-div{
     position: relative;
     display: grid;
     width: 350px;
     grid-template-columns: 7% 93%;
-    margin: 20px;
-    /* background-color: rgba(224, 224, 241, 0.4); */
+    margin: 15px;
     border: 2px solid #7b7b7ba3;
     transition: .4s;
   }
@@ -101,7 +102,7 @@
   .input-div div h5{
     position: absolute;
     left: 10px;
-    top: -10%;
+    top: -20%;
     transform:translateY(-50%);
     color: rgb(116, 109, 109);
     font-size: 18px;
@@ -126,13 +127,11 @@
     columns: rgb(182, 177, 177);
   }
 
-  input[type="date"]::-webkit-calendar-picker-indicator {
-    /* display: none;
-    -webkit-appearance: none; */
-    width: 25px;
+  input[type="date"]::-webkit-calendar-picker-indicator, input[type="time"]::-webkit-calendar-picker-indicator {
+    display: none;
+    /* width: 25px;
     padding: 10px;
-    margin: 0px;
-    /* margin-left: 90px; */
+    margin: 0px; */
 }
 
   .focus div h5{

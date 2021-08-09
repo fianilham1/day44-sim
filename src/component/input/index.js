@@ -15,33 +15,39 @@ class Input extends Component {
     renderOption = dataArr => {
         // const {state, name, submitStatus} = this.props
         return dataArr.map((data, index) => {
-            if (index===0) return <option key={index} value='' hidden >{data}</option>
+            if (index===0) return (
+            <option 
+                key={index} 
+                value='' 
+                hidden>
+                {data}
+            </option>
+            )
 
-            return <option key={index} value={data}>{data}</option>
+            return (
+            <option 
+            key={index} 
+            value={data}>
+                {data}
+                </option>
+            )
         })
     }
 
     renderInput = () => {
-        const {label, name, dataArr, focus, blur, typeTx, handleChange, accept, state} = this.props
+        const {label, name, dataArr, focus, blur, typeTx, handleChange, accept, state, placeholder, fixValue} = this.props
        if(typeTx==="select") { 
-        // const options = dataArr.map((data,index)=> {
-        //    return { value: data, label: data }
-        // })
-       
            return ( 
             <div>
                 <h5>{label}</h5>
-                 {/* <Select
-                    name={name.toLowerCase()}
-                    className="selectOpt"
-                    value= {state[`${name.toLowerCase()}`]}
+                <select 
+                    name={name.toLowerCase()} 
+                    className="selectOpt" 
                     onChange={handleChange}
-                    options={options}
-                />         */}
-                <select name={name.toLowerCase()} className="selectOpt" onChange={handleChange} required>
+                    // value={value} 
+                    required>
                     {this.renderOption(dataArr)}
                 </select>
-              
              </div>
            )
        }
@@ -49,27 +55,57 @@ class Input extends Component {
        if(typeTx==="radio") return (
         <div >
             <h5>{label}</h5>
-            <input className="radioInput" type={typeTx} value="Male" name={name.toLowerCase()} onChange={handleChange} required/> Male 
-            <input  className="radioInput" type={typeTx} value="Female" name={name.toLowerCase()} onChange={handleChange} /> Female 
+            <input 
+                className="radioInput" 
+                type={typeTx} 
+                value="Male" 
+                name={name.toLowerCase()} 
+                onChange={handleChange}
+                required/> Male 
+            <input 
+                className="radioInput" 
+                type={typeTx} 
+                value="Female" 
+                name={name.toLowerCase()} 
+                onChange={handleChange}/> Female 
         </div>
        )
 
        if(typeTx==="file") return (
         <div>
             <h5>{label}</h5>
-            <input id={`isFocus${name}`} className="fileInput" type={typeTx} onFocus={focus} onBlur={blur} name={name.toLowerCase()} onChange={handleChange} accept={accept} value={state[`${name.toLowerCase()}`]} required/>
+            <input 
+                id={`isFocus${name}`} 
+                className="fileInput" 
+                type={typeTx} 
+                onFocus={focus} 
+                onBlur={blur} 
+                name={name.toLowerCase()} 
+                onChange={handleChange} 
+                accept={accept} 
+                value={state[`${name.toLowerCase()}`]} required/>
         </div>
         )
 
     return (<div>
                 <h5>{label}</h5>
-                <input id={`isFocus${name}`} className="input" type={typeTx} onFocus={focus} onBlur={blur} name={name.toLowerCase()} onChange={handleChange} value={state[`${name.toLowerCase()}`]} required/>
+                <input 
+                    id={`isFocus${name}`} 
+                    className="input" 
+                    type={typeTx} 
+                    onFocus={focus} 
+                    onBlur={blur} 
+                    name={name.toLowerCase()} 
+                    onChange={handleChange} 
+                    value={fixValue? fixValue : state[`${name.toLowerCase()}`]}
+                    placeholder={state[`isFocus${name}`] ? placeholder : ''}
+                    required/>
             </div>)
     }
 
     renderAlert = () => {
         const { state, name} = this.props
-        if (state[`${name.toLowerCase()}`]==='' && state['submitStatus']) return <span className="textALert">*Wajib Diisi</span>
+        if (state[`${name.toLowerCase()}`]==='' && state['submitStatus']) return <span className="textALert">*Must Be Filled</span>
 
         return ''
     }
@@ -78,7 +114,8 @@ class Input extends Component {
         const { state, icon, name } = this.props
         return (
             <>
-            <div className={`input-div ${ state[`isFocus${name}`] ? 'focus' : ''} ${ state[`${name.toLowerCase()}`]==='' && state['submitStatus'] ? 'redAlert' : ''}`}>
+            <div 
+                className={`input-div ${ state[`isFocus${name}`] ? 'focus' : ''} ${ state[`${name.toLowerCase()}`]==='' && state['submitStatus'] ? 'redAlert' : ''}`}>
                 <div className="i">
                     {icon}      
                 </div>

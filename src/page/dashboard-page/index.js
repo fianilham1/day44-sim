@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import "./dashboard.css"
 import { FirebaseContext } from '../../config/firebase';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -35,7 +36,10 @@ class DashboardFirebase extends Component {
 
         return ( 
             <>
-            <h1>WELCOME</h1>
+            <div className="home-container">
+                <div></div>
+                <h1 className="welcome-home">WELCOME</h1>
+            </div>
             </>
          );
     }

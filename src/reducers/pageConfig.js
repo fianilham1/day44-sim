@@ -17,11 +17,15 @@ const pageConfig = (state = defaultState, action) => {
             return {
                 currentPage:"/dashboard"
             }
-        case "/book-park":
+        case "/check-in-park":
             return {
-                currentPage:"/book-park"
+                currentPage:"/check-in-park"
             }
-        default:
+        case "/list-parking":
+            return {
+                currentPage:"/list-parking"
+            }
+        default: 
             return state
     }
 }

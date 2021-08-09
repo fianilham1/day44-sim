@@ -1,17 +1,10 @@
 import React, { Component } from 'react';
 // import "./register.css"
-import { Input } from '../../component';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUnlockAlt, faEnvelope} from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import "./login.css"
 import { FirebaseContext } from '../../config/firebase';
-
-const envelope = <FontAwesomeIcon icon={faEnvelope} />
-const unlock = <FontAwesomeIcon icon={faUnlockAlt} />
-
 
 class LoginPageFirebase extends Component {
     constructor(props) {
@@ -88,27 +81,6 @@ class LoginPageFirebase extends Component {
     onSubmitHandler =  e => {
         e.preventDefault();
 
-        // const userList = this.props.userList
-        // console.log("USERLIST MASUK?",userList)
-        // for(let i=0;i<userList.length;i++){
-            
-        //     if(this.state.username===userList[i].username && this.state.password===userList[i].password) {
-        //         const userLogin = {
-        //             id:userList[i].id,
-        //             name:userList[i].name,
-        //             username:this.state.username,
-        //             role:userList[i].role
-        //         }
-        //         this.props.doLogin(userLogin)
-        //         return Swal.fire({
-        //             icon: 'success',
-        //             title: 'Login Sukses',
-        //             showConfirmButton: false,
-        //             timer: 1500
-        //           })
-        //     }
-        // }
-
         const userLogin = {
             id:1,
             name:"Fian",
@@ -150,47 +122,88 @@ class LoginPageFirebase extends Component {
         
         return (
             <>
-            <div className="bg">
-             <h1 className="titleLogin" align="center">MALL OF WIBU</h1>
-             <h2 className="titleLogin" align="center">Login</h2>
-             <form className="bgform">
-                 <div className="formName">
-                    <div className="input-name">Username</div>
-                    <div className="input-name">Password</div>
-                    <div className="input-name"></div>
-                    
-                 </div>
-                <div className="formInput">
-
-                <Input 
-                    state={this.state} 
-                    name="Username" 
-                    label="Username"
-                    focus={this.focusHandler} 
-                    blur={this.blurHandler} 
-                    icon={envelope} 
-                    typeTx="email" 
-                    handleChange={this.setValue}
-                    submitStatus={this.state.submitStatus}/>
-
-                <Input 
-                    state={this.state} 
-                    name="Password" 
-                    label="password"
-                    focus={this.focusHandler} 
-                    icon={unlock} 
-                    typeTx="password" 
-                    handleChange={this.setValue}
-                    submitStatus={this.state.submitStatus}/>
-
-                <button  type="submit" className="submitButton" onClick={this.onSubmitHandler}>Sign in</button>
-
-                <div className={`lds-ring modal ${this.state.serviceStatus==="loading" ? "loading":''}`}><div></div><div></div><div></div></div>
+            <div className="wrapper login">
+            <div className="container">
+                <div className="col-left">
+                    <div className="login-text">
+                        <h2>Welcome To Wibu Park</h2>
+                        <p>Please Sign In.<br/></p>
+                        <div className="role-container">
+                            <div className="btn role-active">Parking Officer</div>
+                            <div className="btn">Admin</div>
+                        </div>
+                       
+                    </div>
+                </div>
+    
+                <div className="col-right">
+                    <div className="login-form">
+                        <h2>Login</h2>
+                        <form action="">
+                            <p>
+                                <label>Username<span>*</span></label>
+                                <input 
+                                    type="text" 
+                                    name="username"
+                                    placeholder="Username" 
+                                    onChange={this.setValue}
+                                    required/>
+                            </p>
+                            <p>
+                                <label>Password<span>*</span></label>
+                                <input 
+                                    type="password" 
+                                    name="password"
+                                    placeholder="Password" 
+                                    onChange={this.setValue}
+                                    required/>    
+                            </p>
+                            <p>
+                                <input type="submit" onClick={this.onSubmitHandler} value="Sign In"/>
+                            </p>
+                            <p>
+                                <div className="forget-pass-btn">Forget password?</div>
+                            </p>
+    
+                        </form>
+                    </div>
+                </div>
+    
             </div>
-            </form>        
-        </div>
-        
-       </>
+            </div>
+            </>
+            
+        //     <div classNameName="bg">
+        //      <h1 classNameName="titleRegister1" align="center">MALL OF WIBU</h1>
+        //      <h2 classNameName="titleRegister" align="center">Login</h2>
+        //      <form classNameName="bgform login">
+        //      <Input 
+        //             state={this.state} 
+        //             name="Username" 
+        //             label="Username"
+        //             focus={this.focusHandler} 
+        //             blur={this.blurHandler} 
+        //             icon={envelope} 
+        //             typeTx="email" 
+        //             handleChange={this.setValue}
+        //             submitStatus={this.state.submitStatus}/>
+
+                // <Input 
+                //     state={this.state} 
+                //     name="Password" 
+                //     label="password"
+                //     focus={this.focusHandler} 
+                //     blur={this.blurHandler} 
+                //     icon={unlock} 
+                //     typeTx="password" 
+                //     handleChange={this.setValue}
+                //     submitStatus={this.state.submitStatus}/>
+
+        //         <button  type="submit" classNameName="submitButton" onClick={this.onSubmitHandler}>Sign in</button>
+
+        //         <div classNameName={`lds-ring modal ${this.state.serviceStatus==="loading" ? "loading":''}`}><div></div><div></div><div></div></div>
+        //     </form>        
+        // </div> 
         );
     }
 }

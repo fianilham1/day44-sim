@@ -26,7 +26,7 @@ class Firebase {
 
     logoutFirebaseUser = () => this.auth.signOut()
 
-    addDataToFirestore = () => this.firestore.collection("customers")
+    crudFirestore = () => this.firestore.collection("customers")
 }
 
 export default Firebase

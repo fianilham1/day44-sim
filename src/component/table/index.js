@@ -10,9 +10,25 @@ class Table extends Component {
     renderHeaderTable = () => {
         const {headerName} = this.props
         return headerName.map((header, index) => {
+            // if(header==="Action") return ( 
+            // <th colSpan="2" key={index}>{header}</th>
+            // )
+
             return (
                 <th key={index}>{header}</th>
             )
+        })
+    }
+
+    renderButton = (datakey) => {
+        const clickArr = Object.keys(datakey)
+        return clickArr.map((key2,index)=> {
+            return <button 
+                id={datakey[key2]['idUser']} 
+                key={index} 
+                className={datakey[key2]['completeStatus'] && datakey[key2]['label']==='Check Out' ? 'hide' : datakey[key2]['className']} 
+                onClick={datakey[key2]['clickFunc']}>
+                {datakey[key2]['label']}</button>
         })
     }
 
@@ -22,15 +38,10 @@ class Table extends Component {
         return cellArr.map((key, index) => {
 
             if(key==="clickEvent") {
-                const clickArr = Object.keys(data[key])
-                const button = clickArr.map((key2,index)=> {
-                    if(userLogin.username===data['username'] && userLogin.role==="Admin" && data[key][key2]['label']==="Delete") return ''
-
-                    return <button id={data[key][key2]['idUser']} key={index} className={key2} onClick={data[key][key2]['clickFunc']}>{data[key][key2]['label']}</button>
-                })
                 return (
                     <td key={index} className="cell actionList">
-                        {button}
+                        {/* <button id={data[key]['idUser']} className={data[key]['className']} onClick={data[key]['clickFunc']}>{data[key]['label']}</button> */}
+                        {this.renderButton(data[key])}
                     </td>
                 )               
             }
@@ -42,11 +53,11 @@ class Table extends Component {
     }
 
     renderBodyTable = () => {
-        const {dataList} = this.props
+        const {dataList, startIndex} = this.props
         return dataList.map((data, index) => {
             return (
                 <tr key={index}>
-                    <td className="cell num">{index + 1}</td>
+                    <td className="cell num">{startIndex + index + 1}</td>
                     {this.renderCellTable(data)}
                 </tr>
             )
@@ -59,6 +70,7 @@ class Table extends Component {
         const {className} = this.props
         return (
             <>
+            <div className="table-wrapper">
                 <table className={className} width="80%">
                     <thead>
                         <tr>
@@ -69,6 +81,8 @@ class Table extends Component {
                         {this.renderBodyTable()}
                     </tbody>
                 </table>
+            </div>
+              
             </>
         );
     }

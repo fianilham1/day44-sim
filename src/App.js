@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Body, Header, Nav} from "./template";
+import {Body, Header, Nav, Footer} from "./template";
 import {BrowserRouter as Router} from 'react-router-dom'
 
 
@@ -7,25 +7,19 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            page: "list-mahasiswa",
-            view:""
         }
     }
 
-    setPage = page => this.setState({ 
-        page: page ? page : "list" 
-    })
-
-
-
+  
     render() {
         const { page } = this.state
         return (
      
             <Router>
-                <Header></Header>
+                <Header/>
                 <Nav/>
-                <Body currentPage={page} goToPage={this.setPage} />
+                <Body/>
+                {/* <Footer/> */}
             </Router>
                
   

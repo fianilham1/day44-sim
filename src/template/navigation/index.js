@@ -2,14 +2,27 @@ import React, { Component } from "react";
 import "./nav.css";
 import { Link } from "react-router-dom"
 import { connect } from 'react-redux';
+import carpark from "./car-park.png"
 import Swal from 'sweetalert2'
 import { FirebaseContext } from '../../config/firebase';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser, faHome, faBars, faTimes, faSignInAlt, faSignOutAlt, faCar, faList} from '@fortawesome/free-solid-svg-icons';
+
+const person = <FontAwesomeIcon className="person" icon={faUser} />
+const signout = <FontAwesomeIcon className="signout" icon={faSignOutAlt} />
+const signin = <FontAwesomeIcon className="signin" icon={faSignInAlt} />
+const home = <FontAwesomeIcon className="home" icon={faHome} />
+const car = <FontAwesomeIcon className="car" icon={faCar} />
+const list = <FontAwesomeIcon className="list" icon={faList} />
+const bar = <FontAwesomeIcon icon={faBars} />
+const times = <FontAwesomeIcon icon={faTimes} />
 
 class NavFirebase extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogin:false
+      isLogin:false,
+      openMenu:false
     };
   }
 
@@ -66,7 +79,8 @@ class NavFirebase extends Component {
 
     if(this.state.isLogin) return (
       <Link to="/login">
-      <div onClick={this.logoutHandler} className={`menu-item ${currentPage === "/logout" ? "active" : ""}`}>Logout
+      <div onClick={this.logoutHandler} className={`menu-item ${currentPage === "/logout" ? "active" : ""}`}>
+        <span className="header-i"> {signout}</span>Logout
       </div>
       </Link>
     )
@@ -74,7 +88,8 @@ class NavFirebase extends Component {
     return (
       <>
       <Link to="/login">
-        <div className={`menu-item ${currentPage === "/login" ? "active" : ""}`}>Login
+        <div className={`menu-item ${currentPage === "/login" ? "active" : ""}`}>
+          <span className="header-i"> {signin}</span>Login
         </div>
       </Link>
       </>
@@ -86,17 +101,25 @@ class NavFirebase extends Component {
     if(this.state.isLogin) return (
         <>
                   <Link to="/dashboard">
-                    <div className={`menu-item ${currentPage === "/dashboard" ? "active" : ""}`}>Dashboard
+                    <div className={`menu-item ${currentPage === "/dashboard" ? "active" : ""}`}>
+                      <span className="header-i"> {home}</span> Home
                     </div>
                   </Link>
-                  <Link to="/book-park">
-                    <div className={`menu-item ${currentPage === "/book-park" ? "active" : ""}`}>Book Parking
+                  <Link to="/check-in-park">
+                    <div className={`menu-item ${currentPage === "/check-in-park" ? "active" : ""}`}>
+                      <span className="header-i"> {car}</span>Check In Parking
+                    </div>
+                  </Link> 
+                  <Link to="/list-parking">
+                    <div className={`menu-item ${currentPage === "/list-parking" ? "active" : ""}`}>
+                      <span className="header-i"> {list}</span>List Booking Park
                     </div>
                   </Link>
-                  <Link to="/sign-up">
-                    <div className={`menu-item ${currentPage === "/sign-up" ? "active" : ""}`}>Sign Up
+                    {/* <Link to="/sign-up">
+                    <div className={`menu-item ${currentPage === "/sign-up" ? "active" : ""}`}>
+                      <span className="header-i"> {person}</span>Sign Up
                     </div>
-                  </Link>
+                  </Link> */}
                 
         </>
       )
@@ -104,20 +127,30 @@ class NavFirebase extends Component {
     return ''
   }
 
+  menu = () => {
+    this.setState({
+      openMenu:!this.state.openMenu
+    })
+  }
+
     render() {
       console.log(this.state.isLogin)
         return (
-            <div className="nav-container">
-                <div className="logo" >
-                    <img style={{width: 50, marginLeft: 10}} src="https://www.pngfind.com/pngs/m/595-5951984_broken-shield-icon-png-transparent-png.png" alt=""/>
+          <>
+          <div className="header">
+          <div className="inner-width">
+                <div className="logo">
+                  <img className=".home" src={carpark} alt=""/>
                 </div>
-                <div className="menu">
-                  {this.renderLoggedNav()}
-                  {this.renderNav()}
-                  
+                <span className="menu-toggle-btn" onClick={this.menu}> {this.state.openMenu ? times : bar}</span>
+                <div className={`navigation-menu ${this.state.openMenu ? 'open': ''}`}>
+                {this.renderLoggedNav()}
+                {this.renderNav()}
                 </div>
-                {this.renderWelcome()}
-            </div>
+              </div>
+          </div>
+          
+          </>
         );
     }
 }
@@ -136,15 +169,13 @@ class Nav extends Component {
   }
 }
 
-// const mapStateToProps = state => ({
-//   currentPage: state.pageConfig.currentPage,
-//   isLogedIn: state.Auth.statusLogin,
-//   userLogin: state.Auth.userLogin
-// })
+const mapStateToProps = state => ({
+  currentPage: state.pageConfig.currentPage,
+})
 
 const mapDispatchToProps = dispatch => ({
   changePage: page => dispatch({ type: page })
 })
 
 // export default Detail;
-export default connect(null,mapDispatchToProps)(Nav);
+export default connect(mapStateToProps,mapDispatchToProps)(Nav);

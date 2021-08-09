@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
-import "./book-park.css"
+import "./check-in-park.css"
 import { Input, Dialog } from '../../component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faClipboardCheck, faEnvelope, faVenusMars, faPhone, faMapMarkerAlt, faBook, faUserGraduate } from '@fortawesome/free-solid-svg-icons'
+import { faCar, faCalendarAlt, faClock} from '@fortawesome/free-solid-svg-icons'
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCameraIcon from '@material-ui/icons/PhotoCamera';
 import Swal from 'sweetalert2'
 import { Redirect} from 'react-router-dom'
 import { connect } from 'react-redux';
 import { FirebaseContext } from '../../config/firebase';
 
-const graduate = <FontAwesomeIcon icon={faUserGraduate} />
-const book = <FontAwesomeIcon icon={faBook} />
-const map = <FontAwesomeIcon icon={faMapMarkerAlt} />
-const phone = <FontAwesomeIcon icon={faPhone} />
-const genders = <FontAwesomeIcon icon={faVenusMars} />
-const envelope = <FontAwesomeIcon icon={faEnvelope} />
-const person = <FontAwesomeIcon icon={faUser} />
-const check = <FontAwesomeIcon icon={faClipboardCheck} />
+const car = <FontAwesomeIcon icon={faCar} />
+const date = <FontAwesomeIcon icon={faCalendarAlt} />
+const time = <FontAwesomeIcon icon={faClock} />
 
 class BookParkFirebase extends Component {
     constructor(props) {
@@ -25,30 +22,24 @@ class BookParkFirebase extends Component {
             // id: props.selectedUser.id ? props.selectedUser.id : "",
             // name: props.selectedUser.name ? props.selectedUser.name : "",
             // address: props.selectedUser.address ? props.selectedUser.address : ""
+            photo:'',
+            getDoc:'',
             isLogin:false,
             submitStatus:false,
-            isFocusName:false,
-            isFocusEmail:false,
-            isFocusCarMerk:true, 
-            isFocusCarPlate:true,
+            isFocusCarMerk:false, 
+            isFocusCarPlate:false,
             isFocusDateIn:true,
             isFocusTimeIn:true,
-            isFocusParkNumber:true,
-            name:'',
-            email:'',
-            password:'customer',
             carmerk:'',
             carplate:'',
             datein:'',
-            timein:'',
-            parknumber:''
+            timein:''
         }
-        this.baseSate=this.state
-       
+        this.baseSate=this.state  
     }
 
     componentDidMount(){
-        this.props.changePage("/book-park")
+        this.props.changePage("/check-in-park")
         this.props.firebase.currentLoggedFirebaseUser(user=>{
             if(user) {
               this.setState({
@@ -64,6 +55,16 @@ class BookParkFirebase extends Component {
         this.resetSubmitStatus()
         this.setState({
             isLogin:false
+        })
+    }
+
+    takePhoto = () => {
+        const photoArr = ["https://www.caranalytics.co.uk/guides/wp-content/uploads/2020/09/find-car-owner-by-registration-number.jpg","https://cms.webuyanycar.com/cmsmedia/images/private-plate.jpg","https://s1.paultan.org/image/2020/01/UTM-plate-Malaysia-1.jpg"]
+        const randomNum = Math.floor(Math.random() * photoArr.length) + 1
+        this.setState({
+            photo:photoArr[randomNum-1],
+            datein: this.dateNow(),
+            timein: this.timeNow()
         })
     }
 
@@ -93,6 +94,22 @@ class BookParkFirebase extends Component {
         this.setState(this.baseSate)
     }
 
+    getDataByDoc = docName => {
+        this.props.firebase.crudFirestore().doc(docName).get().then((doc) => {
+            if (doc.exists) {
+                console.log("Document data:", doc.data());
+                this.setState({
+                    getDoc:doc.data()
+                })
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+    }
+
     onSubmitHandler =  e => {
         e.preventDefault();
       
@@ -100,18 +117,21 @@ class BookParkFirebase extends Component {
             submitStatus:true
         })
         this.resetSubmitStatus()
-        const {email,name, password, carmerk, carplate, datein, timein, parknumber} = this.state
+        const {carmerk, carplate, datein, timein, photo} = this.state
 
-       
-        if (email !== "" && name !== "" && carmerk !== "" && carplate !== "" && datein !== "" && timein !== "" && parknumber !== "") {
-            this.props.firebase.addDataToFirestore().add({
-                Email: email,
-                Name: name,
-                CarMerk: carmerk,
-                CarPlate: carplate,
-                DateIn: datein,
-                TimeIn: timein,
-                ParkNumber: parknumber
+        if (carmerk !== "" && carplate !== "" && datein !== "" && timein !== "") {
+            // this.getDataByDoc()
+            this.props.firebase.crudFirestore().add({
+                carmerk,
+                carplate,
+                datein,
+                timein,
+                price:0,
+                photo,
+                dateout:'',
+                timeout:'',
+                duration:'',
+                status:"progress"
             })
             .then((docRef) => {
                 Swal.fire({
@@ -129,6 +149,7 @@ class BookParkFirebase extends Component {
                     timer: 1500
                   })
             });
+            
         } else Swal.fire({
             icon: 'error',
             title: 'Fill All Fields',
@@ -137,61 +158,63 @@ class BookParkFirebase extends Component {
           })
       }
 
+    dateNow = () => {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        if(dd<10){
+            dd='0'+dd;
+        } 
+        if(mm<10){
+            mm='0'+mm;
+        } 
+       return yyyy+'-'+mm+'-'+dd; 
+    }
+
+    timeNow = () => {
+        const randomHours = Math.floor(Math.random() * 4) + 1
+        var today = new Date();
+        var HH = today.getHours() - randomHours;
+        var MM = today.getMinutes();
+        if(HH<10){
+            HH='0'+HH;
+        } 
+        if(MM<10){
+            MM='0'+MM;
+        } 
+        return HH+':'+MM
+    }
+
+    renderPhoto = () => {
+
+        if(this.state.photo==='') return <div className="car-photo">car photo</div>
+
+        return ( <img className="car-photo" src={this.state.photo} alt=""/>)
+    }
+
     
     render() {
-
         // if (!this.state.isLogin)
         // return <Redirect to="/login" />
 
+        if(this.state.submitStatus) return <Redirect to="/list-parking" />
+
+
         return (
 
-            <div className="bg">
-             <h1 className="titleRegister1" align="center">MALL OF WIBU</h1>
-             <h2 className="titleRegister" align="center">Book Park</h2>
-             <form className="bgform">
-                 <div className="formName">
-                    <div className="input-name">Name</div>
-                    <div className="input-name">Email</div>
-                    <div className="input-name">Cark Merk</div>
-                    <div className="input-name">Car Plate</div>
-                    <div className="input-name">Date In</div>
-                    <div className="input-name">Time In</div>
-                    <div className="input-name">Park Number</div>
-                    <div className="input-name"></div>
-                    
-                 </div>
-                <div className="formInput">
-
-                <Input 
-                    state={this.state} 
-                    name="Name" 
-                    label="Name"
-                    focus={this.focusHandler} 
-                    blur={this.blurHandler} 
-                    icon={person} 
-                    typeTx="text" 
-                    handleChange={this.setValue}
-                    submitStatus={this.state.submitStatus}/>
-                
-                <Input 
-                    state={this.state} 
-                    name="Email" 
-                    label="Email"
-                    focus={this.focusHandler} 
-                    blur={this.blurHandler} 
-                    icon={person} 
-                    typeTx="text" 
-                    handleChange={this.setValue}
-                    submitStatus={this.state.submitStatus}/>
-            
-                <Input 
+            <div className="bg">          
+             <div className="bgform">
+             <h2 className="titleBook" align="center">Check In Parking</h2>
+             <Input 
                     state={this.state} 
                     name="CarMerk" 
                     label="Cark Merk"
                     focus={this.focusHandler} 
                     blur={this.blurHandler} 
-                    icon={envelope} 
+                    icon={car} 
                     typeTx="text" 
+                    placeholder="ex: Honda"
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/> 
 
@@ -201,8 +224,9 @@ class BookParkFirebase extends Component {
                     label="Cark Plate"
                     focus={this.focusHandler} 
                     blur={this.blurHandler} 
-                    icon={envelope} 
+                    icon={car} 
                     typeTx="text" 
+                    placeholder="ex: W 2255 AG"
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/>   
 
@@ -211,8 +235,9 @@ class BookParkFirebase extends Component {
                     name="DateIn" 
                     label="Date In"
                     focus={this.focusHandler} 
-                    icon={person} 
-                    typeTx="date" 
+                    icon={date} 
+                    typeTx="date"
+                    fixValue={this.state.datein}
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/>
 
@@ -221,27 +246,30 @@ class BookParkFirebase extends Component {
                     name="TimeIn" 
                     label="Time In"
                     focus={this.focusHandler} 
-                    icon={person} 
+                    icon={time} 
                     typeTx="time" 
-                    handleChange={this.setValue}
-                    submitStatus={this.state.submitStatus}/>
-      
-                <Input 
-                    state={this.state} 
-                    name="ParkNumber" 
-                    label="Park Number"
-                    focus={this.focusHandler} 
-                    blur={this.blurHandler} 
-                    icon={book} 
-                    typeTx="select" 
-                    dataArr = {["Select..","Park5-A","Park2-B","Park1-C"]}
+                    fixValue={this.state.timein} 
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/>
 
-            <button className="bookButton" onClick={this.onSubmitHandler}> Book Park </button>
-        </div>
+                <div className="photo-container">
+                    <div>
+                        {this.renderPhoto()}
+                    </div>
+            
+                    <div>
+                        <IconButton 
+                        className="take-photo" 
+                        onClick={this.takePhoto}>
+                            Take 
+                            <PhotoCameraIcon  fontSize="large" />
+                        </IconButton>
+                    </div>
+                </div>
+              
+            <button className="bookButton" onClick={this.onSubmitHandler}> Check In Parking </button>
     
-            </form>        
+            </div>        
            
         </div>
         );

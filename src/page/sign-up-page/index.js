@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import "./register.css"
+import "./sign-up.css"
 import { Input } from '../../component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUnlockAlt, faEnvelope, faUser} from '@fortawesome/free-solid-svg-icons'
@@ -84,37 +84,6 @@ class SignUpPageFirebase extends Component {
             submitStatus:true
         })
 
-        // if(this.state.name==='' || this.state.username==='' || this.state.password==='') return Swal.fire({
-        //     icon: 'error',
-        //     title: 'Semua Field Harus diisi',
-        //     showConfirmButton: false,
-        //     timer: 1500
-        //   })
-        // if(this.state.password!==this.state.confirmpassword) return Swal.fire({
-        //     icon: 'error',
-        //     title: 'Password Is Not Match',
-        //     showConfirmButton: false,
-        //     timer: 1500
-        //   })
-        // const user = {
-        //     name:this.state.name,
-        //     username:this.state.username,
-        //     password:this.state.password,
-        //     role:"Admin"
-        // }
-        // this.resetForm()
-        // const userList = this.props.userList
-        // for(let i=0;i< userList.length;i++){
-        //     if(user.username===userList[i].username){
-        //         return Swal.fire({
-        //             icon: 'error',
-        //             title: 'Username already exist',
-        //             showConfirmButton: false,
-        //             timer: 1500
-        //           })
-        //     }
-        // }
-
         const { username, password } = this.state
         if (username !== "" && password !== "") {
             this.props.firebase
@@ -173,18 +142,6 @@ class SignUpPageFirebase extends Component {
                     typeTx="text" 
                     handleChange={this.setValue}
                     submitStatus={this.state.submitStatus}/>
-
-                {/* <Input 
-                    state={this.state} 
-                    name="Role" 
-                    label="Role"
-                    focus={this.focusHandler} 
-                    blur={this.blurHandler} 
-                    icon={person} 
-                    typeTx="select" 
-                    dataArr = {["Select..","Admin","Mahasiswa","Dosen"]} 
-                    handleChange={this.setValue}
-                    submitStatus={this.state.submitStatus}/>   */}
 
                 <Input 
                     state={this.state} 
