@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import "./dashboard.css"
 import { FirebaseContext } from '../../config/firebase';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 class DashboardFirebase extends Component {
     constructor(props) {

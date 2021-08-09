@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 const prevPage = 'prev';
 const nextPage = 'next';
-let currentPage = 1;
 
 const range = (from, to, step = 1) => {
     let i = from;

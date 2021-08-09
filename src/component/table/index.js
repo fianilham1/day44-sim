@@ -33,7 +33,6 @@ class Table extends Component {
     }
 
     renderCellTable = (data) => {
-        const {userLogin} = this.props
         const cellArr = Object.keys(data)
         return cellArr.map((key, index) => {
 

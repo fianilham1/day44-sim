@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import "./check-in-park.css"
-import { Input, Dialog } from '../../component';
+import { Input } from '../../component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCar, faCalendarAlt, faClock} from '@fortawesome/free-solid-svg-icons'
 import IconButton from '@material-ui/core/IconButton';

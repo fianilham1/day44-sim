@@ -81,12 +81,12 @@ class LoginPageFirebase extends Component {
     onSubmitHandler =  e => {
         e.preventDefault();
 
-        const userLogin = {
-            id:1,
-            name:"Fian",
-            username:this.state.username,
-            role:"Admin"
-        }
+        // const userLogin = {
+        //     id:1,
+        //     name:"Fian",
+        //     username:this.state.username,
+        //     role:"Admin"
+        // }
         const {username, password} = this.state
         if (username !== "" && password !== "") {
             this.props.firebase

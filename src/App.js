@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Body, Header, Nav, Footer} from "./template";
+import {Body, Header, Nav} from "./template";
 import {BrowserRouter as Router} from 'react-router-dom'
 
 
@@ -12,7 +12,6 @@ class App extends Component {
 
   
     render() {
-        const { page } = this.state
         return (
      
             <Router>

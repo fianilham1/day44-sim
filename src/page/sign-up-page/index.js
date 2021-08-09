@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUnlockAlt, faEnvelope, faUser} from '@fortawesome/free-solid-svg-icons'
 import Swal from 'sweetalert2'
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import { FirebaseContext } from '../../config/firebase';
 
 const envelope = <FontAwesomeIcon icon={faEnvelope} />

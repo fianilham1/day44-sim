@@ -128,7 +128,6 @@ class Body extends Component {
 
     renderPage = () => {
         console.log("PROFILE SELECTED",this.state.mhsProfileDetail)
-        const {userEdit} = this.state
 
         return (
         <Switch>

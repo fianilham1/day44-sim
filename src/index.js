@@ -4,11 +4,11 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import AllReducers from "./reducers";
-import {loadState, saveState} from "./localStorage";
+// import {loadState} from "./localStorage";
 import Firebase, { FirebaseContext } from './config/firebase';
 
 
-const persistedState = loadState();
+// const persistedState = loadState();
 
 
 const store = createStore(

@@ -6,9 +6,8 @@ import carpark from "./car-park.png"
 import Swal from 'sweetalert2'
 import { FirebaseContext } from '../../config/firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faHome, faBars, faTimes, faSignInAlt, faSignOutAlt, faCar, faList} from '@fortawesome/free-solid-svg-icons';
+import { faHome, faBars, faTimes, faSignInAlt, faSignOutAlt, faCar, faList} from '@fortawesome/free-solid-svg-icons';
 
-const person = <FontAwesomeIcon className="person" icon={faUser} />
 const signout = <FontAwesomeIcon className="signout" icon={faSignOutAlt} />
 const signin = <FontAwesomeIcon className="signin" icon={faSignInAlt} />
 const home = <FontAwesomeIcon className="home" icon={faHome} />

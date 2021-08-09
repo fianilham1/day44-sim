@@ -3,7 +3,7 @@ import Pagination from './Pagination';
 // import "./register.css"
 // import Swal from 'sweetalert2'
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import Dialog from "@material-ui/core/Dialog";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
